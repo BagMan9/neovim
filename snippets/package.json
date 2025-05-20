@@ -1,0 +1,1 @@
+{"name":"MySnippets","contributes":{"snippets":[{"path":".\/nix.json","language":["nix"]},{"path":".\/ts.json","language":["ts"]},{"path":".\/scss.json","language":["scss"]},{"path":".\/lua.json","language":["lua"]},{"path":".\/markdown.json","language":["markdown"]},{"path":".\/sh.json","language":["sh"]}]}}

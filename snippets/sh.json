@@ -1,0 +1,1 @@
+{"nixnew":{"prefix":"nixnew","body":["#!\/usr\/bin\/env nix-shell","#! nix-shell -i ${1:bash} --packages $0"]},"basescript":{"body":"#!\/usr\/bin\/env bash","prefix":"newbash"}}
