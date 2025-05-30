@@ -17,7 +17,6 @@ return {
 
   {
     "mrjones2014/smart-splits.nvim",
-    build = "./kitty/install-kittens.bash",
     lazy = false,
     config = function()
       require("smart-splits").setup({
@@ -38,7 +37,7 @@ return {
           vim.fn.system(command)
         end,
 
-        multiplexer_integration = "kitty",
+        multiplexer_integration = "tmux",
       })
     end,
   },
