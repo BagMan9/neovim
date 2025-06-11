@@ -14,17 +14,19 @@ return {
         virtual_lines = true,
       },
       ---@type lspconfig.options
+      --- TODO: Figure out how to make more universal
       servers = {
         clangd = {
           cmd = {
-            "nc",
-            "localhost",
-            "9999",
-            -- "--header-insertion=iwyu",
-            -- "--completion-style=detailed",
-            -- "--function-arg-placeholders",
-            -- "--fallback-style=llvm",
-            -- "--query-driver=/nix/store/**/g++",
+            "clangd",
+            "--compile-commands-dir=.",
+            "--background-index",
+            "--clang-tidy",
+            "--header-insertion=iwyu",
+            "--completion-style=detailed",
+            "--function-arg-placeholders",
+            "--fallback-style=llvm",
+            "--query-driver=/nix/store/**/g++",
           },
           mason = false,
         },
@@ -34,4 +36,10 @@ return {
       },
     },
   },
+  {
+    "williamboman/mason.nvim",
+    enabled = false,
+    opts = { ensure_installed = {} },
+  },
+  { "williamboman/mason-lspconfig.nvim", enabled = false },
 }
