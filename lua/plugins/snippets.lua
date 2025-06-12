@@ -1,8 +1,12 @@
-return {
-
-  {
-    "chrisgrieser/nvim-scissors",
-    dependencies = { "nvim-telescope/telescope.nvim" },
+return {{
+		"LuaSnip",
+		lazy = true,
+    after = function()
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
+    end
+	},
+{
+    "nvim-scissors",
     keys = {
       {
         "<leader>as",
@@ -22,5 +26,4 @@ return {
       },
     },
   },
-  require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } }),
 }
