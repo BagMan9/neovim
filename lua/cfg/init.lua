@@ -1,3 +1,2 @@
-_G.My = require("my")
-My.init()
-
+_G.MyVim = require("my")
+MyVim.init()

@@ -1,8 +1,8 @@
 --TODO: This is very ripped from LazyVim, validate
 --TODO: Also should probably get enable / disable methods
 
----@class my.util.lsp
----@field keys my.util.lsp.keys
+---@class MyVim.util.lsp
+---@field keys MyVim.util.lsp.keys
 local M = {}
 
 setmetatable(M, {

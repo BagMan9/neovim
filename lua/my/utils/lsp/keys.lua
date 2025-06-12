@@ -1,4 +1,4 @@
----@class my.util.lsp.keys
+---@class MyVim.util.lsp.keys
 local M = {}
 
 ---@param method string|string[]
