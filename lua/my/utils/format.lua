@@ -1,4 +1,4 @@
----@class my.util.format
+---@class MyVim.util.format
 ---@overload fun(opts?: {force?:boolean})
 local M = setmetatable({}, {
 	__call = function(m, ...)
