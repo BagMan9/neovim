@@ -1,29 +1,26 @@
 return {
 	--TODO:
-	-- Get all keybinds good
-	-- Todo highlights off + other general coloring
-	-- Finish all plugins in toprocess
 	-- ONCE ALL "DONE":
 	-- Solve smart-splits issue (annoying)
+	-- Fix IncRename
 	-- Make smart-splits switch wm commands
 	-- Clean up whichkey
 	-- Consalidate configs / fully organize / refactor
 	-- Go through lazyvim website one last time
-	-- Figure out if things can go faster
+	-- Then you may add new plugins
 	{
 		"nvim-lspconfig",
 		-- TODO: Refactor once working
 		before = function()
-			require("lz.n").trigger_load({ "conform.nvim", "blink.cmp" })
+			require("lz.n").trigger_load({ "conform.nvim", "blink.cmp", "nvim-navic" })
 		end,
 		after = function()
-MyVim.intellisense()
-  end, 
+			MyVim.intellisense()
+		end,
 		event = "User LazyFile",
 	},
 	{
 		"conform.nvim",
-		-- Conform should not need an after since it is setup by intellisense
 		event = "User LazyFile",
 		lazy = true,
 		cmd = "ConformInfo",
@@ -111,5 +108,20 @@ MyVim.intellisense()
 		"outline.nvim",
 		keys = { { "<leader>cs", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
 		cmd = "Outline",
+	},
+	{
+		"SchemaStore.nvim",
+		lazy = true,
+	},
+	{
+		"clangd_extensions.nvim",
+		lazy = true,
+		cmd = {
+			"ClangdSymbolInfo",
+			"ClangdTypeHierarchy",
+			"ClangdMemoryUsage",
+			"ClangdAST",
+			"ClangdSwitchSourceHeader",
+		},
 	},
 }

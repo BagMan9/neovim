@@ -144,6 +144,7 @@ return {
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
 				end,
 			}
+			require("gitsigns").setup(opts)
 		end,
 	},
 	{
@@ -187,87 +188,14 @@ return {
 			{ "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put Before Applying a Filter" },
 		},
 	},
-	{
-		"indent-blankline.nvim",
-		event = "DeferredUIEnter",
-		after = function()
-			local opts = {
-				indent = {
-					char = "│",
-					tab_char = "│",
-				},
-				scope = { enabled = false },
-				exclude = {
-					filetypes = {
-						"Trouble",
-						"alpha",
-						"dashboard",
-						"help",
-						"lazy",
-						"mason",
-						"neo-tree",
-						"notify",
-						"snacks_dashboard",
-						"snacks_notif",
-						"snacks_terminal",
-						"snacks_win",
-						"toggleterm",
-						"trouble",
-					},
-				},
-			}
-			require("ibl").setup(opts)
-		end,
-	},
-	{
-		"mini.indentscope",
-		event = "DeferredUIEnter",
-		after = function()
-			local opts = {
-				-- symbol = "▏",
-				symbol = "│",
-				options = { try_as_border = true },
-			}
-			require("mini.indentscope").setup(opts)
-		end,
-		beforeAll = function()
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = {
-					"Trouble",
-					"alpha",
-					"dashboard",
-					"fzf",
-					"help",
-					"lazy",
-					"mason",
-					"neo-tree",
-					"notify",
-					"snacks_dashboard",
-					"snacks_notif",
-					"snacks_terminal",
-					"snacks_win",
-					"toggleterm",
-					"trouble",
-				},
-				callback = function()
-					vim.b.miniindentscope_disable = true
-				end,
-			})
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "SnacksDashboardOpened",
-				callback = function(data)
-					vim.b[data.buf].miniindentscope_disable = true
-				end,
-			})
-		end,
-	},
 
 	{
 		"snacks.nvim",
 		lazy = false,
 		after = function()
+			vim.g.snacks_animate = false
 			local opts = {
-				words = { enabled = false },
+				words = { enabled = true },
 				explorer = {}, --MERGE POINT
 
 				picker = {
@@ -305,7 +233,7 @@ return {
 				notifier = { enabled = true },
 				quickfile = { enabled = false },
 				scroll = { enabled = false },
-				statuscolumn = { enabled = false }, --MERGE POINT
+				statuscolumn = { enabled = false },
 				toggle = { map = vim.keymap.set },
 				dashboard = {
 					enabled = true,
@@ -314,12 +242,12 @@ return {
 							return require("snacks").picker.pick(cmd, opts)
 						end,
 						header = [[
-        ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-        ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-        ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-        ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-        ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-        ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
           -- stylua: ignore
           ---@type snacks.dashboard.Item[]
           keys = {
@@ -689,6 +617,16 @@ return {
 				},
 			}
 			require("mini.hipatterns").setup(opts)
+		end,
+	},
+	{
+		"persistence.nvim",
+		event = "BufReadPre",
+		after = function()
+			local opts = {
+        need = 2,
+        branch = true
+      }
 		end,
 	},
 	{
