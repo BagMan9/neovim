@@ -41,6 +41,9 @@ return {
 		"inc-rename.nvim",
 		lazy = false,
 		cmd = "IncRename",
+		after = function()
+			require("inc_rename").setup()
+		end,
 	},
 	{
 		"todo-comments.nvim",

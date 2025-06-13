@@ -92,7 +92,7 @@ end
 function M.error(msg, opts)
 	opts = opts or {}
 	opts.level = vim.log.levels.ERROR
-	M.notify(msg, opts)
+	vim.notify(msg, opts.level)
 end
 
 ---@param msg string
@@ -101,7 +101,7 @@ end
 function M.warn(msg, opts)
 	opts = opts or {}
 	opts.level = vim.log.levels.WARN
-	M.notify(msg, opts)
+	vim.notify(msg, opts.level)
 end
 
 ---@param msg string
