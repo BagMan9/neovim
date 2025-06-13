@@ -195,6 +195,7 @@ return {
 		after = function()
 			vim.g.snacks_animate = false
 			local opts = {
+				styles = {},
 				words = { enabled = true },
 				explorer = {}, --MERGE POINT
 
@@ -256,7 +257,7 @@ return {
             { icon = " ", key = "g", desc = "Find Text", action = ":lua require(\"snacks\").dashboard.pick('live_grep')" },
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua require(\"snacks\").dashboard.pick('oldfiles')" },
             { icon = " ", key = "c", desc = "Config", action = ":lua require(\"snacks\").dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = " ", key = "s", desc = "Select Session", action = ":SessionSearch" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
 					},
@@ -610,7 +611,7 @@ return {
 							local r, g, b = match:sub(2, 2), match:sub(3, 3), match:sub(4, 4)
 							local hex_color = "#" .. r .. r .. g .. g .. b .. b
 
-							return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
+							return require("mini.hipatterns").compute_hex_color_group(hex_color, "bg")
 						end,
 						extmark_opts = { priority = 2000 },
 					},
@@ -620,13 +621,19 @@ return {
 		end,
 	},
 	{
-		"persistence.nvim",
-		event = "BufReadPre",
+		"auto-session",
+		lazy = false,
 		after = function()
 			local opts = {
-        need = 2,
-        branch = true
-      }
+				purge_after_minutes = 10080,
+				session_lens = {
+					picker_opts = {
+						preset = "dropdown",
+						preview = false,
+					},
+				},
+			}
+			require("auto-session").setup(opts)
 		end,
 	},
 	{
