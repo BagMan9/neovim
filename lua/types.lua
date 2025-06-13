@@ -3,6 +3,7 @@
 -- My stuff
 
 ---@class PrePluginSpec
+---@field [1] string
 ---@field opts? table
 ---@field cmd? string|string[]
 ---@field event? string|string[]
