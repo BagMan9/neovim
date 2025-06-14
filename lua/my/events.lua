@@ -1,3 +1,4 @@
+---@class MyVim.lazyfile
 local M = {}
 
 function M.trigger_event(opts)

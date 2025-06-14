@@ -1,6 +1,7 @@
 ---@class MyVim.util
 ---@field format MyVim.util.format
 ---@field lsp MyVim.util.lsp
+---@field root MyVim.util.root
 local M = {}
 setmetatable(M, {
 	__index = function(t, k)

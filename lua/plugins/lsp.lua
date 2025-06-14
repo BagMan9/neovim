@@ -2,54 +2,53 @@ return {
 	--TODO:
 	-- ONCE ALL "DONE":
 	-- Solve smart-splits issue (annoying)
-	-- Consolidate configs / fully organize / refactor
 	-- Go through lazyvim website one last time
-	-- Then you may add new plugins
+	-- Then you may addnew plugins
 
-	-- {
-	-- 	"nvim-lspconfig",
-	-- 	before = function()
-	-- 		require("lz.n").trigger_load({ "conform.nvim", "blink.cmp", "nvim-navic" })
-	-- 	end,
-	-- 	after = function()
-	-- 		MyVim.intellisense()
-	-- 	end,
-	-- 	event = "User LazyFile",
-	-- },
-	-- {
-	-- 	"conform.nvim",
-	-- 	event = "User LazyFile",
-	-- 	lazy = true,
-	-- 	cmd = "ConformInfo",
-	-- 	keys = {
-	-- 		{
-	-- 			"<leader>cF",
-	-- 			function()
-	-- 				require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
-	-- 			end,
-	-- 			mode = { "n", "v" },
-	-- 			desc = "Format Injected Langs",
-	-- 		},
-	-- 	},
-	-- 	beforeAll = function()
-	-- 		Utils.load_at_startup(function()
-	-- 			Utils.format.add({
-	-- 				name = "conform.nvim",
-	-- 				priority = 100,
-	-- 				primary = true,
-	-- 				format = function(buf)
-	-- 					require("conform").format({ bufnr = buf })
-	-- 				end,
-	-- 				sources = function(buf)
-	-- 					local ret = require("conform").list_formatters(buf)
-	-- 					return vim.tbl_map(function(v)
-	-- 						return v.name
-	-- 					end, ret)
-	-- 				end,
-	-- 			})
-	-- 		end)
-	-- 	end,
-	-- },
+	{
+		"nvim-lspconfig",
+		before = function()
+			require("lz.n").trigger_load({ "conform.nvim", "blink.cmp", "nvim-navic" })
+		end,
+		after = function()
+			MyVim.intellisense()
+		end,
+		event = "User LazyFile",
+	},
+	{
+		"conform.nvim",
+		event = "User LazyFile",
+		lazy = true,
+		cmd = "ConformInfo",
+		keys = {
+			{
+				"<leader>cF",
+				function()
+					require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+				end,
+				mode = { "n", "v" },
+				desc = "Format Injected Langs",
+			},
+		},
+		beforeAll = function()
+			Utils.load_at_startup(function()
+				Utils.format.add({
+					name = "conform.nvim",
+					priority = 100,
+					primary = true,
+					format = function(buf)
+						require("conform").format({ bufnr = buf })
+					end,
+					sources = function(buf)
+						local ret = require("conform").list_formatters(buf)
+						return vim.tbl_map(function(v)
+							return v.name
+						end, ret)
+					end,
+				})
+			end)
+		end,
+	},
 	{
 		"trouble.nvim",
 		cmd = { "Trouble" },
