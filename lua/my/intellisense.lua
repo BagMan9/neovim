@@ -60,7 +60,7 @@ M.config = {
 							},
 						},
 						codeLens = {
-							enable = false,
+							enable = true,
 						},
 						completion = {
 							callSnippet = "Replace",
@@ -365,55 +365,7 @@ function M.get()
 	return M._dynamic_keys
 end
 
-function M.init()
-	-- Add formatter
-	Utils.load_at_startup(function()
-		Utils.format.add({
-			name = "conform.nvim",
-			priority = 100,
-			primary = true,
-			format = function(buf)
-				require("conform").format({ bufnr = buf })
-			end,
-			sources = function(buf)
-				local ret = require("conform").list_formatters(buf)
-				return vim.tbl_map(function(v)
-					return v.name
-				end, ret)
-			end,
-		})
-	end)
-
-	---@type PreFormat[]
-	local configs = {
-
-		 {
-        "nvim-lspconfig",
-			needs = { "conform.nvim", "blink.cmp", "nvim-navic" },
-			event = "User LazyFile",
-			setup = M.setup,
-		},
-    {
-      "conform.nvim",
-			-- event = "User LazyFile" -- <-- Testing to see if I can get away with simply triggering it w/ lsp_config
-			keys = {
-				{
-					"<leader>cF",
-					function()
-						require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
-					end,
-					mode = { "n", "v" },
-					desc = "Format Injected Langs",
-				},
-			},
-      setup = false
-		 },
-	}
-
-	vim.list_extend(MyVim.plugins, configs)
-end
-
-function M.setup(_)
+function M.setup()
 	Utils.defer(M.format_setup)
 
 	Utils.format.add(Utils.lsp.formatter())
