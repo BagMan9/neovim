@@ -1,5 +1,7 @@
-return {{
+return {
+	{
 		"nvim-lint",
+		enabled = false,
 		-- event = "LazyFile",
 		after = function()
 			local opts = {
@@ -27,7 +29,7 @@ return {{
 					-- },
 				},
 			}
-			--PREVIOUS CONFIG
+
 			local L = {}
 
 			local lint = require("lint")
@@ -95,4 +97,5 @@ return {{
 				callback = L.debounce(100, L.lint),
 			})
 		end,
-	},}
+	},
+}

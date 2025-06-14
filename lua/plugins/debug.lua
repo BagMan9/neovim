@@ -166,7 +166,7 @@ return {
 		},
 		after = function()
 			local opts = {}
-			--PREVIOUS CONFIG
+			
 			local dap = require("dap")
 			local dapui = require("dapui")
 			dapui.setup(opts)
