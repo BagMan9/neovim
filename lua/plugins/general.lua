@@ -5,16 +5,6 @@ return {
   { import = "plugins.lang" },
   { import = "plugins.ui" },
   {
-    "jsongerber/thanks.nvim",
-    config = true,
-    opts = {
-      unstar_on_uninstall = true,
-      ignore_authors = {
-        "BagMan9",
-      },
-    },
-  },
-  {
     "ThePrimeagen/refactoring.nvim",
     keys = {
       {

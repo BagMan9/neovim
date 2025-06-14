@@ -31,6 +31,12 @@ return {
         nil_ls = {
           mason = false,
         },
+        basedpyright = {
+          enabled = true,
+        },
+        pyright = {
+          enabled = false,
+        },
       },
     },
   },
