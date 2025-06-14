@@ -20,8 +20,12 @@ return {
 				integrations = {
 					aerial = true,
 					alpha = true,
+					-- blink_cmp = {
+					-- 	style = "bordered",
+					-- },
 					cmp = true,
 					dashboard = true,
+
 					flash = true,
 					fzf = true,
 					grug_far = true,
@@ -55,16 +59,20 @@ return {
 					treesitter_context = true,
 					which_key = true,
 				},
-				custom_highlights = {
-					DiagnosticError = { style = { "bold" } },
-					DiagnosticVirtualTextError = { style = { "bold" } },
-					DiagnosticWarn = { style = { "bold" } },
-					DiagnosticVirtualTextWarn = { style = { "bold" } },
-					DiagnosticInfo = { style = { "bold" } },
-					DiagnosticVirtualTextInfo = { style = { "bold" } },
-					DiagnosticHint = { style = { "bold" } },
-					DiagnosticVirtualTextHint = { style = { "bold" } },
-				},
+				custom_highlights = function(colors)
+					return {
+						BlickCmpMenuBorder = { fg = colors.red },
+						BlickCmpDocBorder = { fg = colors.blue },
+						DiagnosticError = { style = { "bold" } },
+						DiagnosticVirtualTextError = { style = { "bold" } },
+						DiagnosticWarn = { style = { "bold" } },
+						DiagnosticVirtualTextWarn = { style = { "bold" } },
+						DiagnosticInfo = { style = { "bold" } },
+						DiagnosticVirtualTextInfo = { style = { "bold" } },
+						DiagnosticHint = { style = { "bold" } },
+						DiagnosticVirtualTextHint = { style = { "bold" } },
+					}
+				end,
 			}
 			require("catppuccin").setup(opts)
 		end,

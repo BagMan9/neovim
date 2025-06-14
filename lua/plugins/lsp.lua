@@ -1,10 +1,8 @@
 return {
 	--TODO:
-	-- ONCE ALL "DONE":
 	-- Solve smart-splits issue (annoying)
 	-- Go through lazyvim website one last time
-	-- Then you may addnew plugins
-
+	-- Then you may add new plugins
 	{
 		"nvim-lspconfig",
 		before = function()

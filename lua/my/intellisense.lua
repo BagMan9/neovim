@@ -141,12 +141,14 @@ M.config = {
 				},
 			},
 			ruff = {
+				enabled = true,
 				cmd_env = { RUFF_TRACE = "messages" },
 				init_options = {
 					settings = {
 						logLevel = "error",
 					},
 				},
+				-- FIXME: Port LazyVim lsp.action or replace
 				-- keys = {
 				--   {
 				--     "<leader>co",
@@ -158,26 +160,20 @@ M.config = {
 			pyright = {
 				enabled = true,
 			},
-			ruff_lsp = {
-				-- keys = {
-				--   {
-				--     "<leader>co",
-				--     LazyVim.lsp.action["source.organizeImports"],
-				--     desc = "Organize Imports",
-				--   },
-				-- },
-			},
+			-- ruff_lsp = {
+			-- 	enabled = true,
+			-- },
 
 			bashls = {},
 		},
-		-- setup = {
-		-- 	[ruff] = function()
-		-- 		LazyVim.lsp.on_attach(function(client, _)
-		-- 			-- Disable hover in favor of Pyright
-		-- 			client.server_capabilities.hoverProvider = false
-		-- 		end, ruff)
-		-- 	end,
-		-- },
+		setup = {
+			ruff = function()
+				Utils.lsp.on_attach(function(client, _)
+					-- Disable hover in favor of Pyright
+					client.server_capabilities.hoverProvider = false
+				end, "ruff")
+			end,
+		},
 	},
 
 	conform = {
@@ -414,6 +410,11 @@ function M.setup()
 		}, servers[server] or {})
 		-- Move codelens / capabilities / inlay_hints check into here
 
+		if M.config.lsp.setup[server] then
+			if M.config.lsp.setup[server](server, server_opts) then
+				return
+			end
+		end
 		if server_opts.enabled == false then
 			return
 		end

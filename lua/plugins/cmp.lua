@@ -4,6 +4,7 @@ return {
 		event = "InsertEnter",
 		before = function()
 			require("lz.n").trigger_load({ "colorful-menu", "LuaSnip" })
+			require("colorful-menu").setup()
 		end,
 		after = function()
 			local opts = {
@@ -26,6 +27,10 @@ return {
 						},
 					},
 					menu = {
+						border = "rounded",
+						winblend = 0,
+						scrollbar = false,
+						scrolloff = 1,
 						draw = {
 							treesitter = { "lsp" },
 							columns = { { "kind_icon" }, { "label", gap = 1 } },
@@ -42,16 +47,17 @@ return {
 						},
 					},
 					documentation = {
-						auto_show = true,
+						auto_show = false,
 						auto_show_delay_ms = 200,
 					},
 					ghost_text = {
 						enabled = true,
 					},
 				},
-
-				-- experimental signature help support
-				-- signature = { enabled = true },
+				signature = {
+					enabled = true,
+					window = { winblend = 20, border = "rounded", show_documentation = false },
+				},
 
 				sources = {
 					compat = {},

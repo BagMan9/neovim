@@ -1,14 +1,21 @@
 return {
 	{
 		"flit.nvim",
+		before = function()
+			require("lz.n").trigger_load("leap.nvim")
+		end,
 		enabled = true,
+		event = "DeferredUIEnter",
 		keys = function()
-			---@type LazyKeysSpec[]
+			-- ---@type LazyKeysSpec[]
 			local ret = {}
 			for _, key in ipairs({ "f", "F", "t", "T" }) do
 				ret[#ret + 1] = { key, mode = { "n", "x", "o" } }
 			end
 			return ret
+		end,
+		after = function()
+			require("flit").setup({ labeled_modes = "nx" })
 		end,
 	},
 	{
@@ -19,57 +26,67 @@ return {
 			{ "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
 			{ "gs", mode = { "n", "x", "o" }, desc = "Leap from Windows" },
 		},
+
+		event = "DeferredUIEnter",
+		after = function()
+			local leap = require("leap")
+
+			leap.add_default_mappings(true)
+			vim.keymap.del({ "x", "o" }, "x")
+			vim.keymap.del({ "x", "o" }, "X")
+		end,
 	},
 	{
 		"vim-repeat",
-	},
-	{
-		"flash.nvim",
 		event = "DeferredUIEnter",
-		keys = {
-			{
-				"s",
-				mode = { "n", "x", "o" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
-			{
-				"r",
-				mode = "o",
-				function()
-					require("flash").remote()
-				end,
-				desc = "Remote Flash",
-			},
-			{
-				"R",
-				mode = { "o", "x" },
-				function()
-					require("flash").treesitter_search()
-				end,
-				desc = "Treesitter Search",
-			},
-			{
-				"<c-s>",
-				mode = { "c" },
-				function()
-					require("flash").toggle()
-				end,
-				desc = "Toggle Flash Search",
-			},
-		},
-		enabled = true,
 	},
+	-- {
+	-- 	"flash.nvim",
+	-- 	event = "DeferredUIEnter",
+	-- 	keys = {
+	-- 		{
+	-- 			"s",
+	-- 			mode = { "n", "x", "o" },
+	-- 			function()
+	-- 				require("flash").jump()
+	-- 			end,
+	-- 			desc = "Flash",
+	-- 		},
+	-- 		{
+	-- 			"S",
+	-- 			mode = { "n", "o", "x" },
+	-- 			function()
+	-- 				require("flash").treesitter()
+	-- 			end,
+	-- 			desc = "Flash Treesitter",
+	-- 		},
+	-- 		{
+	-- 			"r",
+	-- 			mode = "o",
+	-- 			function()
+	-- 				require("flash").remote()
+	-- 			end,
+	-- 			desc = "Remote Flash",
+	-- 		},
+	-- 		{
+	-- 			"R",
+	-- 			mode = { "o", "x" },
+	-- 			function()
+	-- 				require("flash").treesitter_search()
+	-- 			end,
+	-- 			desc = "Treesitter Search",
+	-- 		},
+	-- 		{
+	-- 			"<c-s>",
+	-- 			mode = { "c" },
+	-- 			function()
+	-- 				require("flash").toggle()
+	-- 			end,
+	-- 			desc = "Toggle Flash Search",
+	-- 		},
+	-- 	},
+	-- 	enabled = true,
+	-- },
 	{
 		"mini.ai",
 		event = "DeferredUIEnter",
@@ -133,7 +150,7 @@ return {
 			return vim.list_extend(mappings, keys)
 		end, -- from spec 2,
 		after = function()
-			local opts = { 
+			local opts = {
 				mappings = {
 					add = "gza", -- Add surrounding in Normal and Visual modes
 					delete = "gzd", -- Delete surrounding
@@ -148,7 +165,7 @@ return {
 			require("mini.surround").setup(opts)
 		end,
 	},
-{
+	{
 		"yanky.nvim",
 		event = "User LazyFile",
 		after = function()
