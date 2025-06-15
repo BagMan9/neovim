@@ -9,9 +9,11 @@ local function get_relative_cwd()
 end
 
 return {
+
   {
     "jay-babu/mason-nvim-dap.nvim",
-    enabled = false,
+    enable = false,
+    opts = { automatic_installation = false },
   },
   {
 
