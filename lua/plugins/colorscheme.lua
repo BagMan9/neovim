@@ -68,7 +68,7 @@ return {
 						BlinkCmpMenuBorder = { fg = colors.overlay2 },
 						BlinkCmpMenuSelection = { bg = colors.surface0 },
 						-- vvv This is probably the line you want to disable
-						BlinkCmpLabelMatch = { fg = "NONE", style = { "bold", "underline" } },
+						BlinkCmpLabelMatch = { fg = "NONE", style = { "bold", "underdotted" } },
 						BlinkCmpDoc = { bg = colors.base },
 						BlinkCmpDocBorder = { fg = colors.red },
 						BlinkCmpScrollBarThumb = { bg = colors.maroon },

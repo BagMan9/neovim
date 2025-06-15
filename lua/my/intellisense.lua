@@ -25,12 +25,10 @@ M.config = {
 				},
 			},
 		},
-		-- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
 		inlay_hints = {
 			enabled = true,
 			exclude = {},
 		},
-		-- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
 		codelens = {
 			enabled = true,
 		},
@@ -60,7 +58,7 @@ M.config = {
 							},
 						},
 						codeLens = {
-							enable = true,
+							enable = false,
 						},
 						completion = {
 							callSnippet = "Replace",

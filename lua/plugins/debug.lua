@@ -142,6 +142,7 @@ return {
 			vscode.json_decode = function(str)
 				return vim.json.decode(json.json_strip_comments(str))
 			end
+			require("lz.n").trigger_load({ "nvim-dap-ui", "nvim-dap-virtual-text", "nvim-dap-python" })
 		end,
 	},
 	{
@@ -166,7 +167,6 @@ return {
 		},
 		after = function()
 			local opts = {}
-			
 			local dap = require("dap")
 			local dapui = require("dapui")
 			dapui.setup(opts)
@@ -182,6 +182,17 @@ return {
 		end,
 	},
 	{
+		lazy = true,
 		"nvim-dap-virtual-text",
+		after = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	},
+	{
+		lazy = true,
+		"nvim-dap-python",
+		after = function()
+			require("dap-python").setup("debugpy-adapter")
+		end,
 	},
 }

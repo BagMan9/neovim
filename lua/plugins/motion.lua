@@ -89,50 +89,21 @@ return {
 		end,
 	},
 	{
-		"mini.surround",
-		keys = function(_, keys)
-			-- Populate the keys based on the user's options
-			local opts = {
-				mappings = {
-					add = "gza", -- Add surrounding in Normal and Visual modes
-					delete = "gzd", -- Delete surrounding
-					find = "gzf", -- Find surrounding (to the right)
-					find_left = "gzF", -- Find surrounding (to the left)
-					highlight = "gzh", -- Highlight surrounding
-					replace = "gzr", -- Replace surrounding
-					update_n_lines = "gzn", -- Update `n_lines`
-				},
-			}
-			local mappings = {
-				{ opts.mappings.add, desc = "Add Surrounding", mode = { "n", "v" } },
-				{ opts.mappings.delete, desc = "Delete Surrounding" },
-				{ opts.mappings.find, desc = "Find Right Surrounding" },
-				{ opts.mappings.find_left, desc = "Find Left Surrounding" },
-				{ opts.mappings.highlight, desc = "Highlight Surrounding" },
-				{ opts.mappings.replace, desc = "Replace Surrounding" },
-				{ opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
-			}
-			mappings = vim.tbl_filter(function(m)
-				return m[1] and #m[1] > 0
-			end, mappings)
-			return vim.list_extend(mappings, keys)
-		end, -- from spec 2,
+		--NOTE: Not setting keys because I don't need it probably, do not forget
+		"Comment.nvim",
+		event = "User LazyFile",
 		after = function()
-			local opts = {
-				mappings = {
-					add = "gza", -- Add surrounding in Normal and Visual modes
-					delete = "gzd", -- Delete surrounding
-					find = "gzf", -- Find surrounding (to the right)
-					find_left = "gzF", -- Find surrounding (to the left)
-					highlight = "gzh", -- Highlight surrounding
-					replace = "gzr", -- Replace surrounding
-					update_n_lines = "gzn", -- Update `n_lines`
-				},
-			}
-
-			require("mini.surround").setup(opts)
+			require("Comment").setup()
 		end,
 	},
+	--TODO: Set me up!
+	-- {
+	-- 	"nvim-surround",
+	-- 	event = "DeferredUIEnter",
+	-- 	after = function()
+	-- 		require("nvim-surround").setup()
+	-- 	end,
+	-- },
 	{
 		"yanky.nvim",
 		event = "User LazyFile",
