@@ -24,7 +24,6 @@ function M.get_clients(opts)
 		if opts and opts.method then
 			---@param client vim.lsp.Client
 			ret = vim.tbl_filter(function(client)
-				-- NOTE: This might need changing!
 				---@diagnostic disable-next-line
 				return client.supports_method(opts.method, { bufner = opts.bufnr })
 			end, ret)
@@ -158,7 +157,7 @@ function M.formatter(opts)
 		primary = true,
 		priority = 1,
 		format = function(buf)
-			-- This is probably non-functionaly right now
+			-- This is probably non-functional right now
 			M.format(filter) -- , { bufnr = buf }
 		end,
 		sources = function(buf)

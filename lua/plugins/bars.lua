@@ -186,6 +186,7 @@ return {
 							symbols = {
 								done = "",
 							},
+							color = { fg = colors.blue, bg = "#1e1e2e" },
 						},
 						{ selectionCount, color = { bg = "#1E1E2E" } },
 					},

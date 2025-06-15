@@ -6,24 +6,26 @@ return {
 		after = function()
 			local opts = {
 				-- transparent_background = true,
+				flavour = "mocha",
 				dim_inactive = {
 					enabled = true,
 					shade = "dark",
 					percentage = 0.20,
 				},
 				styles = {
+					conditionals = { "italic" },
 					booleans = { "italic" },
 					keywords = { "italic" },
 					types = { "italic" },
 					loops = { "italic" },
 				},
+				default_integrations = true,
 				integrations = {
 					aerial = true,
 					alpha = true,
 					-- blink_cmp = {
 					-- 	style = "bordered",
 					-- },
-					cmp = true,
 					dashboard = true,
 
 					flash = true,
@@ -61,8 +63,18 @@ return {
 				},
 				custom_highlights = function(colors)
 					return {
-						BlickCmpMenuBorder = { fg = colors.red },
-						BlickCmpDocBorder = { fg = colors.blue },
+						Statement = { link = "Keyword" },
+						BlinkCmpMenu = { bg = colors.base },
+						BlinkCmpMenuBorder = { fg = colors.overlay2 },
+						BlinkCmpMenuSelection = { bg = colors.surface0 },
+						-- vvv This is probably the line you want to disable
+						BlinkCmpLabelMatch = { fg = "NONE", style = { "bold", "underline" } },
+						BlinkCmpDoc = { bg = colors.base },
+						BlinkCmpDocBorder = { fg = colors.red },
+						BlinkCmpScrollBarThumb = { bg = colors.maroon },
+						BlinkCmpSignatureHelp = { bg = colors.base },
+						BlinkCmpSignatureHelpBorder = { fg = colors.mauve },
+						LspInlayHint = { bg = "NONE" },
 						DiagnosticError = { style = { "bold" } },
 						DiagnosticVirtualTextError = { style = { "bold" } },
 						DiagnosticWarn = { style = { "bold" } },

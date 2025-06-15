@@ -3,7 +3,7 @@ return {
 		"nvim-treesitter-context",
 		-- event = "LazyFile",
 	},
-{
+	{
 		"nvim-treesitter",
 		after = function()
 			local opts = {
@@ -63,16 +63,16 @@ return {
 		event = { "DeferredUIEnter" },
 		lazy = vim.fn.argc(-1) == 0,
 	},
-{
+	{
 		"nvim-treesitter-textobjects",
 		event = "DeferredUIEnter",
 		enabled = true,
 	},
 	{
 		"nvim-ts-autotag",
-		-- event = "LazyFile",
+		event = "User LazyFile",
 	},
-{
+	{
 		"nvim-ts-context-commentstring",
 		lazy = true,
 	},

@@ -158,13 +158,18 @@ M.config = {
 				-- },
 			},
 			pyright = {
+				enabled = false,
+			},
+			basedpyright = {
 				enabled = true,
 			},
 			-- ruff_lsp = {
 			-- 	enabled = true,
 			-- },
 
-			bashls = {},
+			bashls = {
+				enabled = true,
+			},
 		},
 		setup = {
 			ruff = function()
@@ -178,6 +183,7 @@ M.config = {
 
 	conform = {
 		formatters_by_ft = {
+			python = { "black" },
 			nix = { "nixfmt" },
 			lua = { "stylua" },
 			fish = { "fish_indent" },

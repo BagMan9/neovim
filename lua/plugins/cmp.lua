@@ -1,9 +1,13 @@
+local M = {}
+
+M.docshow = false
+
 return {
 	{
 		"blink.cmp",
 		event = "InsertEnter",
 		before = function()
-			require("lz.n").trigger_load({ "colorful-menu", "LuaSnip" })
+			require("lz.n").trigger_load({ "colorful-menu", "LuaSnip", "lazydev.nvim" })
 			require("colorful-menu").setup()
 		end,
 		after = function()
@@ -26,12 +30,23 @@ return {
 							enabled = true,
 						},
 					},
+					list = {
+						selection = {
+							preselect = true,
+							auto_insert = false,
+						},
+					},
+					trigger = {
+						show_in_snippet = false,
+					},
+
 					menu = {
-						border = "rounded",
 						winblend = 0,
+						border = "rounded",
 						scrollbar = false,
 						scrolloff = 1,
 						draw = {
+							padding = 2,
 							treesitter = { "lsp" },
 							columns = { { "kind_icon" }, { "label", gap = 1 } },
 							components = {
@@ -48,7 +63,7 @@ return {
 					},
 					documentation = {
 						auto_show = false,
-						auto_show_delay_ms = 200,
+						window = { border = "rounded" },
 					},
 					ghost_text = {
 						enabled = true,
@@ -56,13 +71,17 @@ return {
 				},
 				signature = {
 					enabled = true,
-					window = { winblend = 20, border = "rounded", show_documentation = false },
+					trigger = {
+						show_on_keyword = true,
+					},
+					window = {
+						border = "rounded",
+						show_documentation = false,
+					},
 				},
-
 				sources = {
 					compat = {},
-					-- "lazydev"
-					default = { "lsp", "path", "snippets", "buffer" },
+					default = { "lsp", "path", "snippets", "buffer", "lazydev" },
 					providers = {
 						lazydev = {
 							name = "LazyDev",
@@ -75,7 +94,6 @@ return {
 				cmdline = {
 					enabled = false,
 				},
-				-- FIXME
 				keymap = {
 					preset = "super-tab",
 					["<C-j>"] = { "select_next", "fallback" },
@@ -94,8 +112,22 @@ return {
 					["<S-Tab>"] = { "snippet_backward", "fallback" },
 					["<C-b>"] = { "scroll_documentation_up", "fallback" },
 					["<C-f>"] = { "scroll_documentation_down", "fallback" },
-					["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-					["<C-e>"] = { "hide", "fallback" },
+					["<C-space>"] = {
+						function(cmp)
+							-- Toggle signature documentation view
+							if cmp.is_signature_visible() then
+								cmp.hide_signature()
+								require("blink.cmp.config").signature.window.show_documentation = not M.docshow
+								M.docshow = not M.docshow
+								vim.schedule(cmp.show_signature)
+								return true
+							end
+						end,
+						"show",
+						"show_documentation",
+						"hide_documentation",
+					},
+					["<C-e>"] = { "hide_signature", "hide", "fallback" },
 					["<CR>"] = { "fallback" },
 				},
 			}

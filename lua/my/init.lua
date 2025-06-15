@@ -18,7 +18,7 @@ function M.init()
 	MyVim.events.init_lazy_file()
 	M.pre_setup()
 	require("lz.n").load("plugins")
-	vim.cmd(":colorscheme catppuccin")
+	vim.cmd.colorscheme("catppuccin")
 
 	require("keymaps")
 end

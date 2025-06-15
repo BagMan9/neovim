@@ -195,7 +195,7 @@ return {
 				print_var_statements = {},
 				show_success_message = true,
 			}
-			
+
 			require("refactoring").setup(opts)
 		end,
 	},
@@ -203,5 +203,8 @@ return {
 		"lazydev.nvim",
 		ft = "lua",
 		cmd = "LazyDev",
+		after = function()
+			require("lazydev").setup()
+		end,
 	},
 }

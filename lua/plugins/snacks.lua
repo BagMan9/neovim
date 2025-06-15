@@ -37,7 +37,7 @@ return {
 						return require("trouble.sources.snacks").actions.trouble_open.action(...)
 					end,
 				},
-				bigfile = { enabled = false },
+				bigfile = { enabled = true },
 				indent = { enabled = false, scope = { enabled = false } },
 				input = { enabled = false },
 				notifier = { enabled = true },
