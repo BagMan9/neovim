@@ -90,7 +90,7 @@ return {
 	},
 	{
 		--NOTE: Not setting keys because I don't need it probably, do not forget
-		"Comment.nvim",
+		"comment.nvim",
 		event = "User LazyFile",
 		after = function()
 			require("Comment").setup()
