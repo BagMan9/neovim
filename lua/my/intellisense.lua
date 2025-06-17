@@ -48,6 +48,19 @@ M.config = {
 		},
 		---@type vim.lsp.ClientConfig[]
 		servers = {
+			nixd = {
+				cmd = { "nixd", "--semantic-tokens=true" },
+				settings = {
+					nixd = {
+						nixpkgs = {
+							expr = "import nixpkgs { }",
+						},
+						formatting = {
+							command = { "nixfmt" },
+						},
+					},
+				},
+			},
 			lua_ls = {
 				settings = {
 					Lua = {
