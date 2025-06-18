@@ -80,6 +80,23 @@ return {
 		end,
 	},
 	{
+		-- NOTE: Don't forget about me! Useful for work!
+		"gitlinker.nvim",
+		keys = {
+			{
+				"<leader>gy",
+				-- function()
+				-- 	require("gitlinker").setup()
+				-- end,
+				mode = { "n", "v" },
+				desc = "Create links to current line(s)",
+			},
+		},
+		after = function()
+			require("gitlinker").setup()
+		end,
+	},
+	{
 		"mini.comment",
 		event = "User LazyFile",
 	},
