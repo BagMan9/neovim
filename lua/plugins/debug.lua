@@ -128,7 +128,7 @@ return {
 		after = function()
 			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-			for name, sign in pairs(LazyVim.config.icons.dap) do
+			for name, sign in pairs(Utils.lazy_defaults.icons.dap) do
 				sign = type(sign) == "table" and sign or { sign }
 				vim.fn.sign_define(
 					"Dap" .. name,
