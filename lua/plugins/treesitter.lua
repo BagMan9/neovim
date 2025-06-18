@@ -1,13 +1,13 @@
 return {
 	{
 		"nvim-treesitter-context",
-		-- event = "LazyFile",
+		event = "User LazyFile",
 	},
 	{
 		"nvim-treesitter",
 		after = function()
 			local opts = {
-				highlight = { enable = false },
+				highlight = { enable = true },
 				indent = { enable = true },
 				enable = true,
 				incremental_selection = {
@@ -59,8 +59,7 @@ return {
 			[".*/hypr/.+%.conf"] = "hyprlang",
 			["%.env%.[%w_.-]+"] = "sh",
 		},
-		-- "LazyFile" removed from here
-		event = { "DeferredUIEnter" },
+		event = { "User LazyFile" },
 		lazy = vim.fn.argc(-1) == 0,
 	},
 	{

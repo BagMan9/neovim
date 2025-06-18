@@ -173,6 +173,18 @@ M.config = {
 			},
 			basedpyright = {
 				enabled = true,
+				settings = {
+					basedpyright = {
+						analysis = {
+							diagnosticMode = "workspace",
+							inlay_hints = {
+								variableTypes = true,
+								callArgumentNames = true,
+								functionReturnTypes = true,
+							},
+						},
+					},
+				},
 			},
 			-- ruff_lsp = {
 			-- 	enabled = true,
