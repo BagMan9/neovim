@@ -96,7 +96,7 @@ return {
 			require("Comment").setup()
 		end,
 	},
-	--TODO: Set me up!
+	--TODO: Set up nvim-surround
 	-- {
 	-- 	"nvim-surround",
 	-- 	event = "DeferredUIEnter",
