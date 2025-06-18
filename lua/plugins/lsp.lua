@@ -1,8 +1,8 @@
 return {
-	--TODO:
-	-- Solve smart-splits issue (annoying)
-	-- Go through lazyvim website one last time
-	-- Then you may add new plugins
+	--TODO: Solve smart-splits issue (annoying)
+	--TODO: Debug Adapters (Python)
+	--TODO: Look at harpoon
+	--TODO: Per-project settings (netcat lsp, for example. See `exrc`)
 	{
 		"nvim-lspconfig",
 		before = function()

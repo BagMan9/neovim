@@ -175,7 +175,7 @@ return {
 			opts.sources.compat = nil
 
 			-- check if we need to override symbol kinds
-			-- TODO: I can probably get rid of this
+			-- NOTE: I can probably get rid of this
 			for _, provider in pairs(opts.sources.providers or {}) do
 				if provider.kind then
 					local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
