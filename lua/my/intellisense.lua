@@ -108,6 +108,40 @@ M.config = {
 					},
 				},
 			},
+			yamlls = {
+				capabilities = {
+					textDocument = {
+						foldingRange = {
+							dynamicRegistration = false,
+							lineFoldingOnly = true,
+						},
+					},
+				},
+				on_new_config = function(new_config)
+					new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+						"force",
+						new_config.settings.yaml.schemas or {},
+						require("schemastore").yaml.schemas()
+					)
+				end,
+				settings = {
+					redhat = { telemetry = { enabled = false } },
+					yaml = {
+						keyOrdering = false,
+						format = {
+							enable = true,
+						},
+						validate = true,
+						schemaStore = {
+							-- Must disable built-in schemaStore support to use
+							-- schemas from SchemaStore.nvim plugin
+							enable = false,
+							-- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+							url = "",
+						},
+					},
+				},
+			},
 			clangd = {
 				keys = {
 					-- MAYBE: Setup more clangd-extensions stuff
@@ -156,7 +190,19 @@ M.config = {
 				cmd_env = { RUFF_TRACE = "messages" },
 				init_options = {
 					settings = {
+						-- This makes ruff prefer settings defined in pyproject.toml
+						configurationPreference = "filesystemFirst",
 						logLevel = "error",
+
+						configuration = {
+							-- lint = {
+							-- 	["extend-select"] = {},
+							-- },
+							format = {
+								["docstring-code-format"] = true,
+								["quote-style"] = "double",
+							},
+						},
 					},
 				},
 				-- FIXME: Port LazyVim lsp.action or replace
@@ -168,13 +214,11 @@ M.config = {
 				--   },
 				-- },
 			},
-			pyright = {
-				enabled = false,
-			},
 			basedpyright = {
 				enabled = true,
 				settings = {
 					basedpyright = {
+						disableOrganizeImports = true,
 						analysis = {
 							diagnosticMode = "workspace",
 							inlay_hints = {
@@ -186,9 +230,6 @@ M.config = {
 					},
 				},
 			},
-			-- ruff_lsp = {
-			-- 	enabled = true,
-			-- },
 
 			bashls = {
 				enabled = true,
@@ -197,7 +238,6 @@ M.config = {
 		setup = {
 			ruff = function()
 				Utils.lsp.on_attach(function(client, _)
-					-- Disable hover in favor of Pyright
 					client.server_capabilities.hoverProvider = false
 				end, "ruff")
 			end,
@@ -206,10 +246,9 @@ M.config = {
 
 	conform = {
 		formatters_by_ft = {
-			python = { "black" },
+			python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 			nix = { "nixfmt" },
 			lua = { "stylua" },
-			fish = { "fish_indent" },
 			sh = { "shfmt" },
 		},
 		default_format_opts = {
