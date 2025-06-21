@@ -90,7 +90,9 @@ return {
 						},
 					},
 				},
-
+				snippets = {
+					preset = "luasnip",
+				},
 				cmdline = {
 					enabled = false,
 				},
