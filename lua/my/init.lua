@@ -5,6 +5,7 @@ _G.Utils = require("my.utils")
 ---@field utils MyVim.util
 ---@field lsp MyVim.intellisense
 ---@field intellisense MyVim.intellisense
+---@field fetcher MyVim.fetcher
 local M = {}
 setmetatable(M, {
 	__index = function(t, k)

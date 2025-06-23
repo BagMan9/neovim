@@ -54,6 +54,7 @@ return {
 					neotree = true,
 					noice = true,
 					notify = true,
+					octo = true,
 					semantic_tokens = true,
 					snacks = true,
 					telescope = true,

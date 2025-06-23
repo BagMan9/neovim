@@ -1,13 +1,13 @@
 local M = {}
 
 M.docshow = false
-
+--FIXME: Something is up with snippets, some of them cause blink to stop showing & act weird
 return {
 	{
 		"blink.cmp",
 		event = "InsertEnter",
 		before = function()
-			require("lz.n").trigger_load({ "colorful-menu", "LuaSnip", "lazydev.nvim" })
+			require("lz.n").trigger_load({ "colorful-menu", "LuaSnip", "lazydev.nvim", "blink-cmp-git" })
 			require("colorful-menu").setup()
 		end,
 		after = function()
@@ -81,12 +81,20 @@ return {
 				},
 				sources = {
 					compat = {},
-					default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+					default = { "git", "lsp", "path", "snippets", "buffer", "lazydev" },
 					providers = {
 						lazydev = {
 							name = "LazyDev",
 							module = "lazydev.integrations.blink",
 							score_offset = 100, -- show at a higher priority than lsp
+						},
+						git = {
+							module = "blink-cmp-git",
+							name = "Git",
+							enabled = function()
+								return vim.tbl_contains({ 'octo", "gitcommit', "markdown" }, vim.bo.filetype)
+							end,
+							opts = {},
 						},
 					},
 				},
@@ -193,5 +201,9 @@ return {
 			end
 			require("blink.cmp").setup(opts)
 		end,
+	},
+	{
+		"blink-cmp-git",
+		enabled = true,
 	},
 }

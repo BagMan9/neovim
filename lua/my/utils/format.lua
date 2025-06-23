@@ -5,7 +5,6 @@ local M = setmetatable({}, {
 		return m.format(...)
 	end,
 })
-
 ---@class Formatter
 ---@field name string
 ---@field primary? boolean

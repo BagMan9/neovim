@@ -96,13 +96,13 @@ return {
 				end,
 				desc = "Next Trouble/Quickfix Item",
 			},
-		}, -- from spec 2,
+		},
 	},
-	{
-		"outline.nvim",
-		keys = { { "<leader>cs", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
-		cmd = "Outline",
-	},
+	-- {
+	-- 	"outline.nvim",
+	-- 	keys = { { "<leader>cs", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
+	-- 	cmd = "Outline",
+	-- },
 	{
 		"SchemaStore.nvim",
 		lazy = true,

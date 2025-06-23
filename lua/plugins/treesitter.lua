@@ -64,7 +64,7 @@ return {
 	},
 	{
 		"nvim-treesitter-textobjects",
-		event = "DeferredUIEnter",
+		event = "User LazyFile",
 		enabled = true,
 	},
 	{

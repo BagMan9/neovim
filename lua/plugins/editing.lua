@@ -81,10 +81,9 @@ return {
 	{
 		"refactoring.nvim",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"plenary.nvim",
-			"nvim-treesitter",
-		},
+		before = function()
+			require("lz.n").trigger_load({ "plenary.nvim" })
+		end,
 		keys = {
 			{ "<leader>r", "", desc = "+refactor", mode = { "n", "v" } },
 			{
@@ -205,6 +204,25 @@ return {
 		cmd = "LazyDev",
 		after = function()
 			require("lazydev").setup()
+		end,
+	},
+	{
+		"neogen",
+		cmd = "Neogen",
+		keys = {
+			{
+				"<leader>cn",
+				function()
+					require("neogen").generate()
+				end,
+				desc = "Generate Annotations (Neogen)",
+			},
+		},
+		after = function()
+			local opts = {
+				snippet_engine = "luasnip",
+			}
+			require("neogen").setup(opts)
 		end,
 	},
 }
