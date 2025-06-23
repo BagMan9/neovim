@@ -15,7 +15,7 @@ local base_query = [[(apply_expression
     attrpath: (attrpath) @fetcher )
   (#match? @fetcher "%s")
   argument: (attrset_expression (binding_set 
-        binding: (binding expression: (string_expression (string_fragment) @owner)) 
+        binding: (binding expression: (string_expression (string_fragment) @owner))
         binding: (binding expression: (string_expression (string_fragment) @repo))
           ))
   (#eq? @owner "%s")
@@ -93,9 +93,6 @@ end
 return M
 
 -- TODO: You're probably pretty close with this:
--- Then setup REST client (kulala)
--- Also octo-nvim & neogen
--- Then maybe give secret management some thought again
 -- And get your mind back into netbox:
 -- SQL Database probably makes this easy
 -- Location's unique ID in netbox is a combination of all of their parents Ids?
