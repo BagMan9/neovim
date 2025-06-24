@@ -25,6 +25,9 @@ function M.init()
 end
 
 function M.pre_setup()
+	-- Experimental Loader
+	vim.loader.enable()
+
 	require("my.options")
 
 	require("my.autocmds")
