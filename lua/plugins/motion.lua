@@ -5,7 +5,7 @@ return {
 	},
 	{
 		"flash.nvim",
-		event = "DeferredUIEnter",
+		event = "User LazyFile",
 		keys = {
 			{
 				"s",
@@ -96,14 +96,26 @@ return {
 			require("Comment").setup()
 		end,
 	},
-	--TODO: Set up nvim-surround
-	-- {
-	-- 	"nvim-surround",
-	-- 	event = "DeferredUIEnter",
-	-- 	after = function()
-	-- 		require("nvim-surround").setup()
-	-- 	end,
-	-- },
+	{
+		"nvim-surround",
+		event = "User LazyFile",
+		after = function()
+			local opts = {
+				keymaps = {
+					normal = "yz",
+					normal_cur = "yzz",
+					normal_line = "yZ",
+					normal_cur_line = "yZZ",
+					visual = "Z",
+					visual_line = "gZ",
+					delete = "dz",
+					change = "cz",
+					change_line = "cZ",
+				},
+			}
+			require("nvim-surround").setup(opts)
+		end,
+	},
 	{
 		"yanky.nvim",
 		event = "User LazyFile",
