@@ -42,6 +42,13 @@ return {
 				desc = "Run to Cursor",
 			},
 			{
+				"<leader>dR",
+				function()
+					require("dap").run_last()
+				end,
+				desc = "Run Last",
+			},
+			{
 				"<leader>dg",
 				function()
 					require("dap").goto_()
