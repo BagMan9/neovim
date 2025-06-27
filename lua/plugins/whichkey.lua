@@ -25,7 +25,7 @@ return {
 						{ "[", group = "prev" },
 						{ "]", group = "next" },
 						{ "g", group = "goto" },
-						{ "gs", group = "surround" },
+						-- { "gs", group = "surround" },
 						{ "z", group = "fold" },
 						{ "<BS>", desc = "Decrement Selection", mode = "x" },
 						{ "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
