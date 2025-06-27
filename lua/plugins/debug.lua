@@ -1,9 +1,9 @@
 return {
 	{
 		"nvim-dap",
-		before = function()
-			require("lz.n").trigger_load("nvim-dap-virtual-text")
-		end,
+		-- before = function()
+		-- 	require("lz.n").trigger_load("nvim-dap-virtual-text")
+		-- end,
 		keys = {
 			{
 				"<leader>dB",
@@ -39,6 +39,13 @@ return {
 					require("dap").run_to_cursor()
 				end,
 				desc = "Run to Cursor",
+			},
+			{
+				"<leader>dR",
+				function()
+					require("dap").run_last()
+				end,
+				desc = "Run Last",
 			},
 			{
 				"<leader>dg",
