@@ -52,6 +52,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("close_with_q"),
 	pattern = {
+		"dap-float",
 		"PlenaryTestPopup",
 		"checkhealth",
 		"dbout",
