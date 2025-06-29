@@ -47,11 +47,22 @@ return {
 						model = "google/gemini-2.5-pro",
 						api_key_name = openrouter_secret,
 					},
+					or_gem_2_flash = {
+						__inherited_from = "openai",
+						endpoint = "https://openrouter.ai/api/v1",
+						model = "google/gemini-2.0-flash-001",
+						api_key_name = openrouter_secret,
+					},
 				},
 
 				provider = "or_v3",
 				--TODO: Check out dual boost mode
-				--TODO: Setup suggestions
+
+				--Setup suggestions <-- This is kinda bad...
+				auto_suggestions_provider = "or_gem_2_flash",
+				behavior = {
+					auto_suggestions = false, -- <-- Enable later
+				},
 			}
 			require("avante").setup(opts)
 		end,
