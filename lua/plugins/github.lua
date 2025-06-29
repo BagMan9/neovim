@@ -1,3 +1,4 @@
+-- FIXME: Something is up with octo + lz.n with key handling + a possibly related issue with snacks
 return {
 	{
 		"octo.nvim",
@@ -22,7 +23,6 @@ return {
 			{ "<leader>gP", "<cmd>Octo pr search<CR>", desc = "Search PRs (Octo)" },
 			{ "<leader>gr", "<cmd>Octo repo list<CR>", desc = "List Repos (Octo)" },
 			{ "<leader>gS", "<cmd>Octo search<CR>", desc = "Search (Octo)" },
-
 			{ "<localleader>a", "", desc = "+assignee (Octo)", ft = "octo" },
 			{ "<localleader>c", "", desc = "+comment/code (Octo)", ft = "octo" },
 			{ "<localleader>l", "", desc = "+label (Octo)", ft = "octo" },
