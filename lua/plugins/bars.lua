@@ -66,6 +66,9 @@ return {
 	},
 	{
 		"lualine.nvim",
+		before = function()
+			require("lz.n").trigger_load("mcphub.nvim")
+		end,
 		after = function()
 			local utils = Utils
 			local fn = vim.fn
@@ -211,6 +214,7 @@ return {
 						--   moltenInfo,
 						--   color = { fg = colors.yellow },
 						-- },
+						{ require("mcphub.extensions.lualine") },
 					},
 					lualine_y = {
 

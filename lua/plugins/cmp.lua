@@ -7,7 +7,13 @@ return {
 		"blink.cmp",
 		event = "InsertEnter",
 		before = function()
-			require("lz.n").trigger_load({ "colorful-menu", "LuaSnip", "lazydev.nvim", "blink-cmp-git" })
+			require("lz.n").trigger_load({
+				"colorful-menu",
+				"LuaSnip",
+				"lazydev.nvim",
+				"blink-cmp-git",
+				"blink-cmp-avante",
+			})
 			require("colorful-menu").setup()
 		end,
 		after = function()
@@ -81,12 +87,16 @@ return {
 				},
 				sources = {
 					compat = {},
-					default = { "git", "lsp", "path", "snippets", "buffer", "lazydev" },
+					default = { "avante", "git", "lsp", "path", "snippets", "buffer", "lazydev" },
 					providers = {
 						lazydev = {
 							name = "LazyDev",
 							module = "lazydev.integrations.blink",
 							score_offset = 100, -- show at a higher priority than lsp
+						},
+						avante = {
+							module = "blink-cmp-avante",
+							name = "Avante",
 						},
 						git = {
 							module = "blink-cmp-git",
@@ -204,6 +214,10 @@ return {
 	},
 	{
 		"blink-cmp-git",
+		enabled = true,
+	},
+	{
+		"blink-cmp-avante",
 		enabled = true,
 	},
 }

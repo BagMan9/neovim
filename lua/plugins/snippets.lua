@@ -10,7 +10,7 @@ return {
 		"nvim-scissors",
 		keys = {
 			{
-				"<leader>as",
+				"<leader>sA",
 				mode = { "n", "x" },
 				function()
 					require("scissors").addNewSnippet()
@@ -18,7 +18,7 @@ return {
 				desc = "Add Snippet",
 			},
 			{
-				"<leader>aE",
+				"<leader>se",
 				mode = { "n" },
 				function()
 					require("scissors").editSnippet()

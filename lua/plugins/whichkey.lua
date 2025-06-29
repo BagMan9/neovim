@@ -9,6 +9,7 @@ return {
 				spec = {
 					{
 						mode = { "n", "v" },
+						{ "<leader>a", group = "AI" },
 						{ "<leader><tab>", group = "tabs" },
 						{ "<leader>c", group = "code" },
 						{ "<leader>d", group = "debug" },
@@ -17,7 +18,7 @@ return {
 						{ "<leader>g", group = "git" },
 						{ "<leader>gh", group = "hunks" },
 						{ "<leader>q", group = "quit/session" },
-						{ "<leader>s", group = "search" },
+						{ "<leader>s", group = "search/snips" },
 						{ "<leader>u", group = "ui", icon = { icon = "󰙵 ", color = "cyan" } },
 						{ "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
 						{ "<localleader>x", group = "xcode" },
