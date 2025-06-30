@@ -3,6 +3,8 @@ vim.g.maplocalleader = "\\"
 local opt = vim.opt
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- TODO: Figure out how to fix current line only
+-- See https://github.com/neovim/neovim/issues/23526
 vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
 opt.showmode = false
 opt.autowrite = true -- Enable auto write
@@ -15,12 +17,12 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
+	foldopen = "",
+	foldclose = "",
+	fold = " ",
+	foldsep = " ",
+	diff = "╱",
+	eob = " ",
 }
 opt.foldlevel = 99
 -- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
