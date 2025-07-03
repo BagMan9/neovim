@@ -20,7 +20,6 @@ return {
 						require("mcphub.extensions.avante").mcp_tool(),
 					}
 				end,
-				--TODO: Figure out if I can integrate gemini for free w/aistudio
 				providers = {
 					-- TODO: Add reasoning https://openrouter.ai/docs/use-cases/reasoning-tokens
 					or_claude = {
@@ -45,6 +44,12 @@ return {
 						__inherited_from = "openai",
 						endpoint = "https://openrouter.ai/api/v1",
 						model = "google/gemini-2.5-pro",
+						api_key_name = openrouter_secret,
+					},
+					or_gem_2_5_flash = {
+						__inherited_from = "openai",
+						endpoint = "https://openrouter.ai/api/v1",
+						model = "google/gemini-2.5-flash",
 						api_key_name = openrouter_secret,
 					},
 					or_gem_2_flash = {
