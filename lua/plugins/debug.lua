@@ -1,8 +1,9 @@
+local ios_fts = { "swift", "objc", "objcpp", "metal" }
 return {
 	{
 		"nvim-dap",
 		before = function()
-			require("lz.n").trigger_load("nvim-dap-virtual-text")
+			-- require("lz.n").trigger_load("nvim-dap-virtual-text")
 		end,
 		keys = {
 			{
@@ -124,6 +125,70 @@ return {
 				end,
 				desc = "Widgets",
 			},
+			-- TODO: Figure out how much of this can go in normal debug binds
+			{
+				"<localleader>dd",
+				function()
+					require("xcodebuild.integrations.dap").build_and_debug()
+				end,
+				mode = { "n" },
+				desc = "Build & Debug",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dr",
+				function()
+					require("xcodebuild.integrations.dap").debug_without_build()
+				end,
+				mode = { "n" },
+				desc = "Debug Without Building",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dt",
+				function()
+					require("xcodebuild.integrations.dap").debug_tests()
+				end,
+				mode = { "n" },
+				desc = "Debug Tests",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dT",
+				function()
+					require("xcodebuild.integrations.dap").debug_class_tests()
+				end,
+				mode = { "n" },
+				desc = "Debug Class Tests",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>b",
+				function()
+					require("xcodebuild.integrations.dap").toggle_breakpoint()
+				end,
+				mode = { "n" },
+				desc = "Toggle Breakpoint",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>B",
+				function()
+					require("xcodebuild.integrations.dap").toggle_message_breakpoint()
+				end,
+				mode = { "n" },
+				desc = "Toggle Message Breakpoint",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dx",
+				function()
+					require("xcodebuild.integrations.dap").terminate_session()
+				end,
+				mode = { "n" },
+				desc = "Terminate Debugger",
+				-- ft = ios_fts,
+			},
 		},
 		after = function()
 			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
@@ -166,7 +231,13 @@ return {
 			},
 		},
 		after = function()
-			local opts = {}
+			local opts = {
+				floating = {
+					mappings = {
+						close = { "q", "<Esc>" },
+					},
+				},
+			}
 			local dap = require("dap")
 			local dapui = require("dapui")
 			dapui.setup(opts)
@@ -179,6 +250,8 @@ return {
 			dap.listeners.before.event_exited["dapui_config"] = function()
 				dapui.close({})
 			end
+
+			dapui.setup()
 		end,
 	},
 	{

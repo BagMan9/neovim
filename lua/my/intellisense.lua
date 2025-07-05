@@ -27,7 +27,7 @@ M.config = {
 		},
 		inlay_hints = {
 			enabled = true,
-			exclude = {},
+			exclude = { "swift" },
 		},
 		codelens = {
 			enabled = true,
@@ -98,6 +98,17 @@ M.config = {
 							paramName = "Disable",
 							semicolon = "Disable",
 							arrayIndex = "Disable",
+						},
+					},
+				},
+			},
+			-- TODO: Get swift debugger?? lldb-dap
+			sourcekit = {
+				enabled = true,
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
 						},
 					},
 				},
@@ -248,6 +259,11 @@ M.config = {
 			},
 		},
 		setup = {
+			sourcekit = function()
+				Utils.lsp.on_attach(function(client, _)
+					client.server_capabilities.inlayHintProvider = false
+				end)
+			end,
 			ruff = function()
 				Utils.lsp.on_attach(function(client, _)
 					client.server_capabilities.hoverProvider = false
@@ -262,6 +278,7 @@ M.config = {
 			nix = { "nixfmt" },
 			lua = { "stylua" },
 			sh = { "shfmt" },
+			swift = { "swiftformat" },
 		},
 		default_format_opts = {
 			timeout_ms = 3000,

@@ -7,7 +7,7 @@ return {
 			local opts = {
 				styles = {},
 				words = { enabled = true },
-				explorer = {},
+				explorer = { enabled = false },
 
 				picker = {
 					win = {
@@ -37,6 +37,7 @@ return {
 						return require("trouble.sources.snacks").actions.trouble_open.action(...)
 					end,
 				},
+				image = { enabled = true, focusable = false },
 				bigfile = { enabled = true },
 				indent = { enabled = false, scope = { enabled = false } },
 				input = { enabled = false },
@@ -93,8 +94,8 @@ return {
 				end,
 				desc = "Explorer Snacks (cwd)",
 			},
-			{ "<leader>e", "<leader>fe", desc = "Explorer Snacks (root dir)", remap = true },
-			{ "<leader>E", "<leader>fE", desc = "Explorer Snacks (cwd)", remap = true },
+			-- { "<leader>e", "<leader>fe", desc = "Explorer Snacks (root dir)", remap = true },
+			-- { "<leader>E", "<leader>fE", desc = "Explorer Snacks (cwd)", remap = true },
 			{
 				"<leader>,",
 				function()

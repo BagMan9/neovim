@@ -225,4 +225,36 @@ return {
 			require("neogen").setup(opts)
 		end,
 	},
+	{
+		"neo-tree.nvim",
+		lazy = false,
+		keys = {
+			{ "<leader>e", "<cmd>Neotree filesystem toggle left<CR>", desc = "File Explorer" },
+		},
+		after = function()
+			local opts = {
+				window = {
+					position = "left",
+					width = 30,
+				},
+				event_handlers = {
+					{
+						event = "neo_tree_buffer_enter",
+						handler = function()
+							vim.cmd("highlight! Cursor blend=100")
+						end,
+					},
+					{
+						event = "neo_tree_buffer_leave",
+						handler = function()
+							-- Make this whatever your current Cursor highlight group is.
+							vim.cmd("highlight! Cursor blend=0")
+						end,
+					},
+				},
+			}
+
+			require("neo-tree").setup(opts)
+		end,
+	},
 }

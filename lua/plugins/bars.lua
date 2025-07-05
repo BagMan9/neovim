@@ -79,6 +79,27 @@ return {
 					}
 				end
 			end
+
+			local function xcodebuild_device()
+				if vim.g.xcodebuild_platform == "macOS" then
+					return " macOS"
+				end
+
+				local deviceIcon = ""
+				if vim.g.xcodebuild_platform:match("watch") then
+					deviceIcon = "􀟤"
+				elseif vim.g.xcodebuild_platform:match("tv") then
+					deviceIcon = "􀡴 "
+				elseif vim.g.xcodebuild_platform:match("vision") then
+					deviceIcon = "􁎖 "
+				end
+
+				if vim.g.xcodebuild_os then
+					return deviceIcon .. " " .. vim.g.xcodebuild_device_name .. " (" .. vim.g.xcodebuild_os .. ")"
+				end
+
+				return deviceIcon .. " " .. vim.g.xcodebuild_device_name
+			end
 			-- Gets Lines & Chars selected
 			local function selectionCount()
 				local isVisualMode = fn.mode():find("[Vv]")
@@ -152,6 +173,14 @@ return {
 						},
 					},
 					lualine_c = {
+						-- {
+						-- 	"lsp_status",
+						-- 	icon = "",
+						-- 	symbols = {
+						-- 		done = "",
+						-- 	},
+						-- 	color = { fg = colors.blue, bg = "#1e1e2e" },
+						-- },
 						{
 							"diagnostics",
 							symbols = {
@@ -174,20 +203,17 @@ return {
 						-- },
 					},
 					lualine_x = {
+						--TODO: Do I need all these?
+						{ "' ' .. vim.g.xcodebuild_last_status", color = { fg = "Gray" } },
+						{ "'󰙨 ' .. vim.g.xcodebuild_test_plan", color = { fg = "#74c7ec", bg = "#1e1e2e" } },
+						{ xcodebuild_device, color = { fg = "#f9e2af", bg = "#1e1e2e" } },
 						-- {
 						--   moltenInfo,
 						--   color = { fg = colors.yellow },
 						-- },
 					},
 					lualine_y = {
-						{
-							"lsp_status",
-							icon = "",
-							symbols = {
-								done = "",
-							},
-							color = { fg = colors.blue, bg = "#1e1e2e" },
-						},
+
 						{ selectionCount, color = { bg = "#1E1E2E" } },
 					},
 					lualine_z = {
@@ -202,7 +228,7 @@ return {
 					},
 				},
 
-				extensions = { "lazy", "toggleterm", "mason", "neo-tree", "trouble" },
+				extensions = { "toggleterm", "neo-tree", "trouble" },
 			}
 			require("lualine").setup(opts)
 		end,
