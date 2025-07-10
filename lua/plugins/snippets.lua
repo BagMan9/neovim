@@ -1,6 +1,9 @@
-return {
+local M = {}
+
+M.lz_specs = {
 	{
-		"LuaSnip",
+		"luasnip",
+		dir = "/Users/isaac/.local/share/lzl/lua_plugins/luasnip",
 		lazy = true,
 		after = function()
 			require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.env.HOME .. "/.config/nvim/snippets" } })
@@ -32,4 +35,14 @@ return {
 			})
 		end,
 	},
+	{
+		"blink.cmp",
+		opts = {
+			snippets = {
+				preset = "luasnip",
+			},
+		},
+	},
 }
+
+return M

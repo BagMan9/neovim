@@ -1,12 +1,24 @@
+local M = {}
 local openrouter_secret = "cmd:cat /run/agenix/ai-key"
 -- FIXME: My AI keymaps are getting a little crowded... Consider spreading across <leader>[h]elper?
-return {
+
+M.lz_specs = {
 	-- TODO: Better secret management
 	{
 		"avante.nvim",
-		before = function()
-			require("lz.n").trigger_load("render-markdown.nvim")
-		end,
+		dependencies = {
+			{
+				"render-markdown.nvim",
+				ft = { "md", "Avante" },
+				after = function()
+					local opts = {
+						file_types = { "markdown", "Avante" },
+						completion = { lsp = { enabled = true } },
+					}
+					require("render-markdown").setup(opts)
+				end,
+			},
+		},
 		event = "User LazyFile",
 		after = function()
 			require("img-clip").setup({ default = { download_images = false } })
@@ -71,12 +83,13 @@ return {
 			}
 			require("avante").setup(opts)
 		end,
+		keys = { { "<leader>a", group = "+ai" } },
 	},
 	{
 		"mcphub.nvim",
-		event = "DeferredUIEnter",
+		event = "VeryLazy",
+		dependencies = { { "plenary.nvim" } },
 		after = function()
-			require("lz.n").trigger_load("plenary.nvim")
 			local opts = {
 				extensions = {
 					avante = {
@@ -88,21 +101,9 @@ return {
 		end,
 	},
 	{
-		"render-markdown.nvim",
-		ft = { "md", "Avante" },
-		after = function()
-			local opts = {
-				file_types = { "markdown", "Avante" },
-				completion = { lsp = { enabled = true } },
-			}
-			require("render-markdown").setup(opts)
-		end,
-	},
-	{
 		"claudecode.nvim",
-		after = function()
-			local opts = {}
-			require("claudecode").setup()
+		after = function(_, opts)
+			require("claudecode").setup(opts)
 		end,
 		keys = {
 			{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
@@ -115,3 +116,5 @@ return {
 		},
 	},
 }
+
+return M

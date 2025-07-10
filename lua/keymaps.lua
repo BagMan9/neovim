@@ -168,10 +168,10 @@ end
 
 -- lazygit
 if vim.fn.executable("lazygit") == 1 then
-  map("n", "<leader>gg", function() require("snacks").lazygit( { cwd = Utils.root.git() }) end, { desc = "Lazygit (Root Dir)" })
+  map("n", "<leader>gg", function() require("snacks").lazygit( { cwd = LazyVim.root.git() }) end, { desc = "Lazygit (Root Dir)" })
   map("n", "<leader>gG", function() require("snacks").lazygit() end, { desc = "Lazygit (cwd)" })
   map("n", "<leader>gf", function() require("snacks").picker.git_log_file() end, { desc = "Git Current File History" })
-  map("n", "<leader>gl", function() require("snacks").picker.git_log({ cwd = Utils.root.git() }) end, { desc = "Git Log" })
+  map("n", "<leader>gl", function() require("snacks").picker.git_log({ cwd = LazyVim.root.git() }) end, { desc = "Git Log" })
   map("n", "<leader>gL", function() require("snacks").picker.git_log() end, { desc = "Git Log (cwd)" })
 end
 

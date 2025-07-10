@@ -1,22 +1,75 @@
 local ios_fts = { "swift", "objc", "objcpp", "metal" }
+-- TODO:
+-- In order:
+-- Also get sourcekit generally configured
+-- Get plugin configured
+--
+-- Code coverage
+-- NOTE: Inject + simulator preview seems ~fine for now, keep in background
+--
+-- Need swift dependencies to properly see device targets: https://github.com/wojciech-kulik/require("xcodebuild.integrations.dap").nvim/issues/285
+-- Await sourcekit update, inlay hints currently disabled https://github.com/swiftlang/sourcekit-lsp/issues/2021
 return {
-	-- TODO:
-	-- In order:
-	-- Also get sourcekit generally configured
-	-- Get plugin configured
-	--
-	-- Code coverage
-	-- NOTE: Inject + simulator preview seems ~fine for now, keep in background
-	--
-	-- Need swift dependencies to properly see device targets: https://github.com/wojciech-kulik/require("xcodebuild.integrations.dap").nvim/issues/285
-	-- Await sourcekit update, inlay hints currently disabled https://github.com/swiftlang/sourcekit-lsp/issues/2021
+	{
+		"nvim-lspconfig",
+		opts = {
+			servers = {
+				-- TODO: Get swift debugger?? lldb-dap
+				sourcekit = {
+					enabled = true,
+					capabilities = {
+						workspace = {
+							didChangeWatchedFiles = {
+								dynamicRegistration = true,
+							},
+						},
+					},
+				},
+			},
+			setup = {
+				sourcekit = function()
+					Utils.lsp.on_attach(function(client, _)
+						client.server_capabilities.inlayHintProvider = false
+					end)
+				end,
+			},
+		},
+	},
+	{
+		"conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				swift = { "swiftformat" },
+			},
+		},
+	},
+	{
+		"nvim-lint",
+		opts = {
+			linters_by_ft = {
+				swift = { "swiftlint" },
+			},
+		},
+	},
 	{
 		"xcodebuild.nvim",
-		enabled = true,
+		---@diagnostic disable-next-line: undefined-field
+		cond = vim.loop.os_uname().sysname == "Darwin",
 		ft = ios_fts,
-		before = function()
-			require("lz.n").trigger_load({ "telescope.nvim", "fidget.nvim" })
-		end,
+		dependencies = {
+			{
+				"telescope.nvim",
+				lazy = true,
+				-- FIXME: Make better
+				event = "VeryLazy",
+				dependencies = { { "plenary.nvim" } },
+				after = function(_, opts)
+					require("telescope").setup(opts)
+				end,
+			},
+			{ "fidget.nvim" },
+			{ "neo-tree.nvim" },
+		},
 		after = function()
 			local progress_handle
 			local opts = {
@@ -57,7 +110,6 @@ return {
 				},
 			}
 			require("xcodebuild").setup(opts)
-			require("lz.n").trigger_load("nvim-dap")
 
 			local codelldb_path = os.getenv("HOME") .. "/Dev/codelldbpath/extension/adapter/codelldb"
 			require("xcodebuild.integrations.dap").setup(codelldb_path)
@@ -210,41 +262,80 @@ return {
 				desc = "Show Code Actions",
 				-- ft = ios_fts,
 			},
+			-- TODO: Figure out how much of this can go in normal debug binds
+			{
+				"<localleader>dd",
+				function()
+					require("xcodebuild.integrations.dap").build_and_debug()
+				end,
+				mode = { "n" },
+				desc = "Build & Debug",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dr",
+				function()
+					require("xcodebuild.integrations.dap").debug_without_build()
+				end,
+				mode = { "n" },
+				desc = "Debug Without Building",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dt",
+				function()
+					require("xcodebuild.integrations.dap").debug_tests()
+				end,
+				mode = { "n" },
+				desc = "Debug Tests",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dT",
+				function()
+					require("xcodebuild.integrations.dap").debug_class_tests()
+				end,
+				mode = { "n" },
+				desc = "Debug Class Tests",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>b",
+				function()
+					require("xcodebuild.integrations.dap").toggle_breakpoint()
+				end,
+				mode = { "n" },
+				desc = "Toggle Breakpoint",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>B",
+				function()
+					require("xcodebuild.integrations.dap").toggle_message_breakpoint()
+				end,
+				mode = { "n" },
+				desc = "Toggle Message Breakpoint",
+				-- ft = ios_fts,
+			},
+			{
+				"<localleader>dx",
+				function()
+					require("xcodebuild.integrations.dap").terminate_session()
+				end,
+				mode = { "n" },
+				desc = "Terminate Debugger",
+				-- ft = ios_fts,
+			},
 		},
 	},
 	{
-		"telescope.nvim",
-		lazy = true,
-		-- FIXME: Make better
-		event = "DeferredUIEnter",
-		before = function()
-			require("lz.n").trigger_load("plenary.nvim")
-		end,
-		after = function()
-			require("telescope").setup()
-		end,
+		"whichkey.nvim",
+		opts = { spec = { { "<localleader>x", group = "xcode" }, { "<localleader>d", group = "xcode debug" } } },
 	},
 	{
-		"fidget.nvim",
-		event = "DeferredUIEnter",
-		after = function()
-			local opts = {
-				notification = {
-					window = {
-						normal_hl = "String", -- Base highlight group in the notification window
-						winblend = 0, -- Background color opacity in the notification window
-						border = "rounded", -- Border around the notification window
-						zindex = 45, -- Stacking priority of the notification window
-						max_width = 0, -- Maximum width of the notification window
-						max_height = 0, -- Maximum height of the notification window
-						x_padding = 1, -- Padding from right edge of window boundary
-						y_padding = 1, -- Padding from bottom edge of window boundary
-						align = "bottom", -- How to align the notification window
-						relative = "editor", -- What the notification window position is relative to
-					},
-				},
-			}
-			require("fidget").setup(opts)
-		end,
+		"snacks.nvim",
+		opts = {
+			image = { enabled = true, focusable = false },
+		},
 	},
 }

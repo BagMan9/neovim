@@ -1,4 +1,6 @@
-return {
+local M = {}
+
+M.lz_specs = {
 	{
 		"catppuccin-nvim",
 		lazy = true,
@@ -91,3 +93,5 @@ return {
 		end,
 	},
 }
+
+return M

@@ -1,10 +1,19 @@
 local ios_fts = { "swift", "objc", "objcpp", "metal" }
-return {
+local M = {}
+
+M.lz_specs = {
 	{
 		"nvim-dap",
-		before = function()
-			-- require("lz.n").trigger_load("nvim-dap-virtual-text")
-		end,
+		dependencies = {
+			{ "nvim-dap-python" },
+			{
+				"nvim-dap-virtual-text",
+				lazy = true,
+				after = function()
+					require("nvim-dap-virtual-text").setup()
+				end,
+			},
+		},
 		keys = {
 			{
 				"<leader>dB",
@@ -132,70 +141,6 @@ return {
 				end,
 				desc = "Widgets",
 			},
-			-- TODO: Figure out how much of this can go in normal debug binds
-			{
-				"<localleader>dd",
-				function()
-					require("xcodebuild.integrations.dap").build_and_debug()
-				end,
-				mode = { "n" },
-				desc = "Build & Debug",
-				-- ft = ios_fts,
-			},
-			{
-				"<localleader>dr",
-				function()
-					require("xcodebuild.integrations.dap").debug_without_build()
-				end,
-				mode = { "n" },
-				desc = "Debug Without Building",
-				-- ft = ios_fts,
-			},
-			{
-				"<localleader>dt",
-				function()
-					require("xcodebuild.integrations.dap").debug_tests()
-				end,
-				mode = { "n" },
-				desc = "Debug Tests",
-				-- ft = ios_fts,
-			},
-			{
-				"<localleader>dT",
-				function()
-					require("xcodebuild.integrations.dap").debug_class_tests()
-				end,
-				mode = { "n" },
-				desc = "Debug Class Tests",
-				-- ft = ios_fts,
-			},
-			{
-				"<localleader>b",
-				function()
-					require("xcodebuild.integrations.dap").toggle_breakpoint()
-				end,
-				mode = { "n" },
-				desc = "Toggle Breakpoint",
-				-- ft = ios_fts,
-			},
-			{
-				"<localleader>B",
-				function()
-					require("xcodebuild.integrations.dap").toggle_message_breakpoint()
-				end,
-				mode = { "n" },
-				desc = "Toggle Message Breakpoint",
-				-- ft = ios_fts,
-			},
-			{
-				"<localleader>dx",
-				function()
-					require("xcodebuild.integrations.dap").terminate_session()
-				end,
-				mode = { "n" },
-				desc = "Terminate Debugger",
-				-- ft = ios_fts,
-			},
 		},
 		after = function()
 			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
@@ -214,12 +159,11 @@ return {
 			vscode.json_decode = function(str)
 				return vim.json.decode(json.json_strip_comments(str))
 			end
-			require("lz.n").trigger_load({ "nvim-dap-ui", "nvim-dap-virtual-text", "nvim-dap-python" })
 		end,
 	},
 	{
 		"nvim-dap-ui",
-		dependencies = { "nvim-nio" },
+		dependencies = { { "nvim-nio" }, { "nvim-dap" } },
 		keys = {
 			{
 				"<leader>du",
@@ -237,14 +181,14 @@ return {
 				mode = { "n", "v" },
 			},
 		},
-		after = function()
-			local opts = {
-				floating = {
-					mappings = {
-						close = { "q", "<Esc>" },
-					},
+		opts = {
+			floating = {
+				mappings = {
+					close = { "q", "<Esc>" },
 				},
-			}
+			},
+		},
+		after = function(_, opts)
 			local dap = require("dap")
 			local dapui = require("dapui")
 			dapui.setup(opts)
@@ -262,17 +206,14 @@ return {
 		end,
 	},
 	{
-		lazy = true,
-		"nvim-dap-virtual-text",
-		after = function()
-			require("nvim-dap-virtual-text").setup()
-		end,
-	},
-	{
-		lazy = true,
-		"nvim-dap-python",
-		after = function()
-			require("dap-python").setup("debugpy-adapter")
-		end,
+		"whichkey.nvim",
+		opts = {
+			specs = {
+				{ "<leader>d", group = "debug" },
+				{ "<leader>dp", group = "profiler" },
+			},
+		},
 	},
 }
+
+return M

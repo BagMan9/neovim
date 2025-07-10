@@ -1,11 +1,13 @@
-return {
-	{
-		"vim-repeat",
-		event = "DeferredUIEnter",
-	},
+local M = {}
+
+M.lz_specs = {
 	{
 		"flash.nvim",
+		dependencies = {
+			{ "vim-repeat" },
+		},
 		event = "User LazyFile",
+		opts = { modes = { char = { jump_labels = true } } },
 		keys = {
 			{
 				"s",
@@ -48,43 +50,39 @@ return {
 				desc = "Toggle Flash Search",
 			},
 		},
-		after = function()
-			local opts = {
-				modes = { char = { jump_labels = true } },
-			}
+		after = function(_, opts)
 			require("flash").setup(opts)
 		end,
 	},
 	{
 		"mini.ai",
-		event = "DeferredUIEnter",
-		after = function()
-			local ai = require("mini.ai")
-			local opts = {
-				n_lines = 500,
-				custom_textobjects = {
-					o = ai.gen_spec.treesitter({ -- code block
-						a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-					}),
-					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
-					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-					d = { "%f[%d]%d+" }, -- digits
-					e = { -- Word with case
-						{
-							"%u[%l%d]+%f[^%l%d]",
-							"%f[%S][%l%d]+%f[^%l%d]",
-							"%f[%P][%l%d]+%f[^%l%d]",
-							"^[%l%d]+%f[^%l%d]",
-						},
-						"^().*()$",
+		event = "VeryLazy",
+		opts = {
+			n_lines = 500,
+			custom_textobjects = {
+				o = require("mini.ai").gen_spec.treesitter({ -- code block
+					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+				}),
+				f = require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+				c = require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+				t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+				d = { "%f[%d]%d+" }, -- digits
+				e = { -- Word with case
+					{
+						"%u[%l%d]+%f[^%l%d]",
+						"%f[%S][%l%d]+%f[^%l%d]",
+						"%f[%P][%l%d]+%f[^%l%d]",
+						"^[%l%d]+%f[^%l%d]",
 					},
-					g = Utils.ai_buffer, -- buffer
-					u = ai.gen_spec.function_call(), -- u for "Usage"
-					U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+					"^().*()$",
 				},
-			}
+				g = Utils.ai_buffer, -- buffer
+				u = require("mini.ai").gen_spec.function_call(), -- u for "Usage"
+				U = require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+			},
+		},
+		after = function(_, opts)
 			require("mini.ai").setup(opts)
 		end,
 	},
@@ -92,37 +90,40 @@ return {
 		--NOTE: Not setting keys because I don't need it probably, do not forget
 		"comment.nvim",
 		event = "User LazyFile",
-		after = function()
-			require("Comment").setup()
+		dependencies = {
+			{ "nvim-ts-context-commentstring" },
+		},
+		after = function(_, opts)
+			require("Comment").setup(opts)
 		end,
 	},
 	{
 		"nvim-surround",
 		event = "User LazyFile",
-		after = function()
-			local opts = {
-				keymaps = {
-					normal = "yz",
-					normal_cur = "yzz",
-					normal_line = "yZ",
-					normal_cur_line = "yZZ",
-					visual = "Z",
-					visual_line = "gZ",
-					delete = "dz",
-					change = "cz",
-					change_line = "cZ",
-				},
-			}
+		opts = {
+			keymaps = {
+				normal = "yz",
+				normal_cur = "yzz",
+				normal_line = "yZ",
+				normal_cur_line = "yZZ",
+				visual = "Z",
+				visual_line = "gZ",
+				delete = "dz",
+				change = "cz",
+				change_line = "cZ",
+			},
+		},
+		after = function(_, opts)
 			require("nvim-surround").setup(opts)
 		end,
 	},
 	{
 		"yanky.nvim",
 		event = "User LazyFile",
-		after = function()
-			local opts = {
-				highlight = { timer = 150 },
-			}
+		opts = {
+			highlight = { timer = 150 },
+		},
+		after = function(_, opts)
 			require("yanky").setup(opts)
 		end,
 		keys = {
@@ -154,3 +155,5 @@ return {
 		},
 	},
 }
+
+return M

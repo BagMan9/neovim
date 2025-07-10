@@ -2,156 +2,156 @@ local M = {}
 
 M.docshow = false
 --FIXME: Something is up with snippets, some of them cause blink to stop showing & act weird
-return {
+
+M.lz_specs = {
 	{
 		"blink.cmp",
 		event = "InsertEnter",
-		before = function()
-			require("lz.n").trigger_load({
-				"colorful-menu",
-				"LuaSnip",
-				"lazydev.nvim",
-				"blink-cmp-git",
-				"blink-cmp-avante",
-			})
-			require("colorful-menu").setup()
-		end,
-		after = function()
-			local opts = {
-				-- snippets = {
-				-- 	expand = function(snippet, _)
-				-- 		return LazyVim.cmp.expand(snippet)
-				-- 	end,
-				--
-				-- 	preset = "luasnip",
-				-- },
-				appearance = {
-					use_nvim_cmp_as_default = false,
-					nerd_font_variant = "mono",
-					kind_icons = Utils.lazy_defaults.icons.kinds,
-				},
-				completion = {
-					accept = {
-						auto_brackets = {
-							enabled = true,
-						},
-					},
-					list = {
-						selection = {
-							preselect = true,
-							auto_insert = false,
-						},
-					},
-					trigger = {
-						show_in_snippet = false,
-					},
-
-					menu = {
-						winblend = 0,
-						border = "rounded",
-						scrollbar = false,
-						scrolloff = 1,
-						draw = {
-							padding = 2,
-							treesitter = { "lsp" },
-							columns = { { "kind_icon" }, { "label", gap = 1 } },
-							components = {
-								label = {
-									text = function(ctx)
-										return require("colorful-menu").blink_components_text(ctx)
-									end,
-									highlight = function(ctx)
-										return require("colorful-menu").blink_components_highlight(ctx)
-									end,
-								},
-							},
-						},
-					},
-					documentation = {
-						auto_show = false,
-						window = { border = "rounded" },
-					},
-					ghost_text = {
+		dependencies = {
+			{
+				"colorful-menu.nvim",
+				after = function(_, opts)
+					require("colorful-menu").setup(opts)
+				end,
+			},
+			{ "luasnip" },
+			{ "lazydev.nvim" },
+			{ "blink-cmp-git" },
+			{ "blink-cmp-avante" },
+		},
+		opts = { -- snippets = {
+			-- 	expand = function(snippet, _)
+			-- 		return LazyVim.cmp.expand(snippet)
+			-- 	end,
+			--
+			-- 	preset = "luasnip",
+			-- },
+			appearance = {
+				use_nvim_cmp_as_default = false,
+				nerd_font_variant = "mono",
+				kind_icons = Utils.lazy_defaults.icons.kinds,
+			},
+			completion = {
+				accept = {
+					auto_brackets = {
 						enabled = true,
 					},
 				},
-				signature = {
-					enabled = true,
-					trigger = {
-						show_on_keyword = true,
-					},
-					window = {
-						border = "rounded",
-						show_documentation = false,
+				list = {
+					selection = {
+						preselect = true,
+						auto_insert = false,
 					},
 				},
-				sources = {
-					compat = {},
-					default = { "avante", "git", "lsp", "path", "snippets", "buffer", "lazydev" },
-					providers = {
-						lazydev = {
-							name = "LazyDev",
-							module = "lazydev.integrations.blink",
-							score_offset = 100, -- show at a higher priority than lsp
-						},
-						avante = {
-							module = "blink-cmp-avante",
-							name = "Avante",
-						},
-						git = {
-							module = "blink-cmp-git",
-							name = "Git",
-							enabled = function()
-								return vim.tbl_contains({ 'octo", "gitcommit', "markdown" }, vim.bo.filetype)
-							end,
-							opts = {},
-						},
-					},
+				trigger = {
+					show_in_snippet = false,
 				},
-				snippets = {
-					preset = "luasnip",
-				},
-				cmdline = {
-					enabled = false,
-				},
-				keymap = {
-					preset = "super-tab",
-					["<C-j>"] = { "select_next", "fallback" },
-					["<C-k>"] = { "select_prev", "fallback" },
-					["<Tab>"] = {
-						function(cmp)
-							if cmp.snippet_active() then
-								return cmp.accept()
-							else
-								return cmp.select_and_accept()
-							end
-						end,
-						"snippet_forward",
-						"fallback",
-					},
-					["<S-Tab>"] = { "snippet_backward", "fallback" },
-					["<C-b>"] = { "scroll_documentation_up", "fallback" },
-					["<C-f>"] = { "scroll_documentation_down", "fallback" },
-					["<C-space>"] = {
-						function(cmp)
-							-- Toggle signature documentation view
-							if cmp.is_signature_visible() then
-								cmp.hide_signature()
-								require("blink.cmp.config").signature.window.show_documentation = not M.docshow
-								M.docshow = not M.docshow
-								vim.schedule(cmp.show_signature)
-								return true
-							end
-						end,
-						"show",
-						"show_documentation",
-						"hide_documentation",
-					},
-					["<C-e>"] = { "hide_signature", "hide", "fallback" },
-					["<CR>"] = { "fallback" },
-				},
-			}
 
+				menu = {
+					winblend = 0,
+					border = "rounded",
+					scrollbar = false,
+					scrolloff = 1,
+					draw = {
+						padding = 2,
+						treesitter = { "lsp" },
+						columns = { { "kind_icon" }, { "label", gap = 1 } },
+						components = {
+							label = {
+								text = function(ctx)
+									return require("colorful-menu").blink_components_text(ctx)
+								end,
+								highlight = function(ctx)
+									return require("colorful-menu").blink_components_highlight(ctx)
+								end,
+							},
+						},
+					},
+				},
+				documentation = {
+					auto_show = false,
+					window = { border = "rounded" },
+				},
+				ghost_text = {
+					enabled = true,
+				},
+			},
+			signature = {
+				enabled = true,
+				trigger = {
+					show_on_keyword = true,
+				},
+				window = {
+					border = "rounded",
+					show_documentation = false,
+				},
+			},
+			sources = {
+				compat = {},
+				default = { "avante", "git", "lsp", "path", "snippets", "buffer", "lazydev" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100, -- show at a higher priority than lsp
+					},
+					avante = {
+						module = "blink-cmp-avante",
+						name = "Avante",
+					},
+					git = {
+						module = "blink-cmp-git",
+						name = "Git",
+						enabled = function()
+							return vim.tbl_contains({ 'octo", "gitcommit', "markdown" }, vim.bo.filetype)
+						end,
+						opts = {},
+					},
+				},
+			},
+
+			cmdline = {
+				enabled = false,
+			},
+			keymap = {
+				preset = "super-tab",
+				["<C-j>"] = { "select_next", "fallback" },
+				["<C-k>"] = { "select_prev", "fallback" },
+				["<Tab>"] = {
+					function(cmp)
+						if cmp.snippet_active() then
+							return cmp.accept()
+						else
+							return cmp.select_and_accept()
+						end
+					end,
+					"snippet_forward",
+					"fallback",
+				},
+				["<S-Tab>"] = { "snippet_backward", "fallback" },
+				["<C-b>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+				["<C-space>"] = {
+					function(cmp)
+						-- Toggle signature documentation view
+						if cmp.is_signature_visible() then
+							cmp.hide_signature()
+							require("blink.cmp.config").signature.window.show_documentation = not M.docshow
+							M.docshow = not M.docshow
+							vim.schedule(cmp.show_signature)
+							return true
+						end
+					end,
+					"show",
+					"show_documentation",
+					"hide_documentation",
+				},
+				["<C-e>"] = { "hide_signature", "hide", "fallback" },
+				["<CR>"] = { "fallback" },
+			},
+		},
+
+		after = function(_, opts)
 			-- setup compat sources
 			local enabled = opts.sources.default
 			for _, source in ipairs(opts.sources.compat or {}) do
@@ -212,12 +212,6 @@ return {
 			require("blink.cmp").setup(opts)
 		end,
 	},
-	{
-		"blink-cmp-git",
-		enabled = true,
-	},
-	{
-		"blink-cmp-avante",
-		enabled = true,
-	},
 }
+
+return M

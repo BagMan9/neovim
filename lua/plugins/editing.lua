@@ -1,21 +1,23 @@
-return {
-	{
-		"harpoon2",
-		after = function()
-			local opts = {
-				menu = {
-					width = vim.api.nvim_win_get_width(0) - 4,
-				},
-				settings = {
-					save_on_toggle = true,
-				},
-			}
-		end,
-	},
+local M = {}
+
+M.lz_specs = {
+	-- 	{
+	-- 		"harpoon2",
+	-- opts = {
+	-- 				menu = {
+	-- 					width = vim.api.nvim_win_get_width(0) - 4,
+	-- 				},
+	-- 				settings = {
+	-- 					save_on_toggle = true,
+	-- 				},
+	-- 			},
+	-- 		after = function()
+	-- 		end,
+	-- 	},
 	{
 		"grug-far.nvim",
-		after = function()
-			local opts = { headerMaxWidth = 80, engines = { ripgrep = { extraArgs = "-P" } } }
+		opts = { headerMaxWidth = 80, engines = { ripgrep = { extraArgs = "-P" } } },
+		after = function(_, opts)
 			require("grug-far").setup(opts)
 		end,
 		cmd = "GrugFar",
@@ -81,9 +83,7 @@ return {
 	{
 		"refactoring.nvim",
 		event = { "BufReadPre", "BufNewFile" },
-		before = function()
-			require("lz.n").trigger_load({ "plenary.nvim" })
-		end,
+		dependencies = { { "plenary.nvim" } },
 		keys = {
 			{ "<leader>r", "", desc = "+refactor", mode = { "n", "v" } },
 			{
@@ -199,14 +199,6 @@ return {
 		end,
 	},
 	{
-		"lazydev.nvim",
-		ft = "lua",
-		cmd = "LazyDev",
-		after = function()
-			require("lazydev").setup()
-		end,
-	},
-	{
 		"neogen",
 		cmd = "Neogen",
 		keys = {
@@ -227,34 +219,55 @@ return {
 	},
 	{
 		"neo-tree.nvim",
-		lazy = false,
+		cmd = "Neotree",
 		keys = {
 			{ "<leader>e", "<cmd>Neotree filesystem toggle left<CR>", desc = "File Explorer" },
 		},
-		after = function()
-			local opts = {
-				window = {
-					position = "left",
-					width = 30,
+		opts = {
+			window = {
+				position = "left",
+				width = 30,
+			},
+			event_handlers = {
+				{
+					event = "neo_tree_buffer_enter",
+					handler = function()
+						vim.cmd("highlight! Cursor blend=100")
+					end,
 				},
-				event_handlers = {
-					{
-						event = "neo_tree_buffer_enter",
-						handler = function()
-							vim.cmd("highlight! Cursor blend=100")
-						end,
-					},
-					{
-						event = "neo_tree_buffer_leave",
-						handler = function()
-							-- Make this whatever your current Cursor highlight group is.
-							vim.cmd("highlight! Cursor blend=0")
-						end,
-					},
+				{
+					event = "neo_tree_buffer_leave",
+					handler = function()
+						-- Make this whatever your current Cursor highlight group is.
+						vim.cmd("highlight! Cursor blend=0")
+					end,
 				},
-			}
-
+			},
+		},
+		after = function(_, opts)
 			require("neo-tree").setup(opts)
 		end,
 	},
+	{
+		"mini.pairs",
+		event = "VeryLazy",
+
+		opts = {
+			modes = { insert = true, command = true, terminal = false },
+			-- skip autopair when next character is one of these
+			skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
+			-- skip autopair when the cursor is inside these treesitter nodes
+			skip_ts = { "string" },
+			-- skip autopair when next character is closing pair
+			-- and there are more closing pairs than opening pairs
+			skip_unbalanced = true,
+			-- better deal with markdown code blocks
+			markdown = true,
+		},
+		after = function(_, opts)
+			Utils.pairs(opts)
+		end,
+	},
 }
+
+return M

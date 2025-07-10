@@ -1,4 +1,6 @@
-return {
+local M = {}
+
+M.lz_specs = {
 	{
 		"kulala.nvim",
 		keys = {
@@ -24,3 +26,5 @@ return {
 		end,
 	},
 }
+
+return M

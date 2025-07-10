@@ -1,4 +1,6 @@
 _G.Utils = require("my.utils")
+_G.Lazy = require("lz.n")
+-- _G.Plugins = require("plugins")
 
 ---@class MyVim
 ---@field events MyVim.lazyfile
@@ -18,12 +20,16 @@ setmetatable(M, {
 function M.init()
 	MyVim.events.init_lazy_file()
 	M.pre_setup()
-	require("lz.n").load("plugins")
+	-- Plugins.create_npins()
+
+	require("lzl").lzl_setup({ spec = { import = "plugins" } })
+
 	vim.cmd.colorscheme("catppuccin")
 
 	require("keymaps")
 end
 
+---@return nil
 function M.pre_setup()
 	-- Experimental Loader
 	vim.loader.enable()

@@ -25,10 +25,11 @@ end
 function M.resolve(buffer)
 	local specs = MyVim.intellisense.get()
 
-	local intel_conf = MyVim.intellisense.config
+	local lsp_plugin = require("lzl.config").spec.plugins["nvim-lspconfig"]
+	local lsp_conf = require("lzl.plugin").values(lsp_plugin, "opts", false)
 	local clients = Utils.lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
-		local maps = intel_conf.lsp.servers[client.name] and intel_conf.lsp.servers[client.name].keys or {}
+		local maps = lsp_conf.servers[client.name] and lsp_conf.servers[client.name].keys or {}
 		vim.list_extend(specs, maps)
 	end
 	return specs
