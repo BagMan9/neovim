@@ -1,10 +1,4 @@
-local M = {}
-
-M.lz_specs = {
-	--TODO:
-	-- Solve smart-splits issue (annoying)
-	-- Go through lazyvim website one last time
-	-- Then you may add new plugins
+return {
 	{
 		"nvim-lspconfig",
 		dependencies = {
@@ -178,57 +172,6 @@ M.lz_specs = {
 		end,
 	},
 	{
-		"trouble.nvim",
-		cmd = { "Trouble" },
-		after = function()
-			local opts = {
-				modes = {
-					lsp = {
-						win = { position = "right" },
-					},
-				},
-			}
-
-			require("trouble").setup(opts)
-		end,
-		keys = {
-			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
-			{ "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
-			{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-			{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
-			{
-				"[q",
-				function()
-					if require("trouble").is_open() then
-						require("trouble").prev({ skip_groups = true, jump = true })
-					else
-						local ok, err = pcall(vim.cmd.cprev)
-						if not ok then
-							vim.notify(err, vim.log.levels.ERROR)
-						end
-					end
-				end,
-				desc = "Previous Trouble/Quickfix Item",
-			},
-			{
-				"]q",
-				function()
-					if require("trouble").is_open() then
-						require("trouble").next({ skip_groups = true, jump = true })
-					else
-						local ok, err = pcall(vim.cmd.cnext)
-						if not ok then
-							vim.notify(err, vim.log.levels.ERROR)
-						end
-					end
-				end,
-				desc = "Next Trouble/Quickfix Item",
-			},
-		},
-	},
-	{
 		"nvim-lint",
 		enabled = true,
 		event = "User LazyFile",
@@ -314,15 +257,7 @@ M.lz_specs = {
 		opts = {
 			specs = {
 				{ "<leader>c", group = "code" },
-				{ "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
 			},
 		},
 	},
-	-- {
-	-- 	"outline.nvim",
-	-- 	keys = { { "<leader>cs", "<cmd>Outline<cr>", desc = "Toggle Outline" } },
-	-- 	cmd = "Outline",
-	-- },
 }
-
-return M

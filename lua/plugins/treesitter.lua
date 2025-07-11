@@ -3,6 +3,7 @@ local M = {}
 M.lz_specs = {
 	{
 		"nvim-treesitter-context",
+		lazy = false,
 		event = "User LazyFile",
 	},
 	{
@@ -77,10 +78,10 @@ M.lz_specs = {
 		"nvim-ts-context-commentstring",
 		lazy = true,
 	},
-	{
-		"ts-comments.nvim",
-		event = "VeryLazy",
-	},
+	-- {
+	-- 	"ts-comments.nvim",
+	-- 	event = "VeryLazy",
+	-- },
 }
 
 return M

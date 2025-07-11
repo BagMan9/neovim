@@ -15,70 +15,12 @@ M.lz_specs = {
 	-- 		end,
 	-- 	},
 	{
-		"grug-far.nvim",
-		opts = { headerMaxWidth = 80, engines = { ripgrep = { extraArgs = "-P" } } },
-		after = function(_, opts)
-			require("grug-far").setup(opts)
-		end,
-		cmd = "GrugFar",
-		keys = {
-			{
-				"<leader>sr",
-				function()
-					local grug = require("grug-far")
-					local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-					grug.open({
-						transient = true,
-						prefills = {
-							filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-						},
-					})
-				end,
-				mode = { "n", "v" },
-				desc = "Search and Replace",
-			},
-		},
-	},
-	{
 		"inc-rename.nvim",
 		lazy = false,
 		cmd = "IncRename",
 		after = function()
 			require("inc_rename").setup()
 		end,
-	},
-	{
-		"todo-comments.nvim",
-		cmd = { "TodoTrouble", "TodoTelescope" },
-		event = "User LazyFile",
-		after = function()
-			local opts = {}
-			require("todo-comments").setup(opts)
-		end,
-		keys = {
-			{
-				"]t",
-				function()
-					require("todo-comments").jump_next()
-				end,
-				desc = "Next Todo Comment",
-			},
-			{
-				"[t",
-				function()
-					require("todo-comments").jump_prev()
-				end,
-				desc = "Previous Todo Comment",
-			},
-			{ "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
-			{
-				"<leader>xT",
-				"<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>",
-				desc = "Todo/Fix/Fixme (Trouble)",
-			},
-			{ "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-			{ "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
-		}, -- from spec 2,
 	},
 	{
 		"refactoring.nvim",
@@ -251,7 +193,6 @@ M.lz_specs = {
 	{
 		"mini.pairs",
 		event = "VeryLazy",
-
 		opts = {
 			modes = { insert = true, command = true, terminal = false },
 			-- skip autopair when next character is one of these

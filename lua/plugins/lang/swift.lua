@@ -67,8 +67,18 @@ return {
 					require("telescope").setup(opts)
 				end,
 			},
-			{ "fidget.nvim" },
+			{
+				"fidget.nvim",
+				opts = {
+					integration = {
+						["xcodebuild-nvim"] = {
+							enable = true,
+						},
+					},
+				},
+			},
 			{ "neo-tree.nvim" },
+			{ "nvim-dap" },
 		},
 		after = function()
 			local progress_handle
@@ -120,14 +130,14 @@ return {
 				"<cmd>XcodebuildPicker<cr>",
 				mode = { "n" },
 				desc = "Show Xcodebuild Actions",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xf",
 				"<cmd>XcodebuildProjectManager<cr>",
 				mode = { "n" },
 				desc = "Show Project Manager Actions",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 
 			{
@@ -135,21 +145,21 @@ return {
 				"<cmd>XcodebuildBuild<cr>",
 				mode = { "n" },
 				desc = "Build Project",
-				-- ft = ios_fts
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xB",
 				"<cmd>XcodebuildBuildForTesting<cr>",
 				mode = { "n" },
 				desc = "Build For Testing",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xr",
 				"<cmd>XcodebuildBuildRun<cr>",
 				mode = { "n" },
 				desc = "Build & Run Project",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 
 			{
@@ -157,28 +167,28 @@ return {
 				"<cmd>XcodebuildTest<cr>",
 				mode = { "n" },
 				desc = "Run Tests",
-				-- ft = ios_fts
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xt",
 				"<cmd>XcodebuildTestSelected<cr>",
 				mode = { "v" },
 				desc = "Run Selected Tests",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xT",
 				"<cmd>XcodebuildTestClass<cr>",
 				mode = { "n" },
 				desc = "Run Current Test Class",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>x.",
 				"<cmd>XcodebuildTestRepeat<cr>",
 				mode = { "n" },
 				desc = "Repeat Last Test Run",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 
 			{
@@ -186,35 +196,35 @@ return {
 				"<cmd>XcodebuildToggleLogs<cr>",
 				mode = { "n" },
 				desc = "Toggle Xcodebuild Logs",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xc",
 				"<cmd>XcodebuildToggleCodeCoverage<cr>",
 				mode = { "n" },
 				desc = "Toggle Code Coverage",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xC",
 				"<cmd>XcodebuildShowCodeCoverageReport<cr>",
 				mode = { "n" },
 				desc = "Show Code Coverage Report",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xe",
 				"<cmd>XcodebuildTestExplorerToggle<cr>",
 				mode = { "n" },
 				desc = "Toggle Test Explorer",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xs",
 				"<cmd>XcodebuildFailingSnapshots<cr>",
 				mode = { "n" },
 				desc = "Show Failing Snapshots",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 
 			{
@@ -223,14 +233,14 @@ return {
 				"<cmd>XcodebuildPreviewGenerateAndShow hotReload<cr>",
 				mode = { "n" },
 				desc = "Generate Preview",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>x<cr>",
 				"<cmd>XcodebuildPreviewToggle<cr>",
 				mode = { "n" },
 				desc = "Toggle Preview",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 
 			{
@@ -238,14 +248,14 @@ return {
 				"<cmd>XcodebuildSelectDevice<cr>",
 				mode = { "n" },
 				desc = "Select Device",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xq",
 				"<cmd>Telescope quickfix<cr>",
 				mode = { "n" },
 				desc = "Show QuickFix List",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 
 			{
@@ -253,14 +263,14 @@ return {
 				"<cmd>XcodebuildQuickfixLine<cr>",
 				mode = { "n" },
 				desc = "Quickfix Line",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>xa",
 				"<cmd>XcodebuildCodeActions<cr>",
 				mode = { "n" },
 				desc = "Show Code Actions",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			-- TODO: Figure out how much of this can go in normal debug binds
 			{
@@ -270,7 +280,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Build & Debug",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>dr",
@@ -279,7 +289,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Debug Without Building",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>dt",
@@ -288,7 +298,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Debug Tests",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>dT",
@@ -297,7 +307,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Debug Class Tests",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>b",
@@ -306,7 +316,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Toggle Breakpoint",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>B",
@@ -315,7 +325,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Toggle Message Breakpoint",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 			{
 				"<localleader>dx",
@@ -324,7 +334,7 @@ return {
 				end,
 				mode = { "n" },
 				desc = "Terminate Debugger",
-				-- ft = ios_fts,
+				ft = ios_fts,
 			},
 		},
 	},
