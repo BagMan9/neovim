@@ -60,7 +60,6 @@ return {
 			{
 				"telescope.nvim",
 				lazy = true,
-				-- FIXME: Make better
 				event = "VeryLazy",
 				dependencies = { { "plenary.nvim" } },
 				after = function(_, opts)

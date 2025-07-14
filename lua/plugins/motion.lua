@@ -1,12 +1,45 @@
-local M = {}
+return {
 
-M.lz_specs = {
+	{
+		"mini.ai",
+		event = "VeryLazy",
+
+		after = function(_, opts)
+			opts = {
+				n_lines = 500,
+				custom_textobjects = {
+					o = require("mini.ai").gen_spec.treesitter({ -- code block
+						a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+					}),
+					f = require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+					c = require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+					d = { "%f[%d]%d+" }, -- digits
+					e = { -- Word with case
+						{
+							"%u[%l%d]+%f[^%l%d]",
+							"%f[%S][%l%d]+%f[^%l%d]",
+							"%f[%P][%l%d]+%f[^%l%d]",
+							"^[%l%d]+%f[^%l%d]",
+						},
+						"^().*()$",
+					},
+					g = Utils.ai_buffer, -- buffer
+					u = require("mini.ai").gen_spec.function_call(), -- u for "Usage"
+					U = require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
+				},
+			}
+			require("mini.ai").setup(opts)
+		end,
+	},
 	{
 		"flash.nvim",
 		dependencies = {
 			{ "vim-repeat" },
 		},
-		event = "User LazyFile",
+		lazy = false,
+		event = "VeryLazy",
 		opts = { modes = { char = { jump_labels = true } } },
 		keys = {
 			{
@@ -55,41 +88,10 @@ M.lz_specs = {
 		end,
 	},
 	{
-		"mini.ai",
-		event = "VeryLazy",
-		opts = {
-			n_lines = 500,
-			custom_textobjects = {
-				o = require("mini.ai").gen_spec.treesitter({ -- code block
-					a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-					i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-				}),
-				f = require("mini.ai").gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-				c = require("mini.ai").gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
-				t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-				d = { "%f[%d]%d+" }, -- digits
-				e = { -- Word with case
-					{
-						"%u[%l%d]+%f[^%l%d]",
-						"%f[%S][%l%d]+%f[^%l%d]",
-						"%f[%P][%l%d]+%f[^%l%d]",
-						"^[%l%d]+%f[^%l%d]",
-					},
-					"^().*()$",
-				},
-				g = Utils.ai_buffer, -- buffer
-				u = require("mini.ai").gen_spec.function_call(), -- u for "Usage"
-				U = require("mini.ai").gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
-			},
-		},
-		after = function(_, opts)
-			require("mini.ai").setup(opts)
-		end,
-	},
-	{
 		--NOTE: Not setting keys because I don't need it probably, do not forget
 		"comment.nvim",
-		event = "User LazyFile",
+		lazy = false,
+		event = "VeryLazy",
 		dependencies = {
 			{ "nvim-ts-context-commentstring" },
 		},
@@ -99,7 +101,7 @@ M.lz_specs = {
 	},
 	{
 		"nvim-surround",
-		event = "User LazyFile",
+		event = "LazyFile",
 		opts = {
 			keymaps = {
 				normal = "yz",
@@ -155,5 +157,3 @@ M.lz_specs = {
 		},
 	},
 }
-
-return M
