@@ -140,7 +140,7 @@ M.lz_specs = {
 		},
 	},
 	{
-		"whichkey.nvim",
+		"which-key.nvim",
 		opts = {
 			specs = {
 				{ "<leader>g", group = "git" },

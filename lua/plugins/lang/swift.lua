@@ -10,31 +10,31 @@ local ios_fts = { "swift", "objc", "objcpp", "metal" }
 -- Need swift dependencies to properly see device targets: https://github.com/wojciech-kulik/require("xcodebuild.integrations.dap").nvim/issues/285
 -- Await sourcekit update, inlay hints currently disabled https://github.com/swiftlang/sourcekit-lsp/issues/2021
 return {
-	{
-		"nvim-lspconfig",
-		opts = {
-			servers = {
-				-- TODO: Get swift debugger?? lldb-dap
-				sourcekit = {
-					enabled = true,
-					capabilities = {
-						workspace = {
-							didChangeWatchedFiles = {
-								dynamicRegistration = true,
-							},
-						},
-					},
-				},
-			},
-			setup = {
-				sourcekit = function()
-					Utils.lsp.on_attach(function(client, _)
-						client.server_capabilities.inlayHintProvider = false
-					end)
-				end,
-			},
-		},
-	},
+	-- {
+	-- 	"nvim-lspconfig",
+	-- 	opts = {
+	-- 		servers = {
+	-- 			-- TODO: Get swift debugger?? lldb-dap
+	-- 			sourcekit = {
+	-- 				enabled = true,
+	-- 				capabilities = {
+	-- 					workspace = {
+	-- 						didChangeWatchedFiles = {
+	-- 							dynamicRegistration = true,
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		setup = {
+	-- 			sourcekit = function()
+	-- 				Utils.lsp.on_attach(function(client, _)
+	-- 					client.server_capabilities.inlayHintProvider = false
+	-- 				end)
+	-- 			end,
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"conform.nvim",
 		opts = {
@@ -338,7 +338,7 @@ return {
 		},
 	},
 	{
-		"whichkey.nvim",
+		"which-key.nvim",
 		opts = { spec = { { "<localleader>x", group = "xcode" }, { "<localleader>d", group = "xcode debug" } } },
 	},
 	{

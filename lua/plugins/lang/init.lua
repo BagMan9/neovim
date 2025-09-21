@@ -253,7 +253,7 @@ return {
 		end,
 	},
 	{
-		"whichkey.nvim",
+		"which-key.nvim",
 		opts = {
 			specs = {
 				{ "<leader>c", group = "code" },

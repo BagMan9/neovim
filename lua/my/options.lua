@@ -2,11 +2,21 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 local opt = vim.opt
 
+vim.g.vimtex_enabled = 1
+vim.g.vimtex_mappings_enabled = 1
+vim.g.vimtex_mappings_override_existing = 1
+vim.g.vimtex_mappings_disable = { ["n"] = { "K" } } -- disable `K` as it conflicts with LSP hover
+vim.g.vimtex_view_method = "sioyek"
+vim.g.vimtex_callback_progpath = vim.fn.exepath(vim.v.progname)
+vim.opt.rtp:prepend("/Users/isaac/.local/share/lzl/mnw-plugins/vimtex") -- RTP fuckery messes with loading
+
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.cmd("filetype plugin indent on")
 -- TODO: Figure out how to fix current line only
 -- See https://github.com/neovim/neovim/issues/23526
 vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
 opt.showmode = false
+opt.exrc = true
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0

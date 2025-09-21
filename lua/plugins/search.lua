@@ -1,6 +1,6 @@
 return {
 	{
-		"whichkey.nvim",
+		"which-key.nvim",
 		opts = {
 			specs = {
 				{ "<leader>f", group = "file/find" },

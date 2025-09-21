@@ -18,6 +18,12 @@ M.lz_specs = {
 			{ "lazydev.nvim" },
 			{ "blink-cmp-git" },
 			{ "blink-cmp-avante" },
+			{ "cmp-vimtex", dependencies = {
+				{
+					"blink.compat",
+					lazy = true,
+				},
+			} },
 		},
 		opts = { -- snippets = {
 			-- 	expand = function(snippet, _)
@@ -88,7 +94,7 @@ M.lz_specs = {
 			},
 			sources = {
 				compat = {},
-				default = { "avante", "git", "lsp", "path", "snippets", "buffer", "lazydev" },
+				default = { "avante", "git", "lsp", "path", "snippets", "vimtex", "buffer", "lazydev" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
@@ -106,6 +112,12 @@ M.lz_specs = {
 							return vim.tbl_contains({ 'octo", "gitcommit', "markdown" }, vim.bo.filetype)
 						end,
 						opts = {},
+					},
+					vimtex = {
+						name = "vimtex",
+						min_keyword_length = 2,
+						module = "blink.compat.source",
+						score_offset = 80,
 					},
 				},
 			},

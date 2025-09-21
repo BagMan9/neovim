@@ -53,7 +53,7 @@ M.lz_specs = {
 		},
 	},
 	{
-		"whichkey.nvim",
+		"which-key.nvim",
 		opts = {
 			specs = {
 				{ "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },

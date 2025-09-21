@@ -159,6 +159,40 @@ M.lz_specs = {
 			vscode.json_decode = function(str)
 				return vim.json.decode(json.json_strip_comments(str))
 			end
+			local dap = require("dap")
+			dap.adapters.remotecpp = {
+				type = "executable",
+				command = "/Users/isaac/Dev/codelldbpath/extension/adapter/codelldb",
+			}
+			for _, lang in ipairs({ "cpp", "cuda" }) do
+				dap.configurations[lang] = {
+					{
+						type = "remotecpp",
+						request = "launch",
+						name = "Remote Debug",
+						initCommands = {
+							"platform select remote-linux",
+							"platform connect connect://100.115.79.12:9998",
+							-- "process handle -n false -p true -s false SIGSTOP",
+							"settings set target.import-std-module true",
+							"settings set target.inherit-env false",
+						},
+						targetCreateCommands = { "target create app" },
+						stopOnEntry = false,
+						stopOnExit = true,
+						-- processCreateCommands = { "run" },
+						-- sourceMap = { ["/Users/isaac/" .. get_relative_cwd()] = "/home/isaac/" .. get_relative_cwd() },
+						-- cwd = "/home/isaac/" .. get_relative_cwd(),
+					},
+					{
+						type = "remotecpp",
+						request = "attach",
+						name = "Attach to process",
+						pid = require("dap.utils").pick_process,
+						cwd = "${workspaceFolder}",
+					},
+				}
+			end
 		end,
 	},
 	{
@@ -206,7 +240,7 @@ M.lz_specs = {
 		end,
 	},
 	{
-		"whichkey.nvim",
+		"which-key.nvim",
 		opts = {
 			specs = {
 				{ "<leader>d", group = "debug" },

@@ -89,6 +89,10 @@ M.lz_specs = {
 					}
 				end,
 			}
+			local buf_mod = require("catppuccin.groups.integrations.bufferline")
+			if buf_mod then
+				buf_mod.get = buf_mod.get_theme
+			end
 			require("catppuccin").setup(opts)
 		end,
 	},

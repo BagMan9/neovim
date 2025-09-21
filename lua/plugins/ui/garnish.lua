@@ -26,7 +26,7 @@ return {
 	{
 		"mini.icons",
 		lazy = true,
-		init = function()
+		before = function()
 			package.preload["nvim-web-devicons"] = function()
 				require("mini.icons").mock_nvim_web_devicons()
 				return package.loaded["nvim-web-devicons"]
@@ -45,23 +45,23 @@ return {
 			require("mini.icons").setup(opts)
 		end,
 	},
-	{
-		"nvim-navic",
-		after = function()
-			local opts = {
-				highlight = true,
-				depth_limit = 3,
-			}
-			require("nvim-navic").setup(opts)
-		end,
-		beforeAll = function()
-			vim.g.navic_silence = true
-			Utils.lsp.on_attach(function(client, buffer)
-				---@diagnostic disable-next-line
-				if client.supports_method("textDocument/documentSymbol") then
-					require("nvim-navic").attach(client, buffer)
-				end
-			end)
-		end,
-	},
+	-- {
+	-- 	"nvim-navic",
+	-- 	after = function()
+	-- 		local opts = {
+	-- 			highlight = true,
+	-- 			depth_limit = 3,
+	-- 		}
+	-- 		require("nvim-navic").setup(opts)
+	-- 	end,
+	-- 	beforeAll = function()
+	-- 		vim.g.navic_silence = true
+	-- 		Utils.lsp.on_attach(function(client, buffer)
+	-- 			---@diagnostic disable-next-line
+	-- 			if client.supports_method("textDocument/documentSymbol") then
+	-- 				require("nvim-navic").attach(client, buffer)
+	-- 			end
+	-- 		end)
+	-- 	end,
+	-- },
 }
