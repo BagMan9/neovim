@@ -21,11 +21,9 @@ function M.init()
 	MyVim.events.init_lazy_file()
 	M.pre_setup()
 	-- Plugins.create_npins()
-
 	require("lzl").lzl_setup({ spec = { import = "plugins" } })
-
+	vim.opt.runtimepath:append(mnw.configDir .. "/pack/mnw/start/myconf")
 	vim.cmd.colorscheme("catppuccin")
-
 	require("keymaps")
 end
 
