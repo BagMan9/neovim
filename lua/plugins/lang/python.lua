@@ -23,14 +23,6 @@ return {
 							},
 						},
 					},
-					-- FIXME: Port LazyVim lsp.action or replace
-					-- keys = {
-					--   {
-					--     "<leader>co",
-					--     LazyVim.lsp.action["source.organizeImports"],
-					--     desc = "Organize Imports",
-					--   },
-					-- },
 				},
 				basedpyright = {
 					enabled = true,

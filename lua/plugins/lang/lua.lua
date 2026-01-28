@@ -2,7 +2,6 @@ return {
 	{
 		"nvim-lspconfig",
 		opts = {
-
 			servers = {
 				lua_ls = {
 					settings = {
@@ -23,7 +22,7 @@ return {
 								privateName = { "^_" },
 							},
 							hint = {
-								enable = true,
+								enable = false,
 								setType = false,
 								paramType = true,
 								paramName = "Disable",

@@ -51,7 +51,7 @@ return {
 						return Utils.lazy_defaults.icons.ft[opts.filetype]
 					end,
 				},
-				highlights = require("catppuccin.groups.integrations.bufferline").get(),
+				highlights = require("catppuccin.special.bufferline").get_theme(),
 			}
 
 			require("bufferline").setup(opts)

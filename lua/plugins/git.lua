@@ -38,8 +38,9 @@ M.lz_specs = {
 	},
 	{
 		"gitsigns.nvim",
-		event = "User LazyFile",
+		lazy = false,
 		opts = {
+			debug_mode = true,
 			signs = {
 				add = { text = "▎" },
 				change = { text = "▎" },

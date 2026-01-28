@@ -4,7 +4,10 @@ M.lz_specs = {
 	{
 		"nvim-treesitter-context",
 		lazy = false,
-		event = "User LazyFile",
+		event = "LazyFile",
+		opts = {
+			max_lines = 5,
+		},
 	},
 	{
 		"nvim-treesitter",
@@ -48,8 +51,27 @@ M.lz_specs = {
 			},
 		},
 		after = function(_, opts)
-			require("nvim-treesitter").setup()
-			require("nvim-treesitter.configs").setup(opts)
+			local ts = require("nvim-treesitter")
+
+			-- setup() now only takes install_dir option
+			-- ts.setup() -- or just ts.setup() if default
+
+			if opts.ensure_installed then
+				ts.install(opts.ensure_installed)
+			end
+
+			-- Enable highlighting via autocommand
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(ev)
+					pcall(vim.treesitter.start, ev.buf)
+				end,
+			})
+			-- If you used indent = { enable = true }:
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+				end,
+			})
 		end,
 		extension = { rasi = "rasi", rofi = "rasi", wofi = "rasi" },
 		filename = {
@@ -62,8 +84,8 @@ M.lz_specs = {
 			[".*/hypr/.+%.conf"] = "hyprlang",
 			["%.env%.[%w_.-]+"] = "sh",
 		},
-		event = { "User LazyFile" },
-		lazy = vim.fn.argc(-1) == 0,
+		event = "LazyFile",
+		lazy = false,
 	},
 	{
 		"nvim-treesitter-textobjects",

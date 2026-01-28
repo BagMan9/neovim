@@ -106,7 +106,6 @@ return {
 						{ "filename", padding = { left = 0, right = 0 }, color = { bg = "#1e1e2e" } },
 						{
 							"diff",
-							source = diff_source(),
 							symbols = { added = "󰐖 ", modified = "󰿠 ", removed = " " },
 							color = { bg = "#1E1E2E" },
 						},
@@ -129,20 +128,8 @@ return {
 								hint = "󰝶 ",
 							},
 						},
-
-						-- {
-						-- NOTE: If I do this, I need to fix the hl groups, see https://github.com/SmiteshP/nvim-navic?tab=readme-ov-file
-						-- function()
-						-- 	return require("nvim-navic").get_location()
-						-- end,
-						-- cond = function()
-						-- 	return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
-						-- end,
-						-- color = { bg = "#1E1E2E" },
-						-- },
 					},
 					lualine_x = {
-						--TODO: Do I need all these?
 						{ "' ' .. vim.g.xcodebuild_last_status", color = { fg = "Gray" } },
 						{ "'󰙨 ' .. vim.g.xcodebuild_test_plan", color = { fg = "#74c7ec", bg = "#1e1e2e" } },
 						{ xcodebuild_device, color = { fg = "#f9e2af", bg = "#1e1e2e" } },
@@ -150,7 +137,6 @@ return {
 						--   moltenInfo,
 						--   color = { fg = colors.yellow },
 						-- },
-						{ require("mcphub.extensions.lualine") },
 					},
 					lualine_y = {
 

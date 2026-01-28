@@ -10,10 +10,27 @@ return {
 
 			---@type vim.diagnostic.Opts
 			diagnostics = {
-				underline = true,
+				underline = {
+					vim.diagnostic.severity.ERROR,
+					vim.diagnostic.severity.WARN,
+				},
 				update_in_insert = false,
-				virtual_text = false,
-				virtual_lines = true,
+				virtual_text = {
+					severity = {
+						vim.diagnostic.severity.ERROR,
+					},
+				},
+				virtual_lines = {
+					severity = {
+						vim.diagnostic.severity.WARN,
+						vim.diagnostic.severity.HINT,
+						vim.diagnostic.severity.INFO,
+					},
+					current_line = true,
+					format = function(diag)
+						return diag.message
+					end,
+				},
 				severity_sort = true,
 				signs = {
 					text = {

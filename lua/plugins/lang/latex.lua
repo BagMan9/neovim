@@ -1,6 +1,5 @@
 local viewer_open = false
 local vimtex_grp = vim.api.nvim_create_augroup("latex", { clear = true })
--- -- TODO: Make Auto focus (use yabai / shell) specific?
 ---@diagnostic disable-next-line: undefined-field
 if vim.uv.os_uname().sysname == "Darwin" then
 	vim.api.nvim_create_autocmd("User", {

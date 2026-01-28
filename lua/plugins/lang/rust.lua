@@ -1,0 +1,6 @@
+return {
+	{
+		"rustaceanvim",
+		lazy = false,
+	},
+}

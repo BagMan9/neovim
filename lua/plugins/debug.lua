@@ -5,7 +5,12 @@ M.lz_specs = {
 	{
 		"nvim-dap",
 		dependencies = {
-			{ "nvim-dap-python" },
+			{
+				"nvim-dap-python",
+				after = function(_, opts)
+					require("dap-python").setup("debugpy-adapter")
+				end,
+			},
 			{
 				"nvim-dap-virtual-text",
 				lazy = true,

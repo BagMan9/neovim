@@ -1,7 +1,6 @@
 local M = {}
 
 M.docshow = false
---FIXME: Something is up with snippets, some of them cause blink to stop showing & act weird
 
 M.lz_specs = {
 	{

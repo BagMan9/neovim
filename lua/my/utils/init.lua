@@ -288,9 +288,9 @@ function M.pretty_path(opts)
 			return ""
 		end
 
-		path = LazyVim.norm(path)
-		local root = LazyVim.root.get({ normalize = true })
-		local cwd = LazyVim.root.cwd()
+		path = MyVim.utils.root.norm(path)
+		local root = MyVim.utils.root.get({ normalize = true })
+		local cwd = MyVim.utils.root.cwd()
 
 		if opts.relative == "cwd" and path:find(cwd, 1, true) == 1 then
 			path = path:sub(#cwd + 2)
@@ -341,8 +341,8 @@ function M.root_dir(opts)
 	}, opts or {})
 
 	local function get()
-		local cwd = LazyVim.root.cwd()
-		local root = LazyVim.root.get({ normalize = true })
+		local cwd = MyVim.utils.root.cwd()
+		local root = MyVim.utils.root.get({ normalize = true })
 		local name = vim.fs.basename(root)
 
 		if root == cwd then
@@ -514,8 +514,6 @@ M.lazy_defaults = {
 		},
 	},
 }
-
----TODO: This is very lazy (pun intended.) Please organize better
 
 --- Get highlight properties for a given highlight name
 --- @param name string The highlight group name

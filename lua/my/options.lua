@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 local opt = vim.opt
 
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
 vim.g.vimtex_enabled = 1
 vim.g.vimtex_mappings_enabled = 1
 vim.g.vimtex_mappings_override_existing = 1
@@ -12,11 +14,8 @@ vim.opt.rtp:prepend("/Users/isaac/.local/share/lzl/mnw-plugins/vimtex") -- RTP f
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.cmd("filetype plugin indent on")
--- TODO: Figure out how to fix current line only
--- See https://github.com/neovim/neovim/issues/23526
-vim.diagnostic.config({ virtual_lines = true, virtual_text = false })
 opt.showmode = false
-opt.exrc = true
+opt.exrc = true -- .nvim.lua directory customizations
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
@@ -35,6 +34,8 @@ opt.fillchars = {
 	eob = " ",
 }
 opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 -- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 -- opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"

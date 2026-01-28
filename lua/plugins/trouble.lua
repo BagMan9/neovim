@@ -4,22 +4,80 @@ M.lz_specs = {
 	{
 		"trouble.nvim",
 		cmd = { "Trouble" },
-		after = function()
-			local opts = {
-				modes = {
-					lsp = {
-						win = { position = "right" },
+		opts = {
+			open_no_results = true,
+			modes = {
+				my_diag = {
+					mode = "diagnostics",
+					preview = {
+						type = "float",
+						relative = "editor",
+						border = "rounded",
+						title = "Preview",
+						title_pos = "center",
+						position = { 5, -2 },
+						size = { width = 0.35, height = 0.25 },
+						zindex = 200,
 					},
 				},
-			}
+				useful_info = {
+					desc = "My global info",
+					sections = {
+						"lsp_references",
+						"lsp_definitions",
+						"lsp_implementations",
+						"lsp_type_definitions",
+						"lsp_declarations",
+					},
+					preview = {
+						type = "float",
+						relative = "editor",
+						border = "rounded",
+						title = "Preview",
+						title_pos = "center",
+						position = { 5, -2 },
+						size = { width = 0.35, height = 0.25 },
+						zindex = 200,
+					},
+				},
+				lsp = {
+					win = { position = "left" },
+					preview = {
+						type = "float",
+						relative = "editor",
+						border = "rounded",
+						title = "Preview",
+						title_pos = "center",
+						position = { 5, -2 },
+						size = { width = 0.35, height = 0.25 },
+						zindex = 200,
+					},
+				},
 
+				symbols = {
+					win = {
+						position = "left",
+						wo = {
+							foldlevel = 1,
+						},
+					},
+					groups = {},
+					format = "{kind_icon} {symbol.name}",
+				},
+			},
+		},
+		after = function(_, opts)
 			require("trouble").setup(opts)
 		end,
 		keys = {
-			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+			{ "<leader>xx", "<cmd>Trouble my_diag toggle<cr>", desc = "Diagnostics (Trouble)" },
+			{ "<leader>xX", "<cmd>Trouble my_diag toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
 			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
-			{ "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+			{
+				"<leader>cS",
+				"<cmd>Trouble useful_info toggle win.position=left<cr>",
+				desc = "LSP references/definitions/... (Trouble)",
+			},
 			{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
 			{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
 			{

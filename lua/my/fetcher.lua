@@ -91,9 +91,3 @@ function M.getSHA()
 end
 
 return M
-
--- TODO: You're probably pretty close with this:
--- And get your mind back into netbox:
--- SQL Database probably makes this easy
--- Location's unique ID in netbox is a combination of all of their parents Ids?
--- How does one properly cross reference a given device and figure out where it belongs in the graph?

@@ -25,91 +25,100 @@ M.lz_specs = {
 	{
 		"refactoring.nvim",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { { "plenary.nvim" } },
+		dependencies = { { "plenary.nvim" }, { "nvim-treesitter" } },
 		keys = {
 			{ "<leader>r", "", desc = "+refactor", mode = { "n", "v" } },
 			{
 				"<leader>rs",
 				function()
-					require("refactoring").select_refactor()
+					return require("refactoring").select_refactor()
 				end,
 				mode = "v",
+				expr = true,
 				desc = "Refactor",
 			},
 			{
 				"<leader>ri",
 				function()
-					require("refactoring").refactor("Inline Variable")
+					return require("refactoring").refactor("Inline Variable")
 				end,
+				expr = true,
 				mode = { "n", "v" },
 				desc = "Inline Variable",
 			},
 			{
 				"<leader>rb",
 				function()
-					require("refactoring").refactor("Extract Block")
+					return require("refactoring").refactor("Extract Block")
 				end,
+				expr = true,
 				desc = "Extract Block",
 			},
 			{
 				"<leader>rf",
 				function()
-					require("refactoring").refactor("Extract Block To File")
+					return require("refactoring").refactor("Extract Block To File")
 				end,
+				expr = true,
 				desc = "Extract Block To File",
 			},
 			{
 				"<leader>rP",
 				function()
-					require("refactoring").debug.printf({ below = false })
+					return require("refactoring").debug.printf({ below = false })
 				end,
+				expr = true,
 				desc = "Debug Print",
 			},
 			{
 				"<leader>rp",
 				function()
-					require("refactoring").debug.print_var({ normal = true })
+					return require("refactoring").debug.print_var({ normal = true })
 				end,
+				expr = true,
 				desc = "Debug Print Variable",
 			},
 			{
 				"<leader>rc",
 				function()
-					require("refactoring").debug.cleanup({})
+					return require("refactoring").debug.cleanup({})
 				end,
+				expr = true,
 				desc = "Debug Cleanup",
 			},
 			{
 				"<leader>rf",
 				function()
-					require("refactoring").refactor("Extract Function")
+					return require("refactoring").refactor("Extract Function")
 				end,
+				expr = true,
 				mode = "v",
 				desc = "Extract Function",
 			},
 			{
 				"<leader>rF",
 				function()
-					require("refactoring").refactor("Extract Function To File")
+					return require("refactoring").refactor("Extract Function To File")
 				end,
+				expr = true,
 				mode = "v",
 				desc = "Extract Function To File",
 			},
 			{
 				"<leader>rx",
 				function()
-					require("refactoring").refactor("Extract Variable")
+					return require("refactoring").refactor("Extract Variable")
 				end,
+				expr = true,
 				mode = "v",
 				desc = "Extract Variable",
 			},
 			{
-				"<leader>rp",
+				"<leader>rr",
 				function()
-					require("refactoring").debug.print_var()
+					require("refactoring").select_refactor()
 				end,
-				mode = "v",
-				desc = "Debug Print Variable",
+				mode = { "n", "v" },
 			},
 		},
 		after = function()
@@ -117,20 +126,20 @@ M.lz_specs = {
 				prompt_func_return_type = {
 					go = false,
 					java = false,
-					cpp = false,
-					c = false,
-					h = false,
-					hpp = false,
-					cxx = false,
+					cpp = true,
+					c = true,
+					h = true,
+					hpp = true,
+					cxx = true,
 				},
 				prompt_func_param_type = {
 					go = false,
 					java = false,
-					cpp = false,
-					c = false,
-					h = false,
-					hpp = false,
-					cxx = false,
+					cpp = true,
+					c = true,
+					h = true,
+					hpp = true,
+					cxx = true,
 				},
 				printf_statements = {},
 				print_var_statements = {},
@@ -139,6 +148,7 @@ M.lz_specs = {
 
 			require("refactoring").setup(opts)
 		end,
+		lazy = false,
 	},
 	{
 		"neogen",
@@ -163,7 +173,7 @@ M.lz_specs = {
 		"neo-tree.nvim",
 		cmd = "Neotree",
 		keys = {
-			{ "<leader>e", "<cmd>Neotree filesystem toggle left<CR>", desc = "File Explorer" },
+			{ "<leader>e", "<cmd>Neotree filesystem toggle right<CR>", desc = "File Explorer" },
 		},
 		opts = {
 			window = {

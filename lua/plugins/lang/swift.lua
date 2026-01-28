@@ -1,9 +1,4 @@
 local ios_fts = { "swift", "objc", "objcpp", "metal" }
--- TODO:
--- In order:
--- Also get sourcekit generally configured
--- Get plugin configured
---
 -- Code coverage
 -- NOTE: Inject + simulator preview seems ~fine for now, keep in background
 --
@@ -228,7 +223,6 @@ return {
 
 			{
 				"<localleader>xp",
-				-- TODO: Add hot reload here
 				"<cmd>XcodebuildPreviewGenerateAndShow hotReload<cr>",
 				mode = { "n" },
 				desc = "Generate Preview",
