@@ -7,6 +7,9 @@ return {
 			owner = "mrcjkb",
 			branch = "master",
 		},
+		build = {
+			useNixpkgs = "rustaceanvim",
+		},
 		extraPackages = {
 			"rustfmt",
 			"clippy",

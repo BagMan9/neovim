@@ -1,6 +1,14 @@
 return {
 	{
 		"nvim-lspconfig",
+		source = {
+			type = "github",
+			repo = "nvim-lspconfig",
+			owner = "neovim",
+		},
+		build = {
+			useNixpkgs = "nvim-lspconfig",
+		},
 		extraPackages = {
 			"bash-language-server",
 		},

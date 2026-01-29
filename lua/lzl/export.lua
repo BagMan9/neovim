@@ -97,24 +97,64 @@ function M.gather_exportable_plugins()
 
 	for name, plugin in pairs(Config.spec.plugins) do
 		-- Walk the metatable chain to find source/build/extraPackages
+		-- extraPackages is merged across all fragments, others take first found
 		local source = nil
-		local extraPackages = nil
+		local extraPackages = {}
 		local build = nil
-		local current = plugin
 
-		while current do
-			if rawget(current, "source") then
-				source = rawget(current, "source")
-			end
-			if rawget(current, "extraPackages") then
-				extraPackages = rawget(current, "extraPackages")
-			end
-			if rawget(current, "build") then
-				build = rawget(current, "build")
-			end
+		-- The plugin object has fragment IDs in plugin._.frags
+		-- We need to walk those fragments directly to get all specs
+		local frags = plugin._ and plugin._.frags or {}
+		local fragments = Config.spec.meta and Config.spec.meta.fragments or nil
 
-			local mt = getmetatable(current)
-			current = mt and mt.__index or nil
+		if fragments and #frags > 0 then
+			-- Walk fragments directly
+			for _, fid in ipairs(frags) do
+				local frag = fragments:get(fid)
+				if frag and frag.spec then
+					local spec = frag.spec
+					if spec.source and not source then
+						source = spec.source
+					end
+					if spec.extraPackages then
+						for _, pkg in ipairs(spec.extraPackages) do
+							if not vim.tbl_contains(extraPackages, pkg) then
+								table.insert(extraPackages, pkg)
+							end
+						end
+					end
+					if spec.build and not build then
+						build = spec.build
+					end
+				end
+			end
+		else
+			-- Fallback: walk metatable chain
+			local current = plugin
+			while current do
+				if rawget(current, "source") and not source then
+					source = rawget(current, "source")
+				end
+				local pkgs = rawget(current, "extraPackages")
+				if pkgs then
+					for _, pkg in ipairs(pkgs) do
+						if not vim.tbl_contains(extraPackages, pkg) then
+							table.insert(extraPackages, pkg)
+						end
+					end
+				end
+				if rawget(current, "build") and not build then
+					build = rawget(current, "build")
+				end
+
+				local mt = getmetatable(current)
+				current = mt and mt.__index or nil
+			end
+		end
+
+		-- Convert empty table to nil for cleaner output
+		if #extraPackages == 0 then
+			extraPackages = nil
 		end
 
 		-- Export if has source OR has useNixpkgs (for pure nixpkgs refs with metadata)

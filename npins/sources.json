@@ -501,6 +501,22 @@
       "url": "https://github.com/mfussenegger/nvim-lint/archive/b3292aac30b935d4cccf0904053d1c7930df8a20.tar.gz",
       "hash": "sha256-848hT8Sahob1qWEJOrOaEQsNycH6nOlqiZO3p/wzNyU="
     },
+    "nvim-lspconfig": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "neovim",
+        "repo": "nvim-lspconfig"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v2.5.0",
+      "revision": "5bfcc89fd155b4ffc02d18ab3b7d19c2d4e246a7",
+      "url": "https://api.github.com/repos/neovim/nvim-lspconfig/tarball/refs/tags/v2.5.0",
+      "hash": "sha256-BrY4l2irKsAmxDNPhW9eosOwsVdZjULyY6AOkqTAU4E="
+    },
     "nvim-scissors": {
       "type": "Git",
       "repository": {
@@ -544,19 +560,6 @@
       "hash": "sha256-lIQS/PNjQb4DSIfHBagYjcIw4Kz4HTZDlcCgSVdZ580="
     },
     "refactoring-nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "theprimeagen",
-        "repo": "refactoring.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "6784b54587e6d8a6b9ea199318512170ffb9e418",
-      "url": "https://github.com/theprimeagen/refactoring.nvim/archive/6784b54587e6d8a6b9ea199318512170ffb9e418.tar.gz",
-      "hash": "sha256-KFn1f0Va6eFbeOYxc40lN1iWL8WAwnm/H5l46o4JgvI="
-    },
-    "refactoring.nvim": {
       "type": "Git",
       "repository": {
         "type": "GitHub",

@@ -7,7 +7,7 @@ M.lz_specs = {
 			type = "github",
 			repo = "nvim",
 			owner = "catppuccin",
-			branch = "master",
+			branch = "main",
 		},
 		build = {
 			nvimSkipModules = {

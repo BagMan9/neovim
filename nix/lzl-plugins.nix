@@ -111,7 +111,8 @@ let
     name:
     let
       # Handle dotted paths like "python3Packages.debugpy"
-      parts = builtins.filter (s: s != "") (builtins.split "\\." name);
+      # builtins.split returns both parts and separator matches (as lists), so filter to strings only
+      parts = builtins.filter builtins.isString (builtins.split "\\." name);
       resolved = builtins.foldl' (acc: part: acc.${part} or null) pkgs parts;
     in
     if resolved != null then resolved else builtins.trace "Warning: package '${name}' not found" null;

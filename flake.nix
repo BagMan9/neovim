@@ -425,27 +425,15 @@
                   require("cfg")
                 '';
 
-              extraBinPath = with pkgs; [
-                ripgrep
-                fd
-                lldb
-                jq
-                lua-language-server
-                stylua
-                basedpyright
-                ruff
-                bash-language-server
-                shfmt
-                nixd
-                nixfmt
-                yaml-language-server
-                python313Packages.debugpy
-                vscode-json-languageserver
-                svelte-language-server
-                typescript-language-server
-                rustfmt
-                clippy
-              ];
+              extraBinPath =
+                with pkgs;
+                [
+                  ripgrep
+                  fd
+                  lldb
+                  jq
+                ]
+                ++ lzl-plugins.extraPackages;
 
               providers.python3 = {
                 enable = true;
