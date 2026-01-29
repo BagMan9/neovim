@@ -3,6 +3,14 @@ local M = {}
 M.lz_specs = {
 	{
 		"trouble.nvim",
+		source = {
+			type = "github",
+			repo = "trouble.nvim",
+			owner = "folke",
+		},
+		build = {
+			nvimSkipModules = { "trouble.docs" },
+		},
 		cmd = { "Trouble" },
 		opts = {
 			open_no_results = true,
@@ -120,6 +128,12 @@ M.lz_specs = {
 	},
 	{
 		"todo-comments.nvim",
+		source = {
+			type = "github",
+			repo = "todo-comments.nvim",
+			owner = "folke",
+		},
+		build = { useNixpkgs = "todo-comments-nvim" },
 		cmd = { "TodoTrouble", "TodoTelescope" },
 		event = "User LazyFile",
 		after = function()

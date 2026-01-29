@@ -3,6 +3,14 @@ local M = {}
 M.lz_specs = {
 	{
 		"auto-session",
+		source = {
+			type = "github",
+			repo = "auto-session",
+			owner = "rmagatti",
+		},
+		build = {
+			useNixpkgs = "auto-session",
+		},
 		lazy = false,
 		opts = {
 			purge_after_minutes = 10080,

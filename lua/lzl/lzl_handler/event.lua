@@ -33,7 +33,7 @@ M.mappings = {
 	LazyFile = { id = "LazyFile", event = "User", pattern = "LazyFile" },
 }
 M.mappings["User VeryLazy"] = M.mappings.VeryLazy
-M.mappings["User Lazyfile"] = M.mappings.LazyFile
+M.mappings["User LazyFile"] = M.mappings.LazyFile
 
 M.group = vim.api.nvim_create_augroup("lazy_handler_event", { clear = true })
 

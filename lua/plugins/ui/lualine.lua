@@ -2,7 +2,6 @@ return {
 	{
 		"lualine.nvim",
 		dependencies = {
-			{ "mcphub.nvim" },
 			{ "mini.icons" },
 		},
 		after = function()

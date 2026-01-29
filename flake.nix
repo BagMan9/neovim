@@ -58,6 +58,11 @@
             };
           };
 
+          lzl-plugins = import ./nix/lzl-plugins.nix {
+            inherit pkgs;
+            npinsDir = ./npins;
+          };
+
           xcodebuild-nvim = pkgs.vimUtils.buildVimPlugin {
             pname = "xcodebuild.nvim";
             version = "2025-07-02";
@@ -171,12 +176,9 @@
             plugins.opt =
               with pkgs.vimPlugins;
               [
-                claudecode-nvim
-                snacks-nvim
                 fidget-nvim
                 telescope-nvim
                 edgy-nvim
-                auto-session
                 bufferline-nvim
                 cmp-buffer
                 cmp-nvim-lsp
@@ -186,14 +188,11 @@
                 smart-splits-nvim
                 dashboard-nvim
                 dressing-nvim
-                flash-nvim
                 flit-nvim
                 leap-nvim
                 friendly-snippets
-                gitsigns-nvim
                 indent-blankline-nvim
                 lualine-nvim
-                neo-tree-nvim
                 neoconf-nvim
                 neodev-nvim
                 noice-nvim
@@ -209,49 +208,27 @@
                 nvim-web-devicons
                 mini-icons
                 persistence-nvim
-                plenary-nvim
                 telescope-fzf-native-nvim
-                todo-comments-nvim
                 tokyonight-nvim
-                trouble-nvim
                 vim-illuminate
                 vim-startuptime
-                which-key-nvim
                 colorful-menu-nvim
                 harpoon2
-                grug-far-nvim
-                blink-cmp
-                mini-pairs
-                mini-ai
                 mini-indentscope
                 mini-hipatterns
                 mini-surround
-                yanky-nvim
                 vim-repeat
                 catppuccin-nvim
-                nvim-scissors
-                inc-rename-nvim
                 nvim-navic
-                refactoring-nvim
-                nvim-dap-ui
-                nvim-dap
-                nvim-dap-virtual-text
                 SchemaStore-nvim
-                nvim-surround
-                comment-nvim
-                nvim-dap-python
-                gitlinker-nvim
                 render-markdown-nvim
-                avante-nvim
-                blink-cmp-avante
                 kulala-nvim
-                octo-nvim
                 blink-compat
                 blink-cmp-git
-                neogen
                 rustaceanvim
                 crates-nvim
               ]
+              ++ lzl-plugins.pluginList
               ++ macList [ xcodebuild-nvim ]
               ++ lib.lists.optionals cfg.latex [
                 vimtex
@@ -334,7 +311,6 @@
                 pkgs.tuist
               ];
 
-            # Sioyek for latex PDF viewing
             programs.sioyek = lib.mkIf cfg.latex {
               enable = true;
             };
@@ -392,7 +368,10 @@
 
         isMac = pkgs.stdenv.hostPlatform.isDarwin;
         macList = xs: nixpkgs.lib.lists.optionals isMac xs;
-
+        lzl-plugins = import ./nix/lzl-plugins.nix {
+          inherit pkgs;
+          npinsDir = ./npins;
+        };
         # Build standalone packages using mnw directly
         mkNeovimPackage =
           extraConfig:
@@ -408,12 +387,9 @@
               plugins.opt =
                 with pkgs.vimPlugins;
                 [
-                  claudecode-nvim
-                  snacks-nvim
                   fidget-nvim
                   telescope-nvim
                   edgy-nvim
-                  auto-session
                   bufferline-nvim
                   cmp-buffer
                   cmp-nvim-lsp
@@ -423,14 +399,11 @@
                   smart-splits-nvim
                   dashboard-nvim
                   dressing-nvim
-                  flash-nvim
                   flit-nvim
                   leap-nvim
                   friendly-snippets
-                  gitsigns-nvim
                   indent-blankline-nvim
                   lualine-nvim
-                  neo-tree-nvim
                   neoconf-nvim
                   neodev-nvim
                   noice-nvim
@@ -446,49 +419,27 @@
                   nvim-web-devicons
                   mini-icons
                   persistence-nvim
-                  plenary-nvim
                   telescope-fzf-native-nvim
-                  todo-comments-nvim
                   tokyonight-nvim
-                  trouble-nvim
                   vim-illuminate
                   vim-startuptime
-                  which-key-nvim
                   colorful-menu-nvim
                   harpoon2
-                  grug-far-nvim
-                  blink-cmp
-                  mini-pairs
-                  mini-ai
                   mini-indentscope
                   mini-hipatterns
                   mini-surround
-                  yanky-nvim
                   vim-repeat
                   catppuccin-nvim
-                  nvim-scissors
-                  inc-rename-nvim
                   nvim-navic
-                  refactoring-nvim
-                  nvim-dap-ui
-                  nvim-dap
-                  nvim-dap-virtual-text
                   SchemaStore-nvim
-                  nvim-surround
-                  comment-nvim
-                  nvim-dap-python
-                  gitlinker-nvim
                   render-markdown-nvim
-                  avante-nvim
-                  blink-cmp-avante
                   kulala-nvim
-                  octo-nvim
                   blink-compat
                   blink-cmp-git
-                  neogen
                   rustaceanvim
                   crates-nvim
                 ]
+                ++ lzl-plugins.pluginList
                 ++ macList [ xcodebuild-nvim ];
 
               plugins.dev.myconf = {

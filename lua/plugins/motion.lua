@@ -3,7 +3,11 @@ return {
 	{
 		"mini.ai",
 		event = "VeryLazy",
-
+		source = {
+			type = "github",
+			repo = "mini.ai",
+			owner = "nvim-mini",
+		},
 		after = function(_, opts)
 			opts = {
 				n_lines = 500,
@@ -35,6 +39,16 @@ return {
 	},
 	{
 		"flash.nvim",
+		source = {
+			type = "github",
+			owner = "folke",
+			repo = "flash.nvim",
+		},
+		build = {
+			nvimSkipModules = {
+				"flash.docs",
+			},
+		},
 		dependencies = {
 			{ "vim-repeat" },
 		},
@@ -90,6 +104,11 @@ return {
 	{
 		--NOTE: Not setting keys because I don't need it probably, do not forget
 		"comment.nvim",
+		source = {
+			owner = "numtostr",
+			repo = "comment.nvim",
+			type = "github",
+		},
 		lazy = false,
 		event = "VeryLazy",
 		dependencies = {
@@ -102,6 +121,13 @@ return {
 	{
 		"nvim-surround",
 		event = "LazyFile",
+
+		source = {
+			owner = "kylechui",
+			repo = "nvim-surround",
+			type = "github",
+		},
+		build = { useNixpkgs = "nvim-surround" },
 		opts = {
 			keymaps = {
 				normal = "yz",
@@ -121,6 +147,14 @@ return {
 	},
 	{
 		"yanky.nvim",
+		source = {
+			type = "github",
+			repo = "yanky.nvim",
+			owner = "gbprod",
+		},
+		build = {
+			useNixpkgs = "yanky-nvim",
+		},
 		event = "User LazyFile",
 		opts = {
 			highlight = { timer = 150 },

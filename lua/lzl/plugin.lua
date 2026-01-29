@@ -68,28 +68,6 @@ end
 
 ---@param spec LzlImportSpec
 function Spec:import(spec)
-	---@param modname string
-	---@param modpath string
-	---@return modspec
-	local function ingest_modname(modname, modpath)
-		return {
-			modname = modname,
-			load = function()
-				local mod, err = loadfile(modpath)
-				if mod then
-					return mod()
-				else
-					return nil, err
-				end
-			end,
-		}
-	end
-	---@param modname string module name in the format `foo.bar`
-	---@return string modpath module path in the format `foo/bar`
-	local function mod_name_to_path(modname)
-		return vim.fs.joinpath(unpack(vim.split(modname, ".", { plain = true })))
-	end
-
 	if spec.import == "lzl" then
 		vim.schedule(function()
 			vim.notify("Plugins modules cannot be called 'lzl'", vim.log.levels.ERROR)
@@ -254,10 +232,9 @@ function M.update_state()
 	-- Util.notify(vim.inspect(lua_installed))
 
 	for _, plugin in pairs(Config.active_plugins) do
-		-- Util.notify(vim.inspect(plugin))
 		plugin._ = plugin._ or {}
 		if plugin.lazy == nil then
-			local lazy = plugin._.dep or true or plugin.event or plugin.keys or plugin.ft or plugin.cmd
+			local lazy = plugin._.dep or plugin.event or plugin.keys or plugin.ft or plugin.cmd
 			plugin.lazy = lazy and true or false
 		end
 		--NOTE: This may break stuff later

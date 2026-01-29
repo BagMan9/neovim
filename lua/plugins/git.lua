@@ -3,6 +3,13 @@ local M = {}
 M.lz_specs = {
 	{
 		"octo.nvim",
+		source = {
+			type = "github",
+			owner = "pwntester",
+			repo = "octo.nvim",
+			branch = "master",
+		},
+		build = { useNixpkgs = "octo-nvim" },
 		cmd = "Octo",
 		event = "BufReadCmd octo://",
 		dependencies = { { "plenary.nvim" } },
@@ -38,6 +45,12 @@ M.lz_specs = {
 	},
 	{
 		"gitsigns.nvim",
+		source = {
+			type = "github",
+			owner = "lewis6991",
+			repo = "gitsigns.nvim",
+		},
+		build = { useNixpkgs = "gitsigns-nvim" },
 		lazy = false,
 		opts = {
 			debug_mode = true,
@@ -100,6 +113,21 @@ M.lz_specs = {
 	{
 		-- NOTE: Don't forget about me! Useful for work!
 		"gitlinker.nvim",
+		source = {
+			type = "github",
+			repo = "gitlinker.nvim",
+			owner = "ruifm",
+			branch = "master",
+		},
+		build = {
+			nvimSkipModules = {
+				"gitlinker",
+				"gitlinker.actions",
+				"gitlinker.git",
+				"gitlinker.opts",
+				"gitlinker.buffer",
+			},
+		},
 		keys = {
 			{
 				"<leader>gy",

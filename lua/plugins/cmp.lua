@@ -5,6 +5,7 @@ M.docshow = false
 M.lz_specs = {
 	{
 		"blink.cmp",
+		build = { useNixpkgs = "blink-cmp" },
 		event = "InsertEnter",
 		dependencies = {
 			{
@@ -16,7 +17,6 @@ M.lz_specs = {
 			{ "luasnip" },
 			{ "lazydev.nvim" },
 			{ "blink-cmp-git" },
-			{ "blink-cmp-avante" },
 			{ "cmp-vimtex", dependencies = {
 				{
 					"blink.compat",

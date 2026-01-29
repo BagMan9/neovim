@@ -62,7 +62,7 @@ function M.get_source()
 		if not info then
 			break
 		end
-		if info.what ~= "C" and not info.source:find("lazy.nvim", 1, true) and info.source ~= "@vim/loader.lua" then
+		if info.what ~= "C" and not info.source:find("lzl", 1, true) and info.source ~= "@vim/loader.lua" then
 			return info.source:sub(2)
 		end
 		f = f + 1
@@ -182,14 +182,6 @@ end
 ---@param fn fun(path: string, name:string, type:FileType)
 function M.walk(path, fn)
 	M.ls(path, function(child, name, type)
-		-- local realtype = type
-		-- local realchild = child
-		-- while realtype == "link" do
-		-- 	---@diagnostic disable-next-line: undefined-field
-		-- 	realchild = vim.uv.fs_readlink(child)
-		-- 	---@diagnostic disable-next-line: undefined-field
-		-- 	realtype = vim.uv.fs_stat(child).type
-		-- end
 		if type == "directory" then
 			M.walk(child, fn)
 		end
@@ -274,7 +266,7 @@ end
 
 function M.pretty_trace(opts)
 	opts = opts or {}
-	local Config = require("lazy.core.config")
+	local Config = require("lzl.config")
 	local trace = {}
 	local level = opts.level or 2
 	while true do
@@ -282,7 +274,7 @@ function M.pretty_trace(opts)
 		if not info then
 			break
 		end
-		if info.what ~= "C" and (Config.options.debug or not info.source:find("lazy.nvim")) then
+		if info.what ~= "C" and (Config.options.debug or not info.source:find("lzl")) then
 			local source = info.source:sub(2)
 			if source:find(Config.options.root, 1, true) == 1 then
 				source = source:sub(#Config.options.root + 1)

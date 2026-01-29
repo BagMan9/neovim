@@ -37,6 +37,19 @@
 ---@field lazy? boolean
 ---@field ft? string[]
 ---
+---@class LzlSource
+---@field type "github"|"gitlab"|"git"
+---@field owner? string For github/gitlab
+---@field repo string Repository name
+---@field url? string For git type
+---@field branch? string Optional branch
+---@field rev? string Optional revision for pinning
+
+---@class LzlBuildSpec
+---@field nvimSkipModules? string[] Modules to skip in nix build
+---@field nixDeps? string[] Nix plugin dependencies
+---@field useNixpkgs? string Use pkgs.vimPlugins.X instead of building from source
+
 ---@class LzlAttrs
 ---@field lua? boolean
 ---@field priority? number
@@ -44,6 +57,9 @@
 ---@field dependencies? LzlPubSpec[]
 ---@field enabled? boolean|fun():boolean
 ---@field dir? string Manually specify location
+---@field source? LzlSource Plugin source for npins
+---@field extraPackages? string[] Runtime executables needed
+---@field build? LzlBuildSpec Nix build hints
 ---
 ---@class LzlHooks
 ---@field init? fun(self:LzlPlugin) Will be run before loading any plugins
@@ -60,7 +76,6 @@
 ---@field name string
 ---@field dir? string
 ---@field _ LzlManageData
----@field deactivate? fun(p:LzlPlugin)
 
 ---@class LzlImportSpec
 ---@field import string

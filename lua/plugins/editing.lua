@@ -16,6 +16,12 @@ M.lz_specs = {
 	-- 	},
 	{
 		"inc-rename.nvim",
+		source = {
+			type = "github",
+			repo = "inc-rename.nvim",
+			owner = "smjonas",
+			branch = "main",
+		},
 		lazy = false,
 		cmd = "IncRename",
 		after = function()
@@ -24,6 +30,15 @@ M.lz_specs = {
 	},
 	{
 		"refactoring.nvim",
+		source = {
+			type = "github",
+			repo = "refactoring.nvim",
+			owner = "theprimeagen",
+			branch = "master",
+		},
+		build = {
+			nixDeps = { "nvim-treesitter", "plenary-nvim" },
+		},
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { { "plenary.nvim" }, { "nvim-treesitter" } },
 		keys = {
@@ -153,6 +168,11 @@ M.lz_specs = {
 	{
 		"neogen",
 		cmd = "Neogen",
+		source = {
+			type = "github",
+			repo = "neogen",
+			owner = "danymat",
+		},
 		keys = {
 			{
 				"<leader>cn",
@@ -172,6 +192,19 @@ M.lz_specs = {
 	{
 		"neo-tree.nvim",
 		cmd = "Neotree",
+		source = {
+			type = "github",
+			repo = "neo-tree.nvim",
+			owner = "nvim-neo-tree",
+		},
+		build = {
+			nixDeps = {
+				"plenary-nvim",
+				"nui-nvim",
+			},
+			useNixpkgs = "neo-tree-nvim",
+			skipModules = { "neo-tree.types.fixes.compat-0.10" },
+		},
 		keys = {
 			{ "<leader>e", "<cmd>Neotree filesystem toggle right<CR>", desc = "File Explorer" },
 		},
@@ -202,6 +235,11 @@ M.lz_specs = {
 	},
 	{
 		"mini.pairs",
+		source = {
+			type = "github",
+			repo = "mini.pairs",
+			owner = "nvim-mini",
+		},
 		event = "VeryLazy",
 		opts = {
 			modes = { insert = true, command = true, terminal = false },

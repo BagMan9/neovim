@@ -63,8 +63,6 @@ end
 
 function M:resolve()
 	self:rebuild()
-
-	--MORE STUFF?
 end
 
 function M:rebuild()
@@ -122,7 +120,6 @@ function M:_rebuild(name)
 	plugin.dependencies = {}
 
 	local super = nil
-	-- plugin.url = nil
 	plugin._.dep = true
 	plugin._.top = true
 
@@ -138,7 +135,6 @@ function M:_rebuild(name)
 			---@diagnostic disable-next-line: no-unknown
 			super = setmetatable(fragment.spec, super and { __index = super } or nil)
 			plugin._.dep = plugin._.dep and fragment.dep
-			-- plugin.url = fragment.url or plugin.url
 			plugin._.top = plugin._.top and fragment.pid == nil
 
 			-- dependencies
@@ -152,10 +148,6 @@ function M:_rebuild(name)
 	end
 
 	super = super or {}
-
-	-- plugin.dir = super.dir
-	-- if plugin.dir then
-	--     plugin.dir = Util.norm(plugin.dir)
 
 	plugin.dir = plugin.dir
 		or (plugin.lua and Config.options.lua_root or Config.options.plugin_root) .. "/" .. plugin.name

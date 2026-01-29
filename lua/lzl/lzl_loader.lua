@@ -108,10 +108,6 @@ function M._load(plugin, reason, opts)
 
 	M.add_to_rtp(plugin)
 
-	-- if plugin._.pkg and plugin._.pkg.source == "rockspec" then
-	--   M.add_to_luapath(plugin)
-	-- end
-
 	if plugin.dependencies then
 		Util.try(function()
 			M.load(plugin.dependencies, {})
@@ -249,52 +245,6 @@ function M.add_to_rtp(plugin)
 	vim.opt.rtp = rtp
 end
 
----@param plugin LzlPlugin
-function M.deactivate(plugin)
-	if not plugin._.loaded then
-		return
-	end
-
-	local main = M.get_main(plugin)
-
-	if main then
-		Util.try(function()
-			local mod = require(main)
-			if mod.deactivate then
-				mod.deactivate(plugin)
-			end
-		end, "Failed to deactivate plugin " .. plugin.name)
-	end
-
-	-- execute deactivate when needed
-	if plugin.deactivate then
-		Util.try(function()
-			plugin.deactivate(plugin)
-		end, "Failed to deactivate plugin " .. plugin.name)
-	end
-
-	-- disable handlers
-	Handler.disable(plugin)
-
-	-- clear plugin properties cache
-	plugin._.cache = nil
-
-	-- remove loaded lua modules
-	Util.walkmods(plugin.dir .. "/lua", function(modname)
-		package.loaded[modname] = nil
-		package.preload[modname] = nil
-	end)
-
-	-- clear vim.g.loaded_ for plugins
-	Util.ls(plugin.dir .. "/plugin", function(_, name, type)
-		if type == "file" then
-			vim.g["loaded_" .. name:gsub("%..*", "")] = nil
-		end
-	end)
-	-- set as not loaded
-	plugin._.loaded = nil
-end
-
 ---@param path string
 function M.source(path)
 	Util.track({ runtime = path })
@@ -302,67 +252,6 @@ function M.source(path)
 		vim.cmd("source " .. path)
 	end, "Failed to source `" .. path .. "`")
 	Util.track()
-end
-
----@param plugin LzlPlugin|string
-function M.reload(plugin)
-	if type(plugin) == "string" then
-		plugin = Config.active_plugins[plugin]
-	end
-
-	if not plugin then
-		error("Plugin not found")
-	end
-
-	local load = plugin._.loaded ~= nil
-	M.deactivate(plugin)
-
-	-- enable handlers
-	Handler.enable(plugin)
-
-	-- run init
-	if plugin.init then
-		Util.try(function()
-			plugin.init(plugin)
-		end, "Failed to run `init` for **" .. plugin.name .. "**")
-	end
-
-	-- if this is a start plugin, load it now
-	if plugin.lazy == false then
-		load = true
-	end
-
-	local events = plugin._.handlers and plugin._.handlers.event and plugin._.handlers.event or {}
-
-	for _, event in pairs(events) do
-		if event.id:find("VimEnter") or event.id:find("UIEnter") or event.id:find("VeryLazy") then
-			load = true
-			break
-		end
-	end
-
-	-- reload any vimscript files for this plugin
-	local scripts = vim.fn.getscriptinfo()
-	local loaded_scripts = {}
-	for _, s in ipairs(scripts) do
-		---@type string
-		local path = s.name
-		if
-			path:sub(-4) == ".vim"
-			and path:find(plugin.dir, 1, true) == 1
-			and not path:find("/plugin/", 1, true)
-			and not path:find("/ftplugin/", 1, true)
-		then
-			loaded_scripts[#loaded_scripts + 1] = path
-		end
-	end
-
-	if load then
-		M.load(plugin, { start = "reload" })
-		for _, s in ipairs(loaded_scripts) do
-			M.source(s)
-		end
-	end
 end
 
 ---@param modname string

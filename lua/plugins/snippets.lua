@@ -11,6 +11,15 @@ M.lz_specs = {
 	},
 	{
 		"nvim-scissors",
+		source = {
+			type = "github",
+			repo = "nvim-scissors",
+			owner = "chrisgrieser",
+			branch = "main",
+		},
+		build = {
+			useNixpkgs = "nvim-scissors",
+		},
 		keys = {
 			{
 				"<leader>sA",

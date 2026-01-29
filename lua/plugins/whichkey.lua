@@ -4,6 +4,10 @@ M.lz_specs = {
 	{
 		"which-key.nvim",
 		event = "VeryLazy",
+		build = { useNixpkgs = "which-key-nvim" },
+		-- source = {
+		--   type = "github",
+		-- }
 		opts = {
 			preset = "helix",
 			defaults = {},

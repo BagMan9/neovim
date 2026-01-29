@@ -10,6 +10,12 @@ return {
 	},
 	{
 		"grug-far.nvim",
+		source = {
+			type = "github",
+			owner = "MagicDuck",
+			repo = "grug-far.nvim",
+		},
+		build = { useNixpkgs = "grug-far-nvim" },
 		opts = { headerMaxWidth = 80, engines = { ripgrep = { extraArgs = "-P" } } },
 		after = function(_, opts)
 			require("grug-far").setup(opts)
@@ -35,6 +41,12 @@ return {
 	},
 	{
 		"snacks.nvim",
+		source = {
+			type = "github",
+			owner = "folke",
+			repo = "snacks.nvim",
+		},
+		build = { useNixpkgs = "snacks-nvim" },
 		opts = {
 			picker = {
 				win = {

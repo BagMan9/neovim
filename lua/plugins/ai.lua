@@ -99,6 +99,11 @@ M.lz_specs = {
 	-- 	},
 	{
 		"claudecode.nvim",
+		source = {
+			type = "github",
+			owner = "coder",
+			repo = "claudecode.nvim",
+		},
 		after = function(_, opts)
 			require("claudecode").setup(opts)
 		end,

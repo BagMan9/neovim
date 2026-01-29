@@ -4,15 +4,38 @@ local M = {}
 M.lz_specs = {
 	{
 		"nvim-dap",
+		source = {
+			type = "github",
+			repo = "nvim-dap",
+			owner = "mfussenegger",
+		},
 		dependencies = {
 			{
 				"nvim-dap-python",
+				source = {
+					type = "github",
+					repo = "nvim-dap-python",
+					owner = "mfussenegger",
+					branch = "master",
+				},
+				build = {
+					nixDeps = { "nvim-dap" },
+				},
 				after = function(_, opts)
 					require("dap-python").setup("debugpy-adapter")
 				end,
 			},
 			{
 				"nvim-dap-virtual-text",
+				source = {
+					type = "github",
+					repo = "nvim-dap-virtual-text",
+					owner = "theHamsta",
+					branch = "master",
+				},
+				build = {
+					nixDeps = { "nvim-dap" },
+				},
 				lazy = true,
 				after = function()
 					require("nvim-dap-virtual-text").setup()
@@ -202,6 +225,12 @@ M.lz_specs = {
 	},
 	{
 		"nvim-dap-ui",
+		source = {
+			type = "github",
+			repo = "nvim-dap-ui",
+			owner = "rcarriga",
+		},
+		build = { useNixpkgs = "nvim-dap-ui" },
 		dependencies = { { "nvim-nio" }, { "nvim-dap" } },
 		keys = {
 			{
