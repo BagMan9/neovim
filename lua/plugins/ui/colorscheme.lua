@@ -3,6 +3,19 @@ local M = {}
 M.lz_specs = {
 	{
 		"catppuccin-nvim",
+		source = {
+			type = "github",
+			repo = "nvim",
+			owner = "catppuccin",
+			branch = "master",
+		},
+		build = {
+			nvimSkipModules = {
+				"catppuccin.groups.integrations.noice",
+				"catppuccin.groups.integrations.feline",
+				"catppuccin.lib.vim.init",
+			},
+		},
 		lazy = true,
 		colorscheme = "catppuccin",
 		after = function()

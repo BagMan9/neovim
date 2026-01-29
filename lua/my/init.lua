@@ -1,5 +1,5 @@
 _G.Utils = require("my.utils")
-_G.Lazy = require("lz.n")
+-- _G.Lazy = require("lz.n")
 -- _G.Plugins = require("plugins")
 
 ---@class MyVim

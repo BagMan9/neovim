@@ -2,6 +2,16 @@ return {
 
 	{
 		"bufferline.nvim",
+		source = {
+			type = "github",
+			repo = "bufferline.nvim",
+			owner = "akinsho",
+		},
+		build = {
+			nvimSkipModules = {
+				"bufferline.commands",
+			},
+		},
 		event = "User LazyFile",
 		keys = {
 			{ "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },

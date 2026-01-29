@@ -10,19 +10,57 @@ M.lz_specs = {
 		dependencies = {
 			{
 				"colorful-menu.nvim",
+				source = {
+					type = "github",
+					repo = "colorful-menu.nvim",
+					owner = "xzbdmw",
+					branch = "master",
+				},
+				build = {
+					nvimSkipModules = {
+						"repro_blink",
+						"repro_cmp",
+					},
+				},
 				after = function(_, opts)
 					require("colorful-menu").setup(opts)
 				end,
 			},
 			{ "luasnip" },
 			{ "lazydev.nvim" },
-			{ "blink-cmp-git" },
-			{ "cmp-vimtex", dependencies = {
-				{
-					"blink.compat",
-					lazy = true,
+			{
+				"blink-cmp-git",
+				source = {
+					type = "github",
+					repo = "blink-cmp-git",
+					owner = "Kaiser-Yang",
 				},
-			} },
+			},
+			{
+				"cmp-vimtex",
+				source = {
+					type = "github",
+					repo = "cmp-vimtex",
+					owner = "micangl",
+					branch = "master",
+				},
+				build = {
+					nvimSkipModules = {
+						"cmp_vimtex.search",
+					},
+				},
+				dependencies = {
+					{
+						"blink.compat",
+						source = {
+							type = "github",
+							repo = "blink.compat",
+							owner = "Saghen",
+						},
+						lazy = true,
+					},
+				},
+			},
 		},
 		opts = { -- snippets = {
 			-- 	expand = function(snippet, _)
@@ -93,16 +131,12 @@ M.lz_specs = {
 			},
 			sources = {
 				compat = {},
-				default = { "avante", "git", "lsp", "path", "snippets", "vimtex", "buffer", "lazydev" },
+				default = { "git", "lsp", "path", "snippets", "vimtex", "buffer", "lazydev" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",
 						module = "lazydev.integrations.blink",
 						score_offset = 100, -- show at a higher priority than lsp
-					},
-					avante = {
-						module = "blink-cmp-avante",
-						name = "Avante",
 					},
 					git = {
 						module = "blink-cmp-git",

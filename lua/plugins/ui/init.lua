@@ -3,6 +3,16 @@ local M = {}
 M.lz_specs = {
 	{
 		"noice.nvim",
+		source = {
+			repo = "noice.nvim",
+			type = "github",
+			owner = "folke",
+		},
+		build = {
+			nixDeps = {
+				"nui-nvim",
+			},
+		},
 		enabled = true,
 		dependencies = { {
 			"nui.nvim",
@@ -121,6 +131,14 @@ M.lz_specs = {
 	},
 	{
 		"fidget.nvim",
+		source = {
+			repo = "fidget.nvim",
+			type = "github",
+			owner = "j-hui",
+		},
+		build = {
+			useNixpkgs = "fidget-nvim",
+		},
 		event = "VeryLazy",
 		opts = {
 			progress = {

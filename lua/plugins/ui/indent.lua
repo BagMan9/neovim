@@ -1,6 +1,16 @@
 return {
 	{
 		"indent-blankline.nvim",
+		source = {
+			type = "github",
+			repo = "indent-blankline.nvim",
+			owner = "lukas-reineke",
+		},
+		build = {
+			nvimSkipModules = {
+				"ibl.config.types",
+			},
+		},
 		event = "VeryLazy",
 		opts = {
 			indent = {
@@ -33,6 +43,11 @@ return {
 	},
 	{
 		"mini.indentscope",
+		source = {
+			type = "github",
+			repo = "mini.indentscope",
+			owner = "nvim-mini",
+		},
 		event = "VeryLazy",
 		after = function()
 			local opts = {

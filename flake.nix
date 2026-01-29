@@ -112,6 +112,20 @@
             };
           });
 
+          mkLuaAttrs =
+            attrs:
+            let
+              convertone =
+                n: v:
+                let
+                  safe_lua = builtins.replaceStrings [ "-" ] [ "_" ] n;
+                in
+                "${safe_lua} = ${v}";
+
+              merge = ls: lib.strings.concatStringsSep ",\n" ls;
+            in
+            merge (lib.attrsets.mapAttrsToList convertone attrs);
+
           # Create a renamed dev neovim package (nvim-dev binary)
           mkDevNeovim =
             basePkg:
@@ -130,8 +144,18 @@
               impure = "${config.xdg.configHome}/nvim";
             };
 
+            initLua =
+              lib.mkOverride 5 # lua
+                ''
+                  _G.NIXATTRS = {
+                    ${mkLuaAttrs cfg.globalAttrs}
+                  }
+                  ${if (cfg.luaconf != "") then ''require("${cfg.luaconf}")'' else ""}
+
+                  ${if (cfg.mnw.initLua != "") then "${cfg.mnw.initLua}" else ""}
+                '';
+
             plugins.start = [
-              pkgs.vimPlugins.lz-n
               pkgs.vimPlugins.nvim-treesitter.withAllGrammars
             ];
 
@@ -176,55 +200,29 @@
             plugins.opt =
               with pkgs.vimPlugins;
               [
-                fidget-nvim
                 telescope-nvim
-                edgy-nvim
-                bufferline-nvim
                 cmp-buffer
                 cmp-nvim-lsp
                 cmp-path
                 cmp_luasnip
-                conform-nvim
                 smart-splits-nvim
-                dashboard-nvim
                 dressing-nvim
-                flit-nvim
-                leap-nvim
+                # flit-nvim
+                # leap-nvim
                 friendly-snippets
-                indent-blankline-nvim
-                lualine-nvim
-                neoconf-nvim
-                neodev-nvim
-                noice-nvim
-                nui-nvim
-                nvim-lint
+                # neoconf-nvim
+                # neodev-nvim
                 nvim-lspconfig
                 nvim-notify
-                lazydev-nvim
                 nvim-treesitter-context
                 nvim-treesitter-textobjects
                 nvim-ts-autotag
                 nvim-ts-context-commentstring
-                nvim-web-devicons
-                mini-icons
-                persistence-nvim
+                # nvim-web-devicons
                 telescope-fzf-native-nvim
-                tokyonight-nvim
                 vim-illuminate
-                vim-startuptime
-                colorful-menu-nvim
-                harpoon2
-                mini-indentscope
-                mini-hipatterns
-                mini-surround
-                vim-repeat
-                catppuccin-nvim
-                nvim-navic
                 SchemaStore-nvim
-                render-markdown-nvim
                 kulala-nvim
-                blink-compat
-                blink-cmp-git
                 rustaceanvim
                 crates-nvim
               ]
@@ -232,7 +230,6 @@
               ++ macList [ xcodebuild-nvim ]
               ++ lib.lists.optionals cfg.latex [
                 vimtex
-                cmp-vimtex
               ];
 
             providers = {
@@ -263,6 +260,18 @@
               default = false;
               description = "Enable dev mode (impure plugin path)";
             };
+
+            luaconf = lib.mkOption {
+              type = lib.types.singleLineStr;
+              default = "";
+              description = "Your top-level config to require";
+            };
+
+            globalAttrs = lib.mkOption {
+              type = lib.types.attrs;
+              default = { };
+              description = "Attributes to be made available in a NIXATTRS global variable";
+            };
           };
 
           config = lib.mkIf cfg.enable {
@@ -270,7 +279,6 @@
             programs.mnw = lib.mkMerge [
               mkMnwConfig
               cfg.mnw
-              { initLua = ''require("cfg")''; }
             ];
 
             # XDG data symlinks for the lazy loader

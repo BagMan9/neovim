@@ -30,7 +30,7 @@ M.defaults = {
 	-- Export configuration for npins integration
 	-- TODO: Make platform independent (stdpath doesn't work with mnw wrapper)
 	export = {
-		npins_dir = "/Users/isaac/.config/nvim/npins",
+		npins_dir = "/Users/isaac/.config/nvim",
 		plugins_json = "/Users/isaac/.config/nvim/npins/plugins.json",
 	},
 }

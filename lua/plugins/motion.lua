@@ -38,6 +38,16 @@ return {
 		end,
 	},
 	{
+		"smart-splits.nvim",
+		lazy = false,
+		after = function(_, opts)
+			require("smart-splits").setup({
+				at_edge = NIXATTRS.edgeFunction,
+				multiplexer_integration = "tmux",
+			})
+		end,
+	},
+	{
 		"flash.nvim",
 		source = {
 			type = "github",
@@ -50,7 +60,14 @@ return {
 			},
 		},
 		dependencies = {
-			{ "vim-repeat" },
+			{
+				"vim-repeat",
+				source = {
+					type = "github",
+					repo = "vim-repeat",
+					owner = "tpope",
+				},
+			},
 		},
 		lazy = false,
 		event = "VeryLazy",
@@ -121,7 +138,6 @@ return {
 	{
 		"nvim-surround",
 		event = "LazyFile",
-
 		source = {
 			owner = "kylechui",
 			repo = "nvim-surround",

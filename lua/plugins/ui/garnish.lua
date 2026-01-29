@@ -1,6 +1,11 @@
 return {
 	{
 		"mini.hipatterns",
+		source = {
+			type = "github",
+			repo = "mini.hipatterns",
+			owner = "nvim-mini",
+		},
 		event = "VeryLazy",
 		after = function()
 			local opts = {
@@ -25,6 +30,11 @@ return {
 	},
 	{
 		"mini.icons",
+		source = {
+			type = "github",
+			repo = "mini.icons",
+			owner = "nvim-mini",
+		},
 		lazy = true,
 		before = function()
 			package.preload["nvim-web-devicons"] = function()

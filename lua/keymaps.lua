@@ -21,10 +21,18 @@ map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, 
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 -- Move to window using the <ctrl> hjkl keys
-map({ "n", "t" }, "<C-h>", require("smart-splits").move_cursor_left)
-map({ "n", "t" }, "<C-j>", require("smart-splits").move_cursor_down)
-map({ "n", "t" }, "<C-k>", require("smart-splits").move_cursor_up)
-map({ "n", "t" }, "<C-l>", require("smart-splits").move_cursor_right)
+map({ "n", "t" }, "<C-h>", function()
+	require("smart-splits").move_cursor_left()
+end)
+map({ "n", "t" }, "<C-j>", function()
+	require("smart-splits").move_cursor_down()
+end)
+map({ "n", "t" }, "<C-k>", function()
+	require("smart-splits").move_cursor_up()
+end)
+map({ "n", "t" }, "<C-l>", function()
+	require("smart-splits").move_cursor_right()
+end)
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })

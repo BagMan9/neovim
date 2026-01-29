@@ -1,6 +1,12 @@
 return {
 	{
 		"edgy.nvim",
+		source = {
+			repo = "edgy.nvim",
+			type = "github",
+			owner = "folke",
+		},
+
 		after = function()
 			local opts = {
 				animate = { enabled = false },

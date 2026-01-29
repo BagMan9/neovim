@@ -10,7 +10,7 @@ local M = {}
 -- TODO: Make platform independent (stdpath doesn't work with mnw wrapper)
 M.defaults = {
 	-- Where npins sources.json lives (npins-controlled)
-	npins_dir = "/Users/isaac/.config/nvim/npins",
+	npins_dir = "/Users/isaac/.config/nvim",
 	-- Where we write our plugin metadata
 	plugins_json = "/Users/isaac/.config/nvim/npins/plugins.json",
 }
@@ -24,7 +24,7 @@ M.defaults = {
 ---@param npins_dir string
 ---@return table<string, any>?
 function M.read_npins_sources(npins_dir)
-	local path = npins_dir .. "/sources.json"
+	local path = npins_dir .. "/npins/sources.json"
 	local f = io.open(path, "r")
 	if not f then
 		return nil
@@ -146,7 +146,7 @@ end
 ---@param dry_run boolean
 ---@return boolean
 function M.ensure_npins_init(npins_dir, dry_run)
-	local sources_path = npins_dir .. "/sources.json"
+	local sources_path = npins_dir .. "/npins/sources.json"
 	---@diagnostic disable-next-line: undefined-field
 	if vim.uv.fs_stat(sources_path) then
 		return true

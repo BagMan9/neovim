@@ -74,9 +74,9 @@ function M.on_attach(_, buffer)
 		end
 	end
 
-	if to_load ~= {} then
-		require("lz.n").trigger_load(to_load)
-	end
+	-- if to_load ~= {} then
+	-- 	require("lz.n").trigger_load(to_load)
+	-- end
 end
 
 return M

@@ -37,6 +37,11 @@ return {
 	},
 	{
 		"conform.nvim",
+		source = {
+			type = "github",
+			repo = "conform.nvim",
+			owner = "stevearc",
+		},
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -45,6 +50,11 @@ return {
 	},
 	{
 		"lazydev.nvim",
+		source = {
+			type = "github",
+			repo = "lazydev.nvim",
+			owner = "folke",
+		},
 		ft = "lua",
 		cmd = "LazyDev",
 		after = function()

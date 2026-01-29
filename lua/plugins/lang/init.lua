@@ -190,6 +190,12 @@ return {
 	},
 	{
 		"nvim-lint",
+		source = {
+			type = "github",
+			owner = "mfussenegger",
+			repo = "nvim-lint",
+			branch = "master",
+		},
 		enabled = true,
 		event = "User LazyFile",
 		opts = {

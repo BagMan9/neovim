@@ -1,6 +1,15 @@
 return {
 	{
 		"lualine.nvim",
+		source = {
+			type = "github",
+			repo = "lualine.nvim",
+			owner = "nvim-lualine",
+			branch = "master",
+		},
+		build = {
+			useNixpkgs = "lualine-nvim",
+		},
 		dependencies = {
 			{ "mini.icons" },
 		},
