@@ -47,17 +47,6 @@
             hash = "sha256-9VSj5vKKUIUEHsh8MrLjqCAOtf+0a10pDikzOSNTtbs=";
           };
 
-          claudecode-nvim = pkgs.vimUtils.buildVimPlugin {
-            pname = "claudecode.nvim";
-            version = "2025-06-29";
-            src = pkgs.fetchFromGitHub {
-              owner = "coder";
-              repo = "claudecode.nvim";
-              rev = "91357d810ccf92f6169f3754436901c6ff5237ec";
-              hash = "sha256-h56TYz3SvdYw2R6f+NCtiFk3BRRV1+hOVa+BKjnav8E=";
-            };
-          };
-
           lzl-plugins = import ./nix/lzl-plugins.nix {
             inherit pkgs;
             npinsDir = ./npins;
@@ -134,7 +123,6 @@
               ln -s ${basePkg.devMode}/bin/nvim $out/bin/nvim-dev
             '';
 
-          # Build the mnw config (always includes impure path for devMode support)
           mkMnwConfig = {
             enable = true;
             neovim = safe-neovim-unwrapped;
@@ -166,30 +154,8 @@
                 fd
                 lldb
                 jq
-                # Lua
-                lua-language-server
-                stylua
-                # Python
-                basedpyright
-                ruff
-                # Bash
-                bash-language-server
-                shfmt
-                # Nix
-                nixd
-                nixfmt
-                # Yaml
-                yaml-language-server
-                python313Packages.debugpy
-                # JSON
-                vscode-json-languageserver
-                # JS
-                svelte-language-server
-                typescript-language-server
-                # Rust
-                rustfmt
-                clippy
               ]
+              ++ lzl-plugins.extraPackages
               ++ lib.lists.optionals cfg.latex [
                 texlab
                 texliveFull
@@ -223,7 +189,6 @@
                 vim-illuminate
                 SchemaStore-nvim
                 kulala-nvim
-                rustaceanvim
                 crates-nvim
               ]
               ++ lzl-plugins.pluginList

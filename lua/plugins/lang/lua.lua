@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-lspconfig",
+		extraPackages = { "lua-language-server" },
 		opts = {
 			servers = {
 				lua_ls = {
@@ -42,6 +43,7 @@ return {
 			repo = "conform.nvim",
 			owner = "stevearc",
 		},
+		extraPackages = { "stylua" },
 		opts = {
 			formatters_by_ft = {
 				lua = { "stylua" },

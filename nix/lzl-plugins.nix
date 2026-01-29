@@ -35,11 +35,7 @@ let
       useNixpkgs = meta.useNixpkgs or null;
 
       # If useNixpkgs is specified, use that package from pkgs.vimPlugins
-      nixpkgPlugin =
-        if useNixpkgs != null then
-          pkgs.vimPlugins.${useNixpkgs} or null
-        else
-          null;
+      nixpkgPlugin = if useNixpkgs != null then pkgs.vimPlugins.${useNixpkgs} or null else null;
 
       # Build options from metadata
       skipModules = meta.nvimSkipModules or [ ];
@@ -80,8 +76,7 @@ let
       meta = pluginsJson.${name} or { };
       useNixpkgs = meta.useNixpkgs or null;
       hasSource = sources ? ${name};
-      nixpkgPlugin =
-        if useNixpkgs != null then pkgs.vimPlugins.${useNixpkgs} or null else null;
+      nixpkgPlugin = if useNixpkgs != null then pkgs.vimPlugins.${useNixpkgs} or null else null;
     in
     if hasSource then
       # Has npins source - build (or use nixpkgs if specified)
@@ -97,7 +92,8 @@ let
       }
     else if useNixpkgs != null then
       # useNixpkgs specified but not found
-      builtins.trace "Warning: ${name} has useNixpkgs='${useNixpkgs}' but package not found and no source" null
+      builtins.trace "Warning: ${name} has useNixpkgs='${useNixpkgs}' but package not found and no source"
+        null
     else
       # No source and no useNixpkgs - skip silently (might be intentionally nixpkgs-only)
       null;

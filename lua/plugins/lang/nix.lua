@@ -1,6 +1,9 @@
 return {
 	{
 		"nvim-lspconfig",
+		extraPackages = {
+			"nixd",
+		},
 		opts = {
 			servers = {
 				nixd = {
@@ -33,6 +36,9 @@ return {
 	},
 	{
 		"conform.nvim",
+		extraPackages = {
+			"nixfmt",
+		},
 		opts = {
 			formatters_by_ft = {
 				nix = { "nixfmt" },

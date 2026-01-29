@@ -1,6 +1,9 @@
 return {
 	{
 		"nvim-lspconfig",
+		extraPackages = {
+			"yaml-language-server",
+		},
 		opts = {
 			yamlls = {
 				capabilities = {

@@ -1,6 +1,9 @@
 return {
 	{
 		"nvim-lspconfig",
+		extraPackages = {
+			"bash-language-server",
+		},
 		opts = {
 			servers = {
 				bashls = {
@@ -11,6 +14,9 @@ return {
 	},
 	{
 		"conform.nvim",
+		extraPackages = {
+			"shfmt",
+		},
 		opts = {
 			formatters_by_ft = {
 				sh = { "shfmt" },

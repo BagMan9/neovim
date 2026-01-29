@@ -21,6 +21,9 @@ M.lz_specs = {
 				build = {
 					nixDeps = { "nvim-dap" },
 				},
+				extraPackages = {
+					"python3Packages.debugpy",
+				},
 				after = function(_, opts)
 					require("dap-python").setup("debugpy-adapter")
 				end,

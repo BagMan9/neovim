@@ -1,6 +1,9 @@
 return {
 	{
 		"nvim-lspconfig",
+		extraPackages = {
+			"vscode-json-languageserver",
+		},
 		opts = {
 			servers = {
 				jsonls = {

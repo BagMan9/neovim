@@ -569,6 +569,19 @@
       "url": "https://github.com/theprimeagen/refactoring.nvim/archive/6784b54587e6d8a6b9ea199318512170ffb9e418.tar.gz",
       "hash": "sha256-KFn1f0Va6eFbeOYxc40lN1iWL8WAwnm/H5l46o4JgvI="
     },
+    "rustaceanvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "mrcjkb",
+        "repo": "rustaceanvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "f920b7171e339e2dc263bacf083e934612c22959",
+      "url": "https://github.com/mrcjkb/rustaceanvim/archive/f920b7171e339e2dc263bacf083e934612c22959.tar.gz",
+      "hash": "sha256-34bpzV54C0ieWZiIWWpq1bTEOf62VdbGnuik7wd6nMY="
+    },
     "snacks-nvim": {
       "type": "GitRelease",
       "repository": {

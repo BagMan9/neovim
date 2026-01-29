@@ -1,6 +1,10 @@
 return {
 	{
 		"nvim-lspconfig",
+		extraPackages = {
+			"basedpyright",
+			"ruff",
+		},
 		opts = {
 			servers = {
 				ruff = {
@@ -58,7 +62,7 @@ return {
 			},
 		},
 	},
-	{
+	{ --NOTE: Already made a dependency of nvim-dap --- necessary here?
 		lazy = false,
 		"nvim-dap-python",
 		after = function()
