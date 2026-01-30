@@ -29,7 +29,7 @@ return {
 						)(fname) or vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
 					end,
 					capabilities = {
-						offsetEncoding = { "utf-16" },
+						offsetEncoding = "utf-16",
 					},
 					cmd = {
 						"clangd",

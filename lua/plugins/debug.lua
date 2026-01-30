@@ -232,6 +232,7 @@ M.lz_specs = {
 			type = "github",
 			repo = "nvim-dap-ui",
 			owner = "rcarriga",
+			branch = "master",
 		},
 		build = { useNixpkgs = "nvim-dap-ui" },
 		dependencies = { { "nvim-nio" }, { "nvim-dap" } },

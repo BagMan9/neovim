@@ -33,8 +33,8 @@ function M.get_clients(opts)
 end
 
 function M.setup()
-	local real_register_capability = vim.lsp.handlers["client/registerCapabilitity"]
-	vim.lsp.handlers["client/registerCapabilitity"] = function(err, res, ctx)
+	local real_register_capability = vim.lsp.handlers["client/registerCapability"]
+	vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
 		local ret = real_register_capability(err, res, ctx)
 		local client = vim.lsp.get_client_by_id(ctx.client_id)
 		if client then

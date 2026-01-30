@@ -184,7 +184,6 @@
                 nvim-treesitter-textobjects
                 nvim-ts-autotag
                 nvim-ts-context-commentstring
-                # nvim-web-devicons
                 telescope-fzf-native-nvim
                 vim-illuminate
                 SchemaStore-nvim
