@@ -239,10 +239,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "1.6.59",
-      "revision": "1f7a722a9b9f0206a345377c13e62542f484398a",
-      "url": "https://api.github.com/repos/MagicDuck/grug-far.nvim/tarball/refs/tags/1.6.59",
-      "hash": "sha256-FPNkcgA6LHlGE4OhqL63dy8b78/kZA1xN2EOL6VTEOM="
+      "version": "1.6.60",
+      "revision": "14babc9b4520184d9696ef282eb7ac20687d4373",
+      "url": "https://api.github.com/repos/MagicDuck/grug-far.nvim/tarball/refs/tags/1.6.60",
+      "hash": "sha256-vhI1/GfCl6Tv7l7SY2BdTd4lHMlTGEys8AmmmMUhcWI="
     },
     "inc-rename-nvim": {
       "type": "Git",
@@ -460,20 +460,17 @@
       "hash": "sha256-qqPoYmMPjK74Nyyl7TfsHnJCsIvOYFuQnKWn3Rh8FLU="
     },
     "nvim-dap-ui": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "rcarriga",
         "repo": "nvim-dap-ui"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "master",
       "submodules": false,
-      "version": "v4.0.0",
-      "revision": "f7d75cca202b52a60c520ec7b1ec3414d6e77b0f",
-      "url": "https://api.github.com/repos/rcarriga/nvim-dap-ui/tarball/refs/tags/v4.0.0",
-      "hash": "sha256-cMpJJ2npriAFajLw1SEyDMjKUBFVFvYBr4dmFKoZyKw="
+      "revision": "cf91d5e2d07c72903d052f5207511bf7ecdb7122",
+      "url": "https://github.com/rcarriga/nvim-dap-ui/archive/cf91d5e2d07c72903d052f5207511bf7ecdb7122.tar.gz",
+      "hash": "sha256-391zChjd6uAJycfXy1RG2Qt0OdCY3/WF9u0MWLtFZxA="
     },
     "nvim-dap-virtual-text": {
       "type": "Git",
@@ -526,9 +523,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "50ef53b858751de0b50d64303d427c4a7eb9e190",
-      "url": "https://github.com/chrisgrieser/nvim-scissors/archive/50ef53b858751de0b50d64303d427c4a7eb9e190.tar.gz",
-      "hash": "sha256-sWOYAm+tUESirug3dGDxMVmei+yyFY/JSb3jGfRGBHA="
+      "revision": "0e928882336a032ffa934d46656afd494c5d0e4c",
+      "url": "https://github.com/chrisgrieser/nvim-scissors/archive/0e928882336a032ffa934d46656afd494c5d0e4c.tar.gz",
+      "hash": "sha256-0TSM1aekNzCaQ4bXjOU23r8CyUBVFj0/yt2aaz7SxTo="
     },
     "nvim-surround": {
       "type": "GitRelease",
