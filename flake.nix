@@ -176,9 +176,6 @@
                 # flit-nvim
                 # leap-nvim
                 friendly-snippets
-                # neoconf-nvim
-                # neodev-nvim
-                nvim-lspconfig
                 nvim-notify
                 nvim-treesitter-context
                 nvim-treesitter-textobjects

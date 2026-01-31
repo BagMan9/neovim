@@ -14,6 +14,9 @@ M.lz_specs = {
 		},
 		dependencies = {
 			{
+				"nvim-dap-ui",
+			},
+			{
 				"nvim-dap-python",
 				source = {
 					type = "github",
