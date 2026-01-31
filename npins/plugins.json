@@ -1,177 +1,153 @@
 {
-  "vim-repeat": {
-    "lzl_name": "vim-repeat"
+  "blink-compat": {
+    "lzl_name": "blink.compat"
   },
-  "colorful-menu-nvim": {
+  "which-key-nvim": {
+    "lzl_name": "which-key.nvim",
+    "useNixpkgs": "which-key-nvim"
+  },
+  "indent-blankline-nvim": {
+    "lzl_name": "indent-blankline.nvim",
     "nvimSkipModules": [
-      "repro_blink",
-      "repro_cmp"
-    ],
-    "lzl_name": "colorful-menu.nvim"
+      "ibl.config.types"
+    ]
   },
-  "inc-rename-nvim": {
-    "lzl_name": "inc-rename.nvim"
+  "snacks-nvim": {
+    "lzl_name": "snacks.nvim",
+    "useNixpkgs": "snacks-nvim"
   },
-  "flash-nvim": {
+  "trouble-nvim": {
+    "lzl_name": "trouble.nvim",
     "nvimSkipModules": [
-      "flash.docs"
-    ],
-    "lzl_name": "flash.nvim"
+      "trouble.docs"
+    ]
   },
-  "todo-comments-nvim": {
-    "useNixpkgs": "todo-comments-nvim",
-    "lzl_name": "todo-comments.nvim"
-  },
-  "refactoring-nvim": {
-    "nixDeps": [
-      "nvim-treesitter",
-      "plenary-nvim"
-    ],
-    "lzl_name": "refactoring.nvim"
-  },
-  "mini-indentscope": {
-    "lzl_name": "mini.indentscope"
-  },
-  "noice-nvim": {
-    "nixDeps": [
-      "nui-nvim"
-    ],
-    "lzl_name": "noice.nvim"
-  },
-  "nvim-dap-virtual-text": {
-    "nixDeps": [
-      "nvim-dap"
-    ],
-    "lzl_name": "nvim-dap-virtual-text"
-  },
-  "gitlinker-nvim": {
+  "bufferline-nvim": {
+    "lzl_name": "bufferline.nvim",
     "nvimSkipModules": [
-      "gitlinker",
-      "gitlinker.actions",
-      "gitlinker.git",
-      "gitlinker.opts",
-      "gitlinker.buffer"
-    ],
-    "lzl_name": "gitlinker.nvim"
-  },
-  "comment-nvim": {
-    "lzl_name": "comment.nvim"
-  },
-  "edgy-nvim": {
-    "lzl_name": "edgy.nvim"
-  },
-  "conform-nvim": {
-    "extraPackages": [
-      "shfmt",
-      "stylua",
-      "nixfmt"
-    ],
-    "lzl_name": "conform.nvim"
+      "bufferline.commands"
+    ]
   },
   "mini-hipatterns": {
     "lzl_name": "mini.hipatterns"
   },
-  "mini-ai": {
-    "lzl_name": "mini.ai"
+  "claudecode-nvim": {
+    "lzl_name": "claudecode.nvim"
   },
-  "lazydev-nvim": {
-    "lzl_name": "lazydev.nvim"
+  "comment-nvim": {
+    "lzl_name": "comment.nvim"
   },
-  "mini-pairs": {
-    "lzl_name": "mini.pairs"
+  "blink-cmp-git": {
+    "lzl_name": "blink-cmp-git"
   },
-  "trouble-nvim": {
+  "grug-far-nvim": {
+    "lzl_name": "grug-far.nvim",
+    "useNixpkgs": "grug-far-nvim"
+  },
+  "colorful-menu-nvim": {
+    "lzl_name": "colorful-menu.nvim",
     "nvimSkipModules": [
-      "trouble.docs"
-    ],
-    "lzl_name": "trouble.nvim"
-  },
-  "bufferline-nvim": {
-    "nvimSkipModules": [
-      "bufferline.commands"
-    ],
-    "lzl_name": "bufferline.nvim"
-  },
-  "mini-icons": {
-    "lzl_name": "mini.icons"
-  },
-  "fidget-nvim": {
-    "useNixpkgs": "fidget-nvim",
-    "lzl_name": "fidget.nvim"
-  },
-  "nvim-dap-python": {
-    "lzl_name": "nvim-dap-python",
-    "nixDeps": [
-      "nvim-dap"
-    ],
-    "extraPackages": [
-      "python3Packages.debugpy"
+      "repro_blink",
+      "repro_cmp"
     ]
   },
-  "which-key-nvim": {
-    "useNixpkgs": "which-key-nvim",
-    "lzl_name": "which-key.nvim"
+  "mini-indentscope": {
+    "lzl_name": "mini.indentscope"
   },
-  "snacks-nvim": {
-    "useNixpkgs": "snacks-nvim",
-    "lzl_name": "snacks.nvim"
+  "refactoring-nvim": {
+    "lzl_name": "refactoring.nvim",
+    "nixDeps": [
+      "nvim-treesitter",
+      "plenary-nvim"
+    ]
   },
-  "octo-nvim": {
-    "useNixpkgs": "octo-nvim",
-    "lzl_name": "octo.nvim"
+  "inc-rename-nvim": {
+    "lzl_name": "inc-rename.nvim"
   },
   "yanky-nvim": {
-    "useNixpkgs": "yanky-nvim",
-    "lzl_name": "yanky.nvim"
+    "lzl_name": "yanky.nvim",
+    "useNixpkgs": "yanky-nvim"
   },
   "nvim-lint": {
     "lzl_name": "nvim-lint"
   },
+  "lazydev-nvim": {
+    "lzl_name": "lazydev.nvim"
+  },
+  "vim-repeat": {
+    "lzl_name": "vim-repeat"
+  },
+  "mini-pairs": {
+    "lzl_name": "mini.pairs"
+  },
   "catppuccin-nvim": {
+    "lzl_name": "catppuccin-nvim",
     "nvimSkipModules": [
       "catppuccin.groups.integrations.noice",
       "catppuccin.groups.integrations.feline",
       "catppuccin.lib.vim.init"
-    ],
-    "lzl_name": "catppuccin-nvim"
-  },
-  "grug-far-nvim": {
-    "useNixpkgs": "grug-far-nvim",
-    "lzl_name": "grug-far.nvim"
-  },
-  "blink-cmp": {
-    "useNixpkgs": "blink-cmp",
-    "lzl_name": "blink.cmp"
-  },
-  "gitsigns-nvim": {
-    "useNixpkgs": "gitsigns-nvim",
-    "lzl_name": "gitsigns.nvim"
-  },
-  "lualine-nvim": {
-    "useNixpkgs": "lualine-nvim",
-    "lzl_name": "lualine.nvim"
+    ]
   },
   "neo-tree-nvim": {
-    "lzl_name": "neo-tree.nvim",
-    "useNixpkgs": "neo-tree-nvim",
     "nixDeps": [
       "plenary-nvim",
       "nui-nvim"
-    ]
+    ],
+    "lzl_name": "neo-tree.nvim",
+    "useNixpkgs": "neo-tree-nvim"
   },
-  "nvim-dap": {
-    "lzl_name": "nvim-dap"
-  },
-  "claudecode-nvim": {
-    "lzl_name": "claudecode.nvim"
+  "fidget-nvim": {
+    "lzl_name": "fidget.nvim",
+    "useNixpkgs": "fidget-nvim"
   },
   "nvim-surround": {
-    "useNixpkgs": "nvim-surround",
-    "lzl_name": "nvim-surround"
+    "lzl_name": "nvim-surround",
+    "useNixpkgs": "nvim-surround"
+  },
+  "cmp-vimtex": {
+    "lzl_name": "cmp-vimtex",
+    "nvimSkipModules": [
+      "cmp_vimtex.search"
+    ]
+  },
+  "todo-comments-nvim": {
+    "lzl_name": "todo-comments.nvim",
+    "useNixpkgs": "todo-comments-nvim"
+  },
+  "nvim-scissors": {
+    "lzl_name": "nvim-scissors",
+    "useNixpkgs": "nvim-scissors"
+  },
+  "rustaceanvim": {
+    "extraPackages": [
+      "rustfmt",
+      "clippy"
+    ],
+    "lzl_name": "rustaceanvim",
+    "useNixpkgs": "rustaceanvim"
+  },
+  "blink-cmp": {
+    "lzl_name": "blink.cmp",
+    "useNixpkgs": "blink-cmp"
+  },
+  "octo-nvim": {
+    "lzl_name": "octo.nvim",
+    "useNixpkgs": "octo-nvim"
+  },
+  "nvim-dap-python": {
+    "extraPackages": [
+      "python3Packages.debugpy"
+    ],
+    "lzl_name": "nvim-dap-python",
+    "nixDeps": [
+      "nvim-dap"
+    ]
+  },
+  "nvim-dap-ui": {
+    "lzl_name": "nvim-dap-ui",
+    "useNixpkgs": "nvim-dap-ui"
   },
   "nvim-lspconfig": {
-    "lzl_name": "nvim-lspconfig",
-    "useNixpkgs": "nvim-lspconfig",
     "extraPackages": [
       "bash-language-server",
       "svelte-language-server",
@@ -182,47 +158,71 @@
       "basedpyright",
       "ruff",
       "yaml-language-server"
+    ],
+    "lzl_name": "nvim-lspconfig",
+    "useNixpkgs": "nvim-lspconfig"
+  },
+  "nvim-dap-virtual-text": {
+    "lzl_name": "nvim-dap-virtual-text",
+    "nixDeps": [
+      "nvim-dap"
     ]
+  },
+  "lualine-nvim": {
+    "lzl_name": "lualine.nvim",
+    "useNixpkgs": "lualine-nvim"
+  },
+  "noice-nvim": {
+    "lzl_name": "noice.nvim",
+    "nixDeps": [
+      "nui-nvim"
+    ]
+  },
+  "flash-nvim": {
+    "lzl_name": "flash.nvim",
+    "nvimSkipModules": [
+      "flash.docs"
+    ]
+  },
+  "edgy-nvim": {
+    "lzl_name": "edgy.nvim"
+  },
+  "auto-session": {
+    "lzl_name": "auto-session",
+    "useNixpkgs": "auto-session"
   },
   "neogen": {
     "lzl_name": "neogen"
   },
-  "nvim-dap-ui": {
-    "useNixpkgs": "nvim-dap-ui",
-    "lzl_name": "nvim-dap-ui"
+  "mini-ai": {
+    "lzl_name": "mini.ai"
   },
-  "nvim-scissors": {
-    "useNixpkgs": "nvim-scissors",
-    "lzl_name": "nvim-scissors"
+  "mini-icons": {
+    "lzl_name": "mini.icons"
   },
-  "blink-cmp-git": {
-    "lzl_name": "blink-cmp-git"
-  },
-  "indent-blankline-nvim": {
+  "gitlinker-nvim": {
+    "lzl_name": "gitlinker.nvim",
     "nvimSkipModules": [
-      "ibl.config.types"
-    ],
-    "lzl_name": "indent-blankline.nvim"
-  },
-  "blink-compat": {
-    "lzl_name": "blink.compat"
-  },
-  "auto-session": {
-    "useNixpkgs": "auto-session",
-    "lzl_name": "auto-session"
-  },
-  "rustaceanvim": {
-    "lzl_name": "rustaceanvim",
-    "useNixpkgs": "rustaceanvim",
-    "extraPackages": [
-      "rustfmt",
-      "clippy"
+      "gitlinker",
+      "gitlinker.actions",
+      "gitlinker.git",
+      "gitlinker.opts",
+      "gitlinker.buffer"
     ]
   },
-  "cmp-vimtex": {
-    "nvimSkipModules": [
-      "cmp_vimtex.search"
-    ],
-    "lzl_name": "cmp-vimtex"
+  "conform-nvim": {
+    "lzl_name": "conform.nvim",
+    "extraPackages": [
+      "shfmt",
+      "stylua",
+      "nixfmt"
+    ]
+  },
+  "nvim-dap": {
+    "lzl_name": "nvim-dap"
+  },
+  "gitsigns-nvim": {
+    "lzl_name": "gitsigns.nvim",
+    "useNixpkgs": "gitsigns-nvim"
   }
 }

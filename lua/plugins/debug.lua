@@ -9,6 +9,9 @@ M.lz_specs = {
 			repo = "nvim-dap",
 			owner = "mfussenegger",
 		},
+		build = {
+			useNixpkgs = "nvim-dap",
+		},
 		dependencies = {
 			{
 				"nvim-dap-python",
@@ -19,7 +22,8 @@ M.lz_specs = {
 					branch = "master",
 				},
 				build = {
-					nixDeps = { "nvim-dap" },
+					useNixpkgs = "nvim-dap-python",
+					-- nixDeps = { "nvim-dap" },
 				},
 				extraPackages = {
 					"python3Packages.debugpy",
@@ -39,9 +43,12 @@ M.lz_specs = {
 				build = {
 					nixDeps = { "nvim-dap" },
 				},
+				opts = {
+					virt_text_pos = "eol",
+				},
 				lazy = true,
-				after = function()
-					require("nvim-dap-virtual-text").setup()
+				after = function(_, opts)
+					require("nvim-dap-virtual-text").setup(opts)
 				end,
 			},
 		},
@@ -124,14 +131,14 @@ M.lz_specs = {
 				desc = "Run Last",
 			},
 			{
-				"<leader>do",
+				"<leader>dO",
 				function()
 					require("dap").step_out()
 				end,
 				desc = "Step Out",
 			},
 			{
-				"<leader>dO",
+				"<leader>do",
 				function()
 					require("dap").step_over()
 				end,
