@@ -55,6 +55,9 @@ return {
 						didRename = true,
 						willRename = true,
 					},
+					didChangeWatchedFiles = {
+						dynamicRegistration = true,
+					},
 				},
 			},
 			---@type vim.lsp.buf.format.Opts
