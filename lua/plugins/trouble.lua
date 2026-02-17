@@ -121,8 +121,10 @@ M.lz_specs = {
 	{
 		"which-key.nvim",
 		opts = {
-			specs = {
-				{ "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
+			spec = {
+				{
+					{ "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
+				},
 			},
 		},
 	},

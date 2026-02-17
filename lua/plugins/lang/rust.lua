@@ -17,6 +17,9 @@ return {
 		lazy = false,
 	},
 	-- {
+	--   "nvim-lspconfig"
+	-- }
+	-- {
 	-- 	"crates.nvim",
 	-- 	source = {
 	-- 		type = "github",

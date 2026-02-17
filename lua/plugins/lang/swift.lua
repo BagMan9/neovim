@@ -333,7 +333,7 @@ return {
 	},
 	{
 		"which-key.nvim",
-		opts = { spec = { { "<localleader>x", group = "xcode" }, { "<localleader>d", group = "xcode debug" } } },
+		opts = {},
 	},
 	{
 		"snacks.nvim",

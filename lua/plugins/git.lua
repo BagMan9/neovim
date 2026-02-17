@@ -171,7 +171,7 @@ M.lz_specs = {
 	{
 		"which-key.nvim",
 		opts = {
-			specs = {
+			spec = {
 				{ "<leader>g", group = "git" },
 				{ "<leader>gh", group = "hunks" },
 			},

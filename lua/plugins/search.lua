@@ -2,7 +2,7 @@ return {
 	{
 		"which-key.nvim",
 		opts = {
-			specs = {
+			spec = {
 				{ "<leader>f", group = "file/find" },
 				{ "<leader>s", group = "search/snips" },
 			},
@@ -16,7 +16,13 @@ return {
 			repo = "grug-far.nvim",
 		},
 		build = { useNixpkgs = "grug-far-nvim" },
-		opts = { headerMaxWidth = 80, engines = { ripgrep = { extraArgs = "-P" } } },
+		extraPackages = { "ast-grep" },
+		opts = {
+			headerMaxWidth = 80,
+			engines = {
+				ripgrep = { extraArgs = "-P" },
+			},
+		},
 		after = function(_, opts)
 			require("grug-far").setup(opts)
 		end,

@@ -290,7 +290,7 @@ M.lz_specs = {
 	{
 		"which-key.nvim",
 		opts = {
-			specs = {
+			spec = {
 				{ "<leader>d", group = "debug" },
 				{ "<leader>dp", group = "profiler" },
 			},
