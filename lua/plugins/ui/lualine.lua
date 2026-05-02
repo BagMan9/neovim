@@ -59,7 +59,7 @@ return {
 				return " " .. tostring(lines) .. "L " .. tostring(fn.wordcount().visual_chars) .. "C"
 			end
 			local colors = require("catppuccin.palettes").get_palette("mocha")
-			local fixed_cat = require("lualine.themes.catppuccin")
+			local fixed_cat = require("catppuccin.utils.lualine")("mocha")
 			for _, sect in ipairs({ "a", "b", "c" }) do
 				fixed_cat.normal[sect].bg = "#1e1e2e"
 			end

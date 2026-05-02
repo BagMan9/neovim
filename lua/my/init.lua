@@ -23,7 +23,7 @@ function M.init()
 	-- Plugins.create_npins()
 	require("lzl").lzl_setup({ spec = { import = "plugins" } })
 	vim.opt.runtimepath:append(mnw.configDir .. "/pack/mnw/start/myconf")
-	vim.cmd.colorscheme("catppuccin")
+	vim.cmd.colorscheme("catppuccin-mocha")
 	require("keymaps")
 end
 

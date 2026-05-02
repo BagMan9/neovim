@@ -14,7 +14,6 @@ M.lz_specs = {
 				"catppuccin.groups.integrations.noice",
 				"catppuccin.groups.integrations.feline",
 				"catppuccin.lib.vim.init",
-				-- TODO: re-enable when https://github.com/catppuccin/nvim/pull/995 merged
 			},
 		},
 		lazy = true,

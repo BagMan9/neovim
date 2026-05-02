@@ -37,10 +37,15 @@ M.lz_specs = {
 			branch = "master",
 		},
 		build = {
+			useNixpkgs = "refactoring-nvim",
 			nixDeps = { "nvim-treesitter", "plenary-nvim", "async-nvim" },
 		},
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { { "plenary.nvim" }, { "nvim-treesitter" } },
+		dependencies = {
+			{ "plenary.nvim" },
+			{ "nvim-treesitter" },
+			{ "async.nvim", build = { useNixpkgs = "async-nvim" } },
+		},
 		keys = {
 			{ "<leader>r", "", desc = "+refactor", mode = { "n", "v" } },
 			{
