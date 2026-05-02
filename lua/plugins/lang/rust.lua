@@ -1,4 +1,5 @@
 return {
+	-- TODO: Could use crates-nvim
 	{
 		"rustaceanvim",
 		source = {

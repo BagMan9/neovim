@@ -3,6 +3,7 @@ local M = {}
 M.lz_specs = {
 	{
 		"nvim-treesitter-context",
+		build = { useNixpkgs = "nvim-treesitter-context" },
 		lazy = false,
 		event = "LazyFile",
 		opts = {
@@ -89,15 +90,18 @@ M.lz_specs = {
 	},
 	{
 		"nvim-treesitter-textobjects",
+		build = { useNixpkgs = "nvim-treesitter-textobjects" },
 		event = "User LazyFile",
 		enabled = true,
 	},
 	{
 		"nvim-ts-autotag",
+		build = { useNixpkgs = "nvim-ts-autotag" },
 		event = "User LazyFile",
 	},
 	{
 		"nvim-ts-context-commentstring",
+		build = { useNixpkgs = "nvim-ts-context-commentstring" },
 		lazy = true,
 	},
 	-- {

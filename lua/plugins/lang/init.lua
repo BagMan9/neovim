@@ -4,7 +4,7 @@ return {
 		dependencies = {
 			{ "conform.nvim" },
 			{ "blink.cmp" },
-			{ "SchemaStore.nvim" },
+			{ "SchemaStore.nvim", build = { useNixpkgs = "SchemaStore-nvim" } },
 		},
 		opts = {
 

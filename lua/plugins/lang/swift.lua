@@ -54,6 +54,7 @@ return {
 		dependencies = {
 			{
 				"telescope.nvim",
+				build = { useNixpkgs = "telescope-nvim" },
 				lazy = true,
 				event = "VeryLazy",
 				dependencies = { { "plenary.nvim" } },

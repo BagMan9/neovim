@@ -3,6 +3,7 @@ local M = {}
 M.lz_specs = {
 	{
 		"kulala.nvim",
+		build = { useNixpkgs = "kulala-nvim" },
 		keys = {
 			{ "<leader>Rs", desc = "Send request" },
 			{ "<leader>Ra", desc = "Send all requests" },

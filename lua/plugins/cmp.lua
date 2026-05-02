@@ -8,6 +8,12 @@ M.lz_specs = {
 		build = { useNixpkgs = "blink-cmp" },
 		event = "InsertEnter",
 		dependencies = {
+			-- Legacy nvim-cmp sources, kept available via blink.compat in case
+			-- they get added to opts.sources.compat. Not loaded otherwise.
+			{ "cmp-buffer", build = { useNixpkgs = "cmp-buffer" }, lazy = true },
+			{ "cmp-nvim-lsp", build = { useNixpkgs = "cmp-nvim-lsp" }, lazy = true },
+			{ "cmp-path", build = { useNixpkgs = "cmp-path" }, lazy = true },
+			{ "cmp_luasnip", build = { useNixpkgs = "cmp_luasnip" }, lazy = true },
 			{
 				"colorful-menu.nvim",
 				source = {

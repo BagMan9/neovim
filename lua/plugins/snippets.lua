@@ -3,11 +3,17 @@ local M = {}
 M.lz_specs = {
 	{
 		"luasnip",
-		dir = "/Users/isaac/.local/share/lzl/lua_plugins/luasnip",
+		build = { useNixpkgs = "luasnip" },
+		dependencies = { "friendly-snippets" },
 		lazy = true,
 		after = function()
 			require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.env.HOME .. "/.config/nvim/snippets" } })
+			require("luasnip.loaders.from_vscode").lazy_load()
 		end,
+	},
+	{
+		"friendly-snippets",
+		build = { useNixpkgs = "friendly-snippets" },
 	},
 	{
 		"nvim-scissors",

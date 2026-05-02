@@ -16,6 +16,7 @@ M.lz_specs = {
 		enabled = true,
 		dependencies = { {
 			"nui.nvim",
+			build = { useNixpkgs = "nui-nvim" },
 		} },
 		opts = {
 			lsp = {
@@ -128,6 +129,20 @@ M.lz_specs = {
 				mode = { "i", "n", "s" },
 			},
 		},
+	},
+	{
+		"render-markdown.nvim",
+		build = { useNixpkgs = "render-markdown-nvim" },
+		dependencies = {
+			"nvim-treesitter",
+			"mini.icons",
+		},
+		opts = {
+			completions = { lsp = { enabled = true } },
+		},
+		after = function(_, opts)
+			require("render-markdown").setup(opts)
+		end,
 	},
 	{
 		"fidget.nvim",

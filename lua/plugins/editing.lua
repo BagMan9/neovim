@@ -1,5 +1,5 @@
 local M = {}
-
+-- TODO: Add harpoon2, workflow could probably benefit from it
 M.lz_specs = {
 	-- 	{
 	-- 		"harpoon2",

@@ -39,6 +39,7 @@ return {
 	},
 	{
 		"smart-splits.nvim",
+		build = { useNixpkgs = "smart-splits-nvim" },
 		lazy = false,
 		after = function(_, opts)
 			require("smart-splits").setup({

@@ -28,28 +28,29 @@
       xcode-build-server,
     }:
     let
-      # Home-manager module (system-independent definition)
-      homeManagerModule =
+      # Shared base used by both the standalone package and the home-manager module.
+      # Returns the discrete pieces of an mnw config so each call site can stitch
+      # them into the slightly different surrounding shape it needs.
+      mkShared =
         {
-          config,
-          lib,
           pkgs,
-          ...
+          lib,
+          latex ? false,
         }:
         let
-          cfg = config.programs.neovim-ide;
+          isMac = pkgs.stdenv.hostPlatform.isDarwin;
+          macList = xs: lib.lists.optionals isMac xs;
 
-          # Plugin fetches - these will eventually move to my_stdlib
+          lzl-plugins = import ./nix/lzl-plugins.nix {
+            inherit pkgs;
+            npinsDir = ./npins;
+          };
+
           xcodebuild-src = pkgs.fetchFromGitHub {
             owner = "wojciech-kulik";
             repo = "xcodebuild.nvim";
             rev = "0e6e3058a44622866219151209943a2120be66b5";
             hash = "sha256-9VSj5vKKUIUEHsh8MrLjqCAOtf+0a10pDikzOSNTtbs=";
-          };
-
-          lzl-plugins = import ./nix/lzl-plugins.nix {
-            inherit pkgs;
-            npinsDir = ./npins;
           };
 
           xcodebuild-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -73,25 +74,85 @@
             ];
           };
 
-          remote-debugger = pkgs.writeShellScriptBin "remote_debugger" (
-            builtins.readFile "${xcodebuild-src}/tools/remote_debugger"
-          );
+          # Plugins not (currently) controlled by lzl. lzl-plugins.pluginList is
+          # appended below — anything in npins/plugins.json must NOT appear here
+          # or it would be injected twice. nvim-treesitter itself stays here
+          # intentionally (lzl can't manage its build).
+          flakeOnlyPlugins = with pkgs.vimPlugins; [
+            # nvim-notify
+            # telescope-fzf-native-nvim
+            # vim-illuminate
+          ];
+        in
+        {
+          inherit
+            isMac
+            macList
+            lzl-plugins
+            xcodebuild-src
+            xcodebuild-nvim
+            ;
 
-          # Platform helpers
-          isMac = pkgs.stdenv.hostPlatform.isDarwin;
-          macList = xs: lib.lists.optionals isMac xs;
+          pluginsStart = [
+            pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+          ];
+
+          pluginsOpt =
+            flakeOnlyPlugins
+            ++ lzl-plugins.pluginList
+            ++ macList [ xcodebuild-nvim ]
+            ++ lib.lists.optionals latex [ pkgs.vimPlugins.vimtex ];
+
+          extraBinPath =
+            with pkgs;
+            [
+              ripgrep
+              fd
+              lldb
+              jq
+            ]
+            ++ lzl-plugins.extraPackages
+            ++ lib.lists.optionals latex [
+              texlab
+              texliveFull
+              ghostscript_headless
+            ]
+            ++ macList (
+              with pkgs;
+              [
+                imagemagick
+                coreutils
+              ]
+            );
+
+          providers.python3 = {
+            enable = true;
+            extraPackages = ps: [ ps.debugpy ];
+          };
+        };
+
+      # Home-manager module (system-independent definition)
+      homeManagerModule =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        let
+          cfg = config.programs.neovim-ide;
+
+          shared = mkShared {
+            inherit pkgs lib;
+            latex = cfg.latex;
+          };
+
+          remote-debugger = pkgs.writeShellScriptBin "remote_debugger" (
+            builtins.readFile "${shared.xcodebuild-src}/tools/remote_debugger"
+          );
 
           # External packages from inputs
           xcode-build-server-pkg = xcode-build-server.packages.${pkgs.system}.xcode-build or null;
-
-          # Mac-specific extra binaries for extraBinPath
-          macExtraBin = macList (
-            with pkgs;
-            [
-              imagemagick
-              coreutils
-            ]
-          );
 
           # Safe neovim-unwrapped with fixed meta
           safe-neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (old: {
@@ -143,62 +204,10 @@
                   ${if (cfg.mnw.initLua != "") then "${cfg.mnw.initLua}" else ""}
                 '';
 
-            plugins.start = [
-              pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-            ];
-
-            extraBinPath =
-              with pkgs;
-              [
-                ripgrep
-                fd
-                lldb
-                jq
-              ]
-              ++ lzl-plugins.extraPackages
-              ++ lib.lists.optionals cfg.latex [
-                texlab
-                texliveFull
-                ghostscript_headless
-              ]
-              ++ macExtraBin;
-
-            plugins.opt =
-              with pkgs.vimPlugins;
-              [
-                telescope-nvim
-                cmp-buffer
-                cmp-nvim-lsp
-                cmp-path
-                cmp_luasnip
-                smart-splits-nvim
-                dressing-nvim
-                # flit-nvim
-                # leap-nvim
-                friendly-snippets
-                nvim-notify
-                nvim-treesitter-context
-                nvim-treesitter-textobjects
-                nvim-ts-autotag
-                nvim-ts-context-commentstring
-                telescope-fzf-native-nvim
-                vim-illuminate
-                SchemaStore-nvim
-                kulala-nvim
-                crates-nvim
-              ]
-              ++ lzl-plugins.pluginList
-              ++ macList [ xcodebuild-nvim ]
-              ++ lib.lists.optionals cfg.latex [
-                vimtex
-              ];
-
-            providers = {
-              python3 = {
-                enable = true;
-                extraPackages = ps: [ ps.debugpy ];
-              };
-            };
+            plugins.start = shared.pluginsStart;
+            plugins.opt = shared.pluginsOpt;
+            extraBinPath = shared.extraBinPath;
+            providers = shared.providers;
           };
 
         in
@@ -271,7 +280,7 @@
                 ]
               )
               ++ lib.lists.optional cfg.dev (mkDevNeovim config.programs.mnw.finalPackage)
-              ++ macList [
+              ++ shared.macList [
                 xcode-build-server-pkg
                 pkgs.xcbeautify
                 pkgs.pipx
@@ -295,52 +304,11 @@
           config.allowUnfree = true;
         };
 
-        # Plugin fetches (duplicated here for standalone builds)
-        xcodebuild-src = pkgs.fetchFromGitHub {
-          owner = "wojciech-kulik";
-          repo = "xcodebuild.nvim";
-          rev = "0e6e3058a44622866219151209943a2120be66b5";
-          hash = "sha256-9VSj5vKKUIUEHsh8MrLjqCAOtf+0a10pDikzOSNTtbs=";
-        };
-
-        claudecode-nvim = pkgs.vimUtils.buildVimPlugin {
-          pname = "claudecode.nvim";
-          version = "2025-06-29";
-          src = pkgs.fetchFromGitHub {
-            owner = "coder";
-            repo = "claudecode.nvim";
-            rev = "91357d810ccf92f6169f3754436901c6ff5237ec";
-            hash = "sha256-h56TYz3SvdYw2R6f+NCtiFk3BRRV1+hOVa+BKjnav8E=";
-          };
-        };
-
-        xcodebuild-nvim = pkgs.vimUtils.buildVimPlugin {
-          pname = "xcodebuild.nvim";
-          version = "2025-07-02";
-          src = xcodebuild-src;
-          nvimSkipModules = [
-            "xcodebuild.ui.pickers"
-            "xcodebuild.actions"
-            "xcodebuild.project.manager"
-            "xcodebuild.project.assets"
-            "xcodebuild.integrations.xcode-build-server"
-            "xcodebuild.integrations.dap"
-            "xcodebuild.code_coverage.report"
-            "xcodebuild.dap"
-          ];
-          dependencies = with pkgs.vimPlugins; [
-            telescope-nvim
-            nui-nvim
-            nvim-dap
-          ];
-        };
-
-        isMac = pkgs.stdenv.hostPlatform.isDarwin;
-        macList = xs: nixpkgs.lib.lists.optionals isMac xs;
-        lzl-plugins = import ./nix/lzl-plugins.nix {
+        shared = mkShared {
           inherit pkgs;
-          npinsDir = ./npins;
+          lib = nixpkgs.lib;
         };
+
         # Build standalone packages using mnw directly
         mkNeovimPackage =
           extraConfig:
@@ -348,68 +316,8 @@
             {
               neovim = pkgs.neovim-unwrapped;
 
-              plugins.start = [
-                pkgs.vimPlugins.lz-n
-                pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-              ];
-
-              plugins.opt =
-                with pkgs.vimPlugins;
-                [
-                  fidget-nvim
-                  telescope-nvim
-                  edgy-nvim
-                  bufferline-nvim
-                  cmp-buffer
-                  cmp-nvim-lsp
-                  cmp-path
-                  cmp_luasnip
-                  conform-nvim
-                  smart-splits-nvim
-                  dashboard-nvim
-                  dressing-nvim
-                  flit-nvim
-                  leap-nvim
-                  friendly-snippets
-                  indent-blankline-nvim
-                  lualine-nvim
-                  neoconf-nvim
-                  neodev-nvim
-                  noice-nvim
-                  nui-nvim
-                  nvim-lint
-                  nvim-lspconfig
-                  nvim-notify
-                  lazydev-nvim
-                  nvim-treesitter-context
-                  nvim-treesitter-textobjects
-                  nvim-ts-autotag
-                  nvim-ts-context-commentstring
-                  nvim-web-devicons
-                  mini-icons
-                  persistence-nvim
-                  telescope-fzf-native-nvim
-                  tokyonight-nvim
-                  vim-illuminate
-                  vim-startuptime
-                  colorful-menu-nvim
-                  harpoon2
-                  mini-indentscope
-                  mini-hipatterns
-                  mini-surround
-                  vim-repeat
-                  catppuccin-nvim
-                  nvim-navic
-                  SchemaStore-nvim
-                  render-markdown-nvim
-                  kulala-nvim
-                  blink-compat
-                  blink-cmp-git
-                  rustaceanvim
-                  crates-nvim
-                ]
-                ++ lzl-plugins.pluginList
-                ++ macList [ xcodebuild-nvim ];
+              plugins.start = shared.pluginsStart;
+              plugins.opt = shared.pluginsOpt;
 
               plugins.dev.myconf = {
                 pure = ./.;
@@ -421,20 +329,9 @@
                   require("cfg")
                 '';
 
-              extraBinPath =
-                with pkgs;
-                [
-                  ripgrep
-                  fd
-                  lldb
-                  jq
-                ]
-                ++ lzl-plugins.extraPackages;
+              extraBinPath = shared.extraBinPath;
 
-              providers.python3 = {
-                enable = true;
-                extraPackages = ps: [ ps.debugpy ];
-              };
+              providers = shared.providers;
             }
             // extraConfig
           );
