@@ -144,20 +144,41 @@ return {
 			type = "github",
 		},
 		build = { useNixpkgs = "nvim-surround" },
-		opts = {
-			keymaps = {
-				normal = "yz",
-				normal_cur = "yzz",
-				normal_line = "yZ",
-				normal_cur_line = "yZZ",
-				visual = "Z",
-				visual_line = "gZ",
-				delete = "dz",
-				change = "cz",
-				change_line = "cZ",
+		opts = {},
+		keys = {
+			{ "yz", "<Plug>(nvim-surround-normal)", mode = { "n" }, desc = "Add pair around motion" },
+			{ "yzz", "<Plug>(nvim-surround-normal-cur)", mode = { "n" }, desc = "Add pair around current line" },
+			{
+				"yZ",
+				"<Plug>(nvim-surround-normal-line)",
+				mode = { "n" },
+				desc = "Add pair around a motion, on new lines",
+			},
+			{
+				"yZZ",
+				"<Plug>(nvim-surround-normal-cur-line)",
+				mode = { "n" },
+				desc = "Add pair around the current line, on new lines",
+			},
+			{ "Z", "<Plug>(nvim-surround-visual)", mode = { "x" }, desc = "Add pair around a visual selection" },
+			{
+				"gZ",
+				"<Plug>(nvim-surround-visual-line)",
+				mode = { "x" },
+				desc = "Add pair around a visual selection, on new lines",
+			},
+			{ "dz", "<Plug>(nvim-surround-delete)", mode = { "n" }, desc = "Delete a surrounding pair" },
+			{ "cz", "<Plug>(nvim-surround-change)", mode = { "n" }, desc = "Change a surrounding pair" },
+			{
+				"cZ",
+				"<Plug>(nvim-surround-normal-line)",
+				mode = { "n" },
+				desc = "Change a surrounding pair, putting replacements on new lines",
 			},
 		},
 		after = function(_, opts)
+			vim.g.nvim_surround_no_normal_mappings = true
+			vim.g.nvim_surround_no_visual_mappings = true
 			require("nvim-surround").setup(opts)
 		end,
 	},
