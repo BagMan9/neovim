@@ -5,7 +5,7 @@ return {
 			type = "github",
 			repo = "rustaceanvim",
 			owner = "mrcjkb",
-			branch = "master",
+			branch = "main",
 		},
 		build = {
 			useNixpkgs = "rustaceanvim",

@@ -231,12 +231,12 @@ function M.run_npins_add(cmd, npins_dir, dry_run)
 
 	if result.code ~= 0 then
 		Util.error("Command failed: " .. cmd_str .. "\n" .. (result.stderr or ""))
-		if result.stderr:match("*tags*") then
+		if result.stderr:match("*tag*") then
 			table.insert(cmd, "-b")
 			table.insert(cmd, "master")
 
 			local retry_result = vim.system(cmd, { cwd = npins_dir }):wait()
-			if retry_result.code ~= 0 and retry_result.stderr:match("*tags*") then
+			if retry_result.code ~= 0 and retry_result.stderr:match("*tag*") then
 				cmd[-1] = "main"
 				retry_result = vim.system(cmd, { cwd = npins_dir }):wait()
 				if retry_result.code ~= 0 then

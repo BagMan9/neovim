@@ -37,7 +37,7 @@ M.lz_specs = {
 			branch = "master",
 		},
 		build = {
-			nixDeps = { "nvim-treesitter", "plenary-nvim" },
+			nixDeps = { "nvim-treesitter", "plenary-nvim", "async-nvim" },
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { { "plenary.nvim" }, { "nvim-treesitter" } },
