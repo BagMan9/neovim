@@ -78,20 +78,17 @@
       "hash": "sha256-qs74a/h9nUoI1uZ7Rlh8krgWkTaIh4SaHshhPiDwBis="
     },
     "claudecode-nvim": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "coder",
         "repo": "claudecode.nvim"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "v0.3.0",
-      "revision": "2e6ea6f2a63cdf4fd3c05e6a054151d46848d319",
-      "url": "https://api.github.com/repos/coder/claudecode.nvim/tarball/refs/tags/v0.3.0",
-      "hash": "sha256-sOBY2y/buInf+SxLwz6uYlUouDULwebY/nmDlbFbGa8="
+      "revision": "102d835c964069c9c5e37abaf05ae4f9c3ee6f00",
+      "url": "https://github.com/coder/claudecode.nvim/archive/102d835c964069c9c5e37abaf05ae4f9c3ee6f00.tar.gz",
+      "hash": "sha256-h8wYaWBKjKrb7hYYKYs5yUS5RI0JVFo8Emcy99YK6Qw="
     },
     "cmp-vimtex": {
       "type": "Git",

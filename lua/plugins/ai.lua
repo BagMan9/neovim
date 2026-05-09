@@ -10,6 +10,7 @@ M.lz_specs = {
 			type = "github",
 			owner = "coder",
 			repo = "claudecode.nvim",
+			branch = "main",
 		},
 		after = function(_, opts)
 			require("claudecode").setup(opts)
