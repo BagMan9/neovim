@@ -16,10 +16,20 @@ return {
 			"clippy",
 		},
 		lazy = false,
+		before = function(_)
+			vim.g.rustaceanvim = {
+				server = {
+					default_settings = {
+						["rust-analyzer"] = {
+							files = {
+								exclude = { ".direnv", "result" },
+							},
+						},
+					},
+				},
+			}
+		end,
 	},
-	-- {
-	--   "nvim-lspconfig"
-	-- }
 	-- {
 	-- 	"crates.nvim",
 	-- 	source = {
