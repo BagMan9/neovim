@@ -109,8 +109,7 @@ lua specs → :LzlExport → npins sync → plugins.json → Nix build → runti
 
 3. **Rebuild Neovim** (if using Nix):
 ```bash
-nix flake update
-home-manager switch  # or your rebuild command
+nix build .
 ```
 
 ### Plugin Spec Patterns
@@ -135,15 +134,6 @@ home-manager switch  # or your rebuild command
 ### LSP Configuration
 
 LSP setup is done via language specific files with nvim-lspconfig `opts`, which are combined & used via logic in `lua/plugins/lang/init.lua`:
-
-
-**LSP keymaps** defined in `lua/my/intellisense.lua`:
-- `gd` - Go to definition (telescope fallback)
-- `gr` - References
-- `gI` - Implementation
-- `<leader>ca` - Code actions
-- `<leader>cr` - Rename
-- etc.
 
 ### Formatting and Linting
 

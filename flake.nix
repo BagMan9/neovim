@@ -78,11 +78,6 @@
           # appended below — anything in npins/plugins.json must NOT appear here
           # or it would be injected twice. nvim-treesitter itself stays here
           # intentionally (lzl can't manage its build).
-          flakeOnlyPlugins = with pkgs.vimPlugins; [
-            # nvim-notify
-            # telescope-fzf-native-nvim
-            # vim-illuminate
-          ];
         in
         {
           inherit
@@ -98,8 +93,7 @@
           ];
 
           pluginsOpt =
-            flakeOnlyPlugins
-            ++ lzl-plugins.pluginList
+            lzl-plugins.pluginList
             ++ macList [ xcodebuild-nvim ]
             ++ lib.lists.optionals latex [ pkgs.vimPlugins.vimtex ];
 
