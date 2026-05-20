@@ -30,19 +30,19 @@ return {
 			}
 		end,
 	},
-	-- {
-	-- 	"crates.nvim",
-	-- 	source = {
-	-- 		type = "github",
-	-- 		repo = "crates.nvim",
-	-- 		owner = "saecki",
-	-- 		branch = "master",
-	-- 	},
-	-- 	build = {
-	-- 		useNixpkgs = "crates-nvim",
-	-- 	},
-	-- 	after = function(_, opts)
-	-- 		require("crates").setup()
-	-- 	end,
-	-- },
+	{
+		"crates.nvim",
+		source = {
+			type = "github",
+			repo = "crates.nvim",
+			owner = "saecki",
+			branch = "main",
+		},
+		build = {
+			useNixpkgs = "crates-nvim",
+		},
+		after = function(_, _)
+			require("crates").setup()
+		end,
+	},
 }
