@@ -203,7 +203,7 @@ M.lz_specs = {
 			local dap = require("dap")
 			dap.adapters.remotecpp = {
 				type = "executable",
-				command = "/Users/isaac/Dev/codelldbpath/extension/adapter/codelldb",
+				command = "codelldb",
 			}
 			for _, lang in ipairs({ "cpp", "cuda" }) do
 				dap.configurations[lang] = {
