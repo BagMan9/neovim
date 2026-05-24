@@ -7,6 +7,7 @@ M.lz_specs = {
 			type = "github",
 			repo = "trouble.nvim",
 			owner = "folke",
+			branch = "main",
 		},
 		build = {
 			nvimSkipModules = { "trouble.docs" },
