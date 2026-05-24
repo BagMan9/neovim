@@ -18,14 +18,17 @@ M.lz_specs = {
 			modes = {
 				my_diag = {
 					mode = "diagnostics",
+					win = {
+						position = "right",
+						type = "split",
+						size = 0.3,
+					},
 					preview = {
-						type = "float",
-						relative = "editor",
-						border = "rounded",
+						type = "split",
+						relative = "win",
 						title = "Preview",
-						title_pos = "center",
-						position = { 5, -2 },
-						size = { width = 0.35, height = 0.25 },
+						position = "bottom",
+						size = 0.3,
 						zindex = 200,
 					},
 				},

@@ -5,6 +5,7 @@ return {
 			repo = "edgy.nvim",
 			type = "github",
 			owner = "folke",
+			branch = "main",
 		},
 
 		after = function()
