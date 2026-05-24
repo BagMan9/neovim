@@ -15,7 +15,7 @@ function M.has(buffer, method)
 	local clients = Utils.lsp.get_clients({ bufnr = buffer })
 	for _, client in ipairs(clients) do
 		---@diagnostic disable-next-line
-		if client.supports_method(method) then
+		if client:supports_method(method) then
 			return true
 		end
 	end
