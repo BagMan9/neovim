@@ -593,20 +593,17 @@
       "hash": "sha256-37BOLy1tG6IQmQoz0BPMQfk/3FkKuzN3W9YU7c+uVUA="
     },
     "snacks-nvim": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "folke",
         "repo": "snacks.nvim"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "v2.31.0",
-      "revision": "e6fd58c82f2f3fcddd3fe81703d47d6d48fc7b9f",
-      "url": "https://api.github.com/repos/folke/snacks.nvim/tarball/refs/tags/v2.31.0",
-      "hash": "sha256-NSoZQajyYFGIUCLD1m6FRPgKRsyJSM0IWygg1ofZZBs="
+      "revision": "0770753c88228f7f15449c6a5b242e3f7cd0d71c",
+      "url": "https://github.com/folke/snacks.nvim/archive/0770753c88228f7f15449c6a5b242e3f7cd0d71c.tar.gz",
+      "hash": "sha256-lMCozVT9RRgJwsudAUrrinI6WdiPb+gykcQe46OmRh4="
     },
     "todo-comments-nvim": {
       "type": "GitRelease",
