@@ -41,8 +41,9 @@ return {
 		build = {
 			useNixpkgs = "crates-nvim",
 		},
-		after = function(_, _)
-			require("crates").setup()
+		opts = {},
+		after = function(_, opts)
+			require("crates").setup(opts)
 		end,
 	},
 }

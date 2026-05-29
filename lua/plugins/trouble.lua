@@ -84,7 +84,7 @@ M.lz_specs = {
 		keys = {
 			{ "<leader>xx", "<cmd>Trouble my_diag toggle<cr>", desc = "Diagnostics (Trouble)" },
 			{ "<leader>xX", "<cmd>Trouble my_diag toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-			{ "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+			-- { "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
 			{
 				"<leader>cS",
 				"<cmd>Trouble useful_info toggle win.position=left<cr>",

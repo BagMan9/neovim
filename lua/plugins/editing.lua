@@ -239,6 +239,45 @@ M.lz_specs = {
 		end,
 	},
 	{
+		"aerial.nvim",
+		source = {
+			type = "github",
+			repo = "aerial.nvim",
+			owner = "stevearc",
+			branch = "master",
+		},
+		build = {
+			nixDeps = {
+				"lualine-nvim",
+				"telescope-nvim",
+				"fzf-lua",
+			},
+			nvimSkipModules = {
+				"aerial.fzf-lua",
+			},
+		},
+		event = "VeryLazy",
+		opts = {
+			layout = {
+				max_width = { 40, 0.2 }, -- Both min and max subject to change
+				min_width = 10,
+				default_direction = "left",
+				placement = "edge",
+			},
+			attach_mode = "global", -- May not want this, subject to workflow change
+		},
+		keys = {
+			{
+				"<leader>cs",
+				"<cmd>AerialToggle!<CR>",
+				desc = "Symbols (Trouble)",
+			},
+		},
+		after = function(_, opts)
+			require("aerial").setup(opts)
+		end,
+	},
+	{
 		"mini.pairs",
 		source = {
 			type = "github",

@@ -1,5 +1,18 @@
 {
   "pins": {
+    "aerial-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "stevearc",
+        "repo": "aerial.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "585db11015abccf673dc5bd6502714d5655554be",
+      "url": "https://github.com/stevearc/aerial.nvim/archive/585db11015abccf673dc5bd6502714d5655554be.tar.gz",
+      "hash": "sha256-IeLSzmtmEEM2zdzKavZcSQ7YVd8FeuCIJa2gd5kWs+c="
+    },
     "auto-session": {
       "type": "GitRelease",
       "repository": {
