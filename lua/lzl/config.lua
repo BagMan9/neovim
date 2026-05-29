@@ -45,6 +45,7 @@ function M.setup(opts)
 
 	M.options.root = Util.norm(M.options.root)
 	M.options.plugin_root = Util.norm(M.options.plugin_root)
+	M.options.lua_root = Util.norm(M.options.lua_root)
 
 	vim.fn.mkdir(M.options.root, "p")
 

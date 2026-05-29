@@ -245,23 +245,13 @@
               cfg.mnw
             ];
 
-            # XDG data symlinks for the lazy loader
-            xdg.dataFile = {
-              start = {
-                enable = true;
-                source = "${config.programs.mnw.finalPackage.configDir}/pack/mnw/start";
-                target = "lzl/lua_plugins";
-              };
-              fix_treesitter = {
-                enable = true;
-                source = "${config.programs.mnw.finalPackage.configDir}/pack/mnw/start/nvim-treesitter-grammars";
-                target = "mnw/site";
-              };
-              lzl-plugs = {
-                enable = true;
-                source = "${config.programs.mnw.finalPackage.configDir}/pack/mnw/opt";
-                target = "lzl/mnw-plugins";
-              };
+            # lzl reads plugins straight from mnw.configDir at runtime, so no
+            # symlink is needed for plugin discovery. This one stays because
+            # nvim-treesitter looks for grammars under XDG_DATA/mnw/site.
+            xdg.dataFile.fix_treesitter = {
+              enable = true;
+              source = "${config.programs.mnw.finalPackage.configDir}/pack/mnw/start/nvim-treesitter-grammars";
+              target = "mnw/site";
             };
 
             # Packages: latex, mac-specific, and optionally nvim-dev
