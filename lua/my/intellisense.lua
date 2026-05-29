@@ -66,7 +66,16 @@ function M.get()
 		{
 			"<leader>ss",
 			function()
-				require("snacks").picker.lsp_symbols({ filter = Utils.lazy_defaults.kind_filter })
+				require("aerial").snacks_picker({
+					win = {
+						input = {
+							keys = {
+								["<c-j>"] = { "list_down", mode = { "i", "n" } },
+								["<c-k>"] = { "list_up", mode = { "i", "n" } },
+							},
+						},
+					},
+				})
 			end,
 			desc = "LSP Symbols",
 			has = "documentSymbol",

@@ -265,6 +265,7 @@ M.lz_specs = {
 				placement = "edge",
 			},
 			attach_mode = "global", -- May not want this, subject to workflow change
+			autojump = true,
 		},
 		keys = {
 			{
