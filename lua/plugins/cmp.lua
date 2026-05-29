@@ -14,6 +14,7 @@ M.lz_specs = {
 			{ "cmp-nvim-lsp", build = { useNixpkgs = "cmp-nvim-lsp" }, lazy = true },
 			{ "cmp-path", build = { useNixpkgs = "cmp-path" }, lazy = true },
 			{ "cmp_luasnip", build = { useNixpkgs = "cmp_luasnip" }, lazy = true },
+			{ "blink.compat" },
 			{
 				"colorful-menu.nvim",
 				source = {
@@ -106,6 +107,11 @@ M.lz_specs = {
 						treesitter = { "lsp" },
 						columns = { { "kind_icon" }, { "label", gap = 1 } },
 						components = {
+							kind_icon = {
+								text = function(ctx)
+									return require("lspkind").symbol_map[ctx.kind] or ""
+								end,
+							},
 							label = {
 								text = function(ctx)
 									return require("colorful-menu").blink_components_text(ctx)

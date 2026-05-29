@@ -35,7 +35,7 @@ return {
 			repo = "mini.icons",
 			owner = "nvim-mini",
 		},
-		lazy = true,
+		lazy = false,
 		before = function()
 			package.preload["nvim-web-devicons"] = function()
 				require("mini.icons").mock_nvim_web_devicons()
@@ -52,7 +52,25 @@ return {
 			},
 		},
 		after = function(_, opts)
-			require("mini.icons").setup(opts)
+			local mini_icons = require("mini.icons")
+			mini_icons.setup(opts)
+
+			-- Redirect lsp-category lookups to lspkind. aerial.nvim unconditionally
+			-- prefers mini.icons when _G.MiniIcons is set, and its lsp glyphs render
+			-- badly here; lspkind's symbol_map is what we want everywhere else too.
+			local orig_get = mini_icons.get
+			mini_icons.get = function(category, name)
+				if category == "lsp" then
+					local ok, lspkind = pcall(require, "lspkind")
+					if ok then
+						local glyph = lspkind.symbol_map[name]
+						if glyph then
+							return glyph, nil, false
+						end
+					end
+				end
+				return orig_get(category, name)
+			end
 		end,
 	},
 	-- {

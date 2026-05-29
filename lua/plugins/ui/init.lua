@@ -145,6 +145,16 @@ M.lz_specs = {
 		end,
 	},
 	{
+		"lspkind.nvim",
+		build = {
+			useNixpkgs = "lspkind-nvim",
+		},
+		lazy = false,
+		after = function(_, opts)
+			require("lspkind").init()
+		end,
+	},
+	{
 		"fidget.nvim",
 		source = {
 			repo = "fidget.nvim",

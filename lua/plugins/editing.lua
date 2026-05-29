@@ -266,6 +266,8 @@ M.lz_specs = {
 			},
 			attach_mode = "global", -- May not want this, subject to workflow change
 			autojump = true,
+			nerd_font = true,
+			show_guides = true,
 		},
 		keys = {
 			{

@@ -14,7 +14,7 @@ return {
 				left = {
 					{
 						ft = "aerial",
-						size = { height = 0.5 },
+						-- size = { height = 0.5 },
 						title = "Symbols",
 					},
 					{
