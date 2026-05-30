@@ -210,7 +210,7 @@ map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-require("snacks").toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+require("snacks").toggle.zoom():map("<leader>wz"):map("<leader>uZ")
 require("snacks").toggle.zen():map("<leader>uz")
 
 -- tabs
