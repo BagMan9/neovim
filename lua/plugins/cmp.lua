@@ -54,6 +54,10 @@ M.lz_specs = {
 				build = {
 					nvimSkipModules = {
 						"cmp_vimtex.search",
+						"cmp_vimtex",
+						"cmp_vimtex.parser",
+						"cmp_vimtex.timer",
+						"cmp_vimtex.source",
 					},
 				},
 				dependencies = {
