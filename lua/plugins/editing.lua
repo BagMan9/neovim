@@ -273,7 +273,7 @@ M.lz_specs = {
 			{
 				"<leader>cs",
 				"<cmd>AerialToggle!<CR>",
-				desc = "Symbols (Trouble)",
+				desc = "Symbols (Aerial)",
 			},
 		},
 		after = function(_, opts)

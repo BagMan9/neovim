@@ -216,12 +216,11 @@ M.lz_specs = {
 					-- 1st Esc: close the menu if open. 2nd Esc (or 1st if no menu):
 					-- stop the active snippet session, then fall through to a
 					-- normal Esc (exit insert mode).
-					"cancel",
 					function()
 						if vim.snippet.active() then
 							vim.snippet.stop()
 						end
-						-- return falsy -> continue to "fallback" (built-in Esc)
+						-- return falsy -> continue to fallback
 					end,
 					"fallback",
 				},
