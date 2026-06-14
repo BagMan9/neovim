@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-
+    working_codelldb.url = "github:mrcjkb/rustaceanvim";
     mnw.url = "github:Gerg-L/mnw";
 
     my_stdlib = {
@@ -26,6 +26,7 @@
       mnw,
       my_stdlib,
       xcode-build-server,
+      working_codelldb,
     }:
     let
       # Shared base used by both the standalone package and the home-manager module.
@@ -103,6 +104,7 @@
               ripgrep
               fd
               lldb
+              working_codelldb.packages.${pkgs.stdenv.hostPlatform.system}.codelldb
               jq
             ]
             ++ lzl-plugins.extraPackages
