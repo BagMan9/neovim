@@ -57,13 +57,6 @@ M.lz_specs = {
 		},
 		keys = {
 			{
-				"<leader>dB",
-				function()
-					require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-				end,
-				desc = "Breakpoint Condition",
-			},
-			{
 				"<leader>db",
 				function()
 					require("dap").toggle_breakpoint()
@@ -84,13 +77,7 @@ M.lz_specs = {
 				end,
 				desc = "Run with Args",
 			},
-			{
-				"<leader>dC",
-				function()
-					require("dap").run_to_cursor()
-				end,
-				desc = "Run to Cursor",
-			},
+
 			{
 				"<leader>dR",
 				function()
@@ -106,13 +93,6 @@ M.lz_specs = {
 				desc = "Go to Line (No Execute)",
 			},
 			{
-				"<leader>di",
-				function()
-					require("dap").step_into()
-				end,
-				desc = "Step Into",
-			},
-			{
 				"<leader>dj",
 				function()
 					require("dap").down()
@@ -125,27 +105,6 @@ M.lz_specs = {
 					require("dap").up()
 				end,
 				desc = "Up",
-			},
-			{
-				"<leader>dl",
-				function()
-					require("dap").run_last()
-				end,
-				desc = "Run Last",
-			},
-			{
-				"<leader>dO",
-				function()
-					require("dap").step_out()
-				end,
-				desc = "Step Out",
-			},
-			{
-				"<leader>do",
-				function()
-					require("dap").step_over()
-				end,
-				desc = "Step Over",
 			},
 			{
 				"<leader>dP",
@@ -168,20 +127,6 @@ M.lz_specs = {
 				end,
 				desc = "Session",
 			},
-			{
-				"<leader>dt",
-				function()
-					require("dap").terminate()
-				end,
-				desc = "Terminate",
-			},
-			{
-				"<leader>dw",
-				function()
-					require("dap.ui.widgets").hover()
-				end,
-				desc = "Widgets",
-			},
 		},
 		after = function()
 			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
@@ -201,6 +146,83 @@ M.lz_specs = {
 				return vim.json.decode(json.json_strip_comments(str))
 			end
 			local dap = require("dap")
+
+			-- Session-scoped Alt-chord controls: bound globally only while a
+			-- debug session is live (any language), removed when it ends. Global
+			-- + modeless so they work in the source buffer and every dap-ui pane,
+			-- and they don't occupy the keys outside of debugging.
+			local session_keys = {
+				{
+					"<A-k>",
+					function()
+						require("dap.ui.widgets").hover()
+					end,
+					desc = "Widgets",
+				},
+				{
+					"<A-c>",
+					function()
+						require("dap").continue()
+					end,
+					"Continue",
+				},
+				{
+					"<A-C>",
+					function()
+						require("dap").run_to_cursor()
+					end,
+					desc = "Run to Cursor",
+				},
+				{
+					"<A-i>",
+					function()
+						require("dap").step_into()
+					end,
+					"Step Into",
+				},
+				{
+					"<A-o>",
+					function()
+						require("dap").step_over()
+					end,
+					"Step Over",
+				},
+				{
+					"<A-O>",
+					function()
+						require("dap").step_out()
+					end,
+					"Step Out",
+				},
+				{
+					"<A-b>",
+					function()
+						require("dap").toggle_breakpoint()
+					end,
+					"Toggle Breakpoint",
+				},
+				{
+					"<A-t>",
+					function()
+						require("dap").terminate()
+					end,
+					"Terminate",
+				},
+			}
+			local function set_session_keys()
+				for _, k in ipairs(session_keys) do
+					vim.keymap.set("n", k[1], k[2], { desc = "Debug: " .. k[3] })
+				end
+			end
+			local function clear_session_keys()
+				for _, k in ipairs(session_keys) do
+					pcall(vim.keymap.del, "n", k[1])
+				end
+			end
+			dap.listeners.after.event_initialized["session_keys"] = set_session_keys
+			dap.listeners.after.event_terminated["session_keys"] = clear_session_keys
+			dap.listeners.after.event_exited["session_keys"] = clear_session_keys
+
 			dap.adapters.remotecpp = {
 				type = "executable",
 				command = "codelldb",
