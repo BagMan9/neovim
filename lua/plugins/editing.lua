@@ -264,6 +264,8 @@ M.lz_specs = {
 				default_direction = "left",
 				placement = "edge",
 			},
+			manage_folds = true,
+			open_automatic = true,
 			attach_mode = "global", -- May not want this, subject to workflow change
 			autojump = true,
 			nerd_font = true,

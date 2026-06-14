@@ -36,7 +36,7 @@ return {
 					enabled = false,
 					keys = {
 						-- 1. Better versions of generic actions (shadow globals)
-						{ "<leader>cd", rustlsp("renderDiagnostic"), desc = "Render Diagnostic (rust)" },
+						{ "<leader>cd", rustlsp("renderDiagnostic", "current"), desc = "Render Diagnostic (rust)" },
 						{ "<leader>ca", rustlsp("codeAction"), mode = { "n", "x" }, desc = "Code Action (grouped)" },
 						{ "K", rustlsp("hover", "actions"), desc = "Hover Actions (rust)" },
 
@@ -52,7 +52,7 @@ return {
 						{ "<localleader>T", rustlsp_last("testables"), desc = "Testables (rerun last)" },
 						{ "<localleader>d", rustlsp_debug(false), desc = "Debuggables" },
 						{ "<localleader>D", rustlsp_debug(true), desc = "Debuggables (rerun last)" },
-						{ "<localleader>e", rustlsp("explainError"), desc = "Explain Error" },
+						{ "<localleader>e", rustlsp("explainError", "current"), desc = "Explain Error" },
 						{ "<localleader>m", rustlsp("expandMacro"), desc = "Expand Macro" },
 						{ "<localleader>p", rustlsp("parentModule"), desc = "Parent Module" },
 						{ "<localleader>c", rustlsp("openCargo"), desc = "Open Cargo.toml" },
