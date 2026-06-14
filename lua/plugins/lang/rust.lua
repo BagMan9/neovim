@@ -44,8 +44,13 @@ return {
 						{ "<A-j>", rustlsp("moveItem", "down"), desc = "Move Item Down" },
 						{ "<A-k>", rustlsp("moveItem", "up"), desc = "Move Item Up" },
 						{ "J", rustlsp("joinLines"), mode = { "n", "x" }, desc = "Join Lines (rust)" },
-
 						-- 3. Rust-specific tools under <localleader>
+						{
+							"<localleader><localleader>",
+							"<Plug>RustHoverAction",
+							mode = "n",
+							desc = "Rust Hover Shortcut",
+						},
 						{ "<localleader>r", rustlsp("runnables"), desc = "Runnables" },
 						{ "<localleader>R", rustlsp_last("runnables"), desc = "Runnables (rerun last)" },
 						{ "<localleader>t", rustlsp("testables"), desc = "Testables" },
