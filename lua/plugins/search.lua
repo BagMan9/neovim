@@ -193,13 +193,13 @@ return {
 				end,
 				desc = "Recent",
 			},
-			{
-				"<leader>fR",
-				function()
-					require("snacks").picker.recent({ filter = { cwd = true } })
-				end,
-				desc = "Recent (cwd)",
-			},
+			-- { NOTE: I don't use this very much...
+			-- 	"<leader>fR",
+			-- 	function()
+			-- 		require("snacks").picker.recent({ filter = { cwd = true } })
+			-- 	end,
+			-- 	desc = "Recent (cwd)",
+			-- },
 			{
 				"<leader>fp",
 				function()

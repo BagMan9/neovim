@@ -124,7 +124,7 @@ function M.get()
 			has = "codeLens",
 		},
 		{
-			"<leader>cR",
+			"<leader>fR",
 			function()
 				require("snacks").rename.rename_file()
 			end,
@@ -132,8 +132,6 @@ function M.get()
 			mode = { "n" },
 			has = { "workspace/didRenameFiles", "workspace/willRenameFiles" },
 		},
-		-- { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
-		-- { "<leader>cA", LazyVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
 		{
 			"]]",
 			function()
