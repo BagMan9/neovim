@@ -23,7 +23,9 @@ function M.has(buffer, method)
 end
 
 function M.resolve(buffer)
-	local specs = MyVim.intellisense.get()
+	-- Copy the cached specs; otherwise list_extend below mutates the shared
+	-- table from intellisense.get(), leaking per-server keys across buffers.
+	local specs = vim.list_extend({}, MyVim.intellisense.get())
 
 	local lsp_plugin = require("lzl.config").spec.plugins["nvim-lspconfig"]
 	local lsp_conf = require("lzl.plugin").values(lsp_plugin, "opts", false)
@@ -67,6 +69,9 @@ function M.on_attach(_, buffer)
 		local load = keys.load
 		if has and cond then
 			local k_fmt = M.key_format(keys)
+			-- Buffer-local so per-server overrides only shadow globals in the
+			-- attached buffer and revert automatically elsewhere.
+			k_fmt.opts.buffer = buffer
 			vim.keymap.set(k_fmt.mode, k_fmt.lhs, k_fmt.rhs, k_fmt.opts)
 			if load then
 				to_load[#to_load + 1] = keys.load
