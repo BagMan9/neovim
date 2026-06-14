@@ -80,11 +80,15 @@ M.lz_specs = {
 			--
 			-- 	preset = "luasnip",
 			-- },
+			snippets = {
+				preset = "luasnip",
+			},
 			appearance = {
 				use_nvim_cmp_as_default = false,
 				nerd_font_variant = "mono",
 				kind_icons = Utils.lazy_defaults.icons.kinds,
 			},
+
 			completion = {
 				accept = {
 					auto_brackets = {
@@ -98,7 +102,7 @@ M.lz_specs = {
 					},
 				},
 				trigger = {
-					show_in_snippet = false,
+					show_in_snippet = true,
 				},
 
 				menu = {
@@ -208,6 +212,19 @@ M.lz_specs = {
 					"hide_documentation",
 				},
 				["<C-e>"] = { "hide_signature", "hide", "fallback" },
+				["<Esc>"] = {
+					-- 1st Esc: close the menu if open. 2nd Esc (or 1st if no menu):
+					-- stop the active snippet session, then fall through to a
+					-- normal Esc (exit insert mode).
+					"cancel",
+					function()
+						if vim.snippet.active() then
+							vim.snippet.stop()
+						end
+						-- return falsy -> continue to "fallback" (built-in Esc)
+					end,
+					"fallback",
+				},
 				["<CR>"] = { "fallback" },
 			},
 		},
