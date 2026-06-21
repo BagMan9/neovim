@@ -100,6 +100,8 @@ return {
 							files = {
 								exclude = { ".direnv", "result" },
 							},
+							-- Keeps files readable
+							semanticHighlighting = { doc = { comment = { inject = { enable = false } } } },
 							-- Don't check all targets: avoids the same file being
 							-- compiled under lib + test + bin, which produced
 							-- duplicate diagnostics (and duplicate quickfixes).
