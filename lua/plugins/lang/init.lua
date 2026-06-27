@@ -122,8 +122,14 @@ return {
 				if server_opts.enabled == false then
 					return
 				end
-				vim.lsp.enable(server)
+				-- Register the config (with settings/capabilities) BEFORE enabling.
+				-- vim.lsp.enable() can synchronously attach to an already-open
+				-- buffer (e.g. a file passed as an argument at startup), and that
+				-- attach resolves vim.lsp.config[server] as it stands *right now*.
+				-- If enable() ran first, the client would start with the base
+				-- lsp/<server>.lua config and miss our settings entirely.
 				vim.lsp.config(server, server_opts)
+				vim.lsp.enable(server)
 			end
 
 			for server, server_opts in pairs(servers) do
