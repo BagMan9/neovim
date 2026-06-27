@@ -3,9 +3,9 @@ return {
 		"typst-preview.nvim",
 		build = {
 			useNixpkgs = "typst-preview-nvim",
-			extraPackages = {
-				"websocat",
-			},
+		},
+		extraPackages = {
+			"websocat",
 		},
 		opts = {
 			dependencies_bin = {
@@ -19,25 +19,23 @@ return {
 	},
 	{
 		"nvim-lspconfig",
-		build = {
-			extraPackages = {
-				"tinymist",
-			},
+		extraPackages = {
+			"tinymist",
 		},
 		opts = {
 			servers = {
 				["tinymist"] = {
 					enable = true,
 					keys = {
-						{ "<localleader>pp", ":TypstPreview", mode = { "n" }, desc = "Start Preview" },
-						{ "<localleader>pt", ":TypstPreviewToggle", mode = { "n" }, desc = "Toggle Preview" },
+						{ "<localleader>pp", "<Cmd>TypstPreview<CR>", mode = { "n" }, desc = "Start Preview" },
+						{ "<localleader>pt", "<Cmd>TypstPreviewToggle<CR>", mode = { "n" }, desc = "Toggle Preview" },
 						{
 							"<localleader>pc",
-							":TypstPreviewFollowCursorToggle",
+							"<Cmd>TypstPreviewFollowCursorToggle<CR>",
 							mode = { "n" },
 							desc = "Toggle Follow Cursor",
 						},
-						{ "<localleader>pC", ":TypstPreviewSyncCursor", mode = { "n" }, desc = "Sync Cursor" },
+						{ "<localleader>pC", "<Cmd>TypstPreviewSyncCursor<CR>", mode = { "n" }, desc = "Sync Cursor" },
 					},
 					settings = {
 						formatterMode = "typstyle",
