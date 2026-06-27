@@ -33,6 +33,18 @@ M.lz_specs = {
 				},
 				after = function(_, opts)
 					require("dap-python").setup("debugpy-adapter")
+
+					fallback = require("dap-python").resolve_python
+					require("dap-python").resolve_python = function()
+						---@type string
+						local pathenv = vim.fn.environ()["PATH"]
+						local nixenv = pathenv:match("/nix/store/[%l%d]+%-python3?%-[%d.]+%-env/bin")
+						if nixenv then
+							return nixenv .. "/python3"
+						else
+							return fallback()
+						end
+					end
 				end,
 			},
 			{
@@ -211,7 +223,7 @@ M.lz_specs = {
 			}
 			local function set_session_keys()
 				for _, k in ipairs(session_keys) do
-					vim.keymap.set("n", k[1], k[2], { desc = "Debug: " .. k[3] })
+					vim.keymap.set("n", k[1], k[2], { desc = "Debug: " .. (k[3] and k[3] or "") })
 				end
 			end
 			local function clear_session_keys()
