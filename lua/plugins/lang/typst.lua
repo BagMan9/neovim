@@ -7,7 +7,9 @@ return {
 		extraPackages = {
 			"websocat",
 		},
+		lazy = false,
 		opts = {
+			open_cmd = "open %s",
 			dependencies_bin = {
 				tinymist = vim.fn.exepath("tinymist"),
 				websocat = vim.fn.exepath("websocat"),
@@ -21,6 +23,7 @@ return {
 		"nvim-lspconfig",
 		extraPackages = {
 			"tinymist",
+			"typst",
 		},
 		opts = {
 			servers = {
@@ -40,7 +43,7 @@ return {
 					settings = {
 						formatterMode = "typstyle",
 						exportPdf = "onType",
-						semanticTokens = "enable",
+						-- semanticTokens = "enable",
 					},
 				},
 			},
