@@ -3,6 +3,7 @@ return {
 		"nvim-lspconfig",
 		extraPackages = {
 			"nixd",
+			"tix",
 		},
 		opts = {
 			servers = {
@@ -29,6 +30,16 @@ return {
 								},
 							},
 						},
+					},
+				},
+				tix = {
+					enabled = true,
+					cmd = { "tix", "lsp" },
+					filetypes = { "nix" },
+					root_markers = { ".git", "flake.nix" },
+					init_options = {
+						inlayHints = { enable = true },
+						diagnostics = { enable = true },
 					},
 				},
 			},
