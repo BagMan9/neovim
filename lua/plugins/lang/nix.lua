@@ -3,7 +3,6 @@ return {
 		"nvim-lspconfig",
 		extraPackages = {
 			"nixd",
-			"tix",
 		},
 		opts = {
 			servers = {
