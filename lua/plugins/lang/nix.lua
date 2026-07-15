@@ -38,7 +38,7 @@ return {
 					filetypes = { "nix" },
 					root_markers = { ".git", "flake.nix" },
 					init_options = {
-						inlayHints = { enable = true },
+						inlayHints = { enable = false },
 						diagnostics = { enable = true },
 					},
 				},
