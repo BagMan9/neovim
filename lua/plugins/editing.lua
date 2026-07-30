@@ -265,7 +265,7 @@ M.lz_specs = {
 				placement = "edge",
 			},
 			manage_folds = true,
-			open_automatic = true,
+			open_automatic = false,
 			attach_mode = "global", -- May not want this, subject to workflow change
 			autojump = true,
 			nerd_font = true,
