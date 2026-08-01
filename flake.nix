@@ -37,8 +37,25 @@
           pkgs,
           lib,
           latex ? false,
-        }:
+        }@args:
         let
+          # lean.nvim v2026.4.1 still bundles transitional tree-sitter queries that
+          # reference node types absent from any buildable tree-sitter-lean grammar.
+          # Upstream moved the canonical queries into the grammar repo (lean.nvim
+          # 893f9d6, 2026-05-31), so drop lean.nvim's stale copy and rely on the
+          # grammar's own queries (installed with the parser via lzl/treesitter).
+          pkgs = args.pkgs.extend (
+            _: prev: {
+              vimPlugins = prev.vimPlugins // {
+                lean-nvim = prev.vimPlugins.lean-nvim.overrideAttrs (o: {
+                  postInstall = (o.postInstall or "") + ''
+                    rm -rf "$out/queries"
+                  '';
+                });
+              };
+            }
+          );
+
           isMac = pkgs.stdenv.hostPlatform.isDarwin;
           macList = xs: lib.lists.optionals isMac xs;
 
@@ -75,6 +92,23 @@
             ];
           };
 
+          # tree-sitter-lean isn't in nixpkgs' grammar set, so build it from
+          # Julian/tree-sitter-lean and fold it into nvim-treesitter's grammar list
+          # below. We keep the grammar's own queries: upstream moved the canonical
+          # Lean queries out of lean.nvim and into this grammar repo (lean.nvim
+          # 893f9d6, 2026-05-31), and lean.nvim's own copy is stripped in the pkgs
+          # overlay above so only these grammar-versioned queries end up on the rtp.
+          lean-treesitter-grammar = pkgs.tree-sitter.buildGrammar {
+            language = "lean";
+            version = "0.2.0";
+            src = pkgs.fetchFromGitHub {
+              owner = "Julian";
+              repo = "tree-sitter-lean";
+              rev = "86c2bcb379fe0b2ad13d8b3411400deff75b2785";
+              hash = "sha256-y7KpMnnv8NuUXC9EiqwwflDHMYwXtR0voLfDpdN7614=";
+            };
+          };
+
           # Plugins not (currently) controlled by lzl. lzl-plugins.pluginList is
           # appended below — anything in npins/plugins.json must NOT appear here
           # or it would be injected twice. nvim-treesitter itself stays here
@@ -90,7 +124,9 @@
             ;
 
           pluginsStart = [
-            pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+            (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+              _: pkgs.vimPlugins.nvim-treesitter.allGrammars ++ [ lean-treesitter-grammar ]
+            ))
           ];
 
           pluginsOpt =
