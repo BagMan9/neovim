@@ -8,7 +8,6 @@ return {
 			servers = {
 				nixd = {
 					enabled = true,
-					cmd = { "nixd", "--semantic-tokens=true" },
 					settings = {
 						nixd = {
 							nixpkgs = {
