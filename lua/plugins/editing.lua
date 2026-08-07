@@ -283,6 +283,45 @@ M.lz_specs = {
 		end,
 	},
 	{
+		"hlchunk.nvim",
+		build = { useNixpkgs = "hlchunk-nvim" },
+		opts = {
+			chunk = {
+				enable = true,
+				chars = {
+					horizontal_line = "─",
+					vertical_line = "│",
+					left_top = "╭",
+					left_bottom = "╰",
+					right_arrow = "─",
+				},
+				duration = 100,
+				delay = 200,
+				straight = true,
+				style = {
+					{ fg = "#cba6f7" },
+					{ fg = "#f38ba8" },
+				},
+			},
+			indent = { enable = false },
+		},
+		after = function(_, opts)
+			require("hlchunk").setup(opts)
+		end,
+	},
+	{
+		"dial.nvim",
+		build = { useNixpkgs = "dial-nvim" },
+		after = function(_, opts)
+			local augend = require("dial.augend")
+			require("dial.config").augends:register_group({
+				default = {
+					augend.constant.alias.bool,
+				},
+			})
+		end,
+	},
+	{
 		"mini.pairs",
 		source = {
 			type = "github",
