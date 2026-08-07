@@ -125,7 +125,11 @@
 
           pluginsStart = [
             (pkgs.vimPlugins.nvim-treesitter.withPlugins (
-              _: pkgs.vimPlugins.nvim-treesitter.allGrammars ++ [ lean-treesitter-grammar ]
+              _:
+              pkgs.vimPlugins.nvim-treesitter.allGrammars
+              ++ [
+                lean-treesitter-grammar
+              ]
             ))
           ];
 
