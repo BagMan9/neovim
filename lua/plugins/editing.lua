@@ -297,7 +297,6 @@ M.lz_specs = {
 				},
 				duration = 100,
 				delay = 200,
-				straight = true,
 				style = {
 					{ fg = "#cba6f7" },
 					{ fg = "#f38ba8" },
