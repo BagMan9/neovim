@@ -132,3 +132,14 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, { desc = "Get Nix Fetcher From URL" })
 	end,
 })
+
+-- elisp has no runtime ftplugin (the ft only exists via our filetype.add);
+-- vim's built-in lisp indenting covers what treesitter has no queries for
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("elisp_settings"),
+	pattern = { "elisp" },
+	callback = function()
+		vim.opt_local.commentstring = ";; %s"
+		vim.opt_local.lisp = true
+	end,
+})

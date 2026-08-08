@@ -10,19 +10,36 @@ return {
 			org_agenda_files = "~/org/**/*",
 			org_default_notes_file = "~/org/refile.org",
 			org_todo_keywords = {
-				"IDEA(i)",
-				"EXPLORING(e)",
-				"PLANNED(p)",
-				"TODO(t)",
-				"NEXT(n)",
-				"WAIT(w@/!)",
-				"|",
-				"DONE(d!)",
-				"SHELVED(v)",
+				{
+					"TODO(t)",
+					"NEXT(n)",
+					"WAIT(w@/!)",
+					"|",
+					"DONE(d!)",
+				},
+				{
+					"NIT(k)",
+					"IDEA(i)",
+					"EXPLORING(e)",
+					"PLANNED(p)",
+					"|",
+					"SHELVED(v)",
+				},
 			},
 			org_todo_repeat_to_state = "TODO",
 			org_hide_leading_stars = true,
 			calendar_week_start_day = 0,
+		},
+		keys = {
+			{
+				"<S-Enter>",
+				function()
+					require("orgmode").action("org_mappings.meta_return")
+				end,
+				mode = "i",
+				ft = "org",
+				desc = "Org meta return",
+			},
 		},
 		after = function(_, opts)
 			require("orgmode").setup(opts)

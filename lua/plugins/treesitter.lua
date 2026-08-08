@@ -74,7 +74,9 @@ M.lz_specs = {
 				end,
 			})
 		end,
-		extension = { rasi = "rasi", rofi = "rasi", wofi = "rasi" },
+		-- .el defaults to ft=lisp (commonlisp parser); give it its own ft so
+		-- the elisp parser attaches
+		extension = { rasi = "rasi", rofi = "rasi", wofi = "rasi", el = "elisp" },
 		filename = {
 			["vifmrc"] = "vim",
 		},

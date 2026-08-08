@@ -129,6 +129,10 @@
               pkgs.vimPlugins.nvim-treesitter.allGrammars
               ++ [
                 lean-treesitter-grammar
+                # nvim-treesitter's main-branch grammar set dropped elisp, but
+                # nixpkgs still packages the grammar; like lean above, its own
+                # queries (highlights.scm) install alongside the parser.
+                pkgs.tree-sitter-grammars.tree-sitter-elisp
               ]
             ))
           ];

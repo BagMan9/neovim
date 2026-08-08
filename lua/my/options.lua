@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 local opt = vim.opt
 
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-
 vim.g.vimtex_enabled = 1
 vim.g.vimtex_mappings_enabled = 1
 vim.g.vimtex_mappings_override_existing = 1
@@ -35,7 +33,8 @@ opt.fillchars = {
 }
 opt.foldlevel = 99
 opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 -- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 -- opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
