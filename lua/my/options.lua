@@ -33,7 +33,8 @@ opt.fillchars = {
 }
 opt.foldlevel = 99
 opt.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- nvim_treesitter#foldexpr() no longer exists on nvim-treesitter main
+vim.o.foldexpr = "v:lua.Utils.foldexpr()"
 -- opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 -- opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
 -- opt.formatoptions = "jcroqlnt" -- tcqj
