@@ -60,7 +60,7 @@ M.lz_specs = {
 			{
 				"<leader>ri",
 				function()
-					return require("refactoring").refactor("Inline Variable")
+					return require("refactoring").inline_var()
 				end,
 				expr = true,
 				mode = { "n", "v" },
@@ -75,17 +75,9 @@ M.lz_specs = {
 				desc = "Extract Block",
 			},
 			{
-				"<leader>rf",
-				function()
-					return require("refactoring").refactor("Extract Block To File")
-				end,
-				expr = true,
-				desc = "Extract Block To File",
-			},
-			{
 				"<leader>rP",
 				function()
-					return require("refactoring").debug.printf({ below = false })
+					return require("refactoring.debug").print_exp({ below = false })
 				end,
 				expr = true,
 				desc = "Debug Print",
@@ -93,7 +85,7 @@ M.lz_specs = {
 			{
 				"<leader>rp",
 				function()
-					return require("refactoring").debug.print_var({ normal = true })
+					return require("refactoring.debug").print_var({ normal = true })
 				end,
 				expr = true,
 				desc = "Debug Print Variable",
@@ -101,7 +93,7 @@ M.lz_specs = {
 			{
 				"<leader>rc",
 				function()
-					return require("refactoring").debug.cleanup({})
+					return require("refactoring.debug").cleanup({})
 				end,
 				expr = true,
 				desc = "Debug Cleanup",
@@ -109,7 +101,7 @@ M.lz_specs = {
 			{
 				"<leader>rf",
 				function()
-					return require("refactoring").refactor("Extract Function")
+					return require("refactoring").extract_func()
 				end,
 				expr = true,
 				mode = "v",
@@ -118,7 +110,7 @@ M.lz_specs = {
 			{
 				"<leader>rF",
 				function()
-					return require("refactoring").refactor("Extract Function To File")
+					return require("refactoring").extract_func_to_file()
 				end,
 				expr = true,
 				mode = "v",
@@ -127,7 +119,7 @@ M.lz_specs = {
 			{
 				"<leader>rx",
 				function()
-					return require("refactoring").refactor("Extract Variable")
+					return require("refactoring").extract_var()
 				end,
 				expr = true,
 				mode = "v",
