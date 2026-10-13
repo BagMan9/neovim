@@ -378,8 +378,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1751470577,
-        "narHash": "sha256-yG1XsCfrHdpGb8dNqLt3youClVYUq7RQ+9s4GbfDwk0=",
+        "narHash": "sha256-kvsJFuJ7py+EqZFDv+yO+pqP0c8RozOXsi7GS55C1BU=",
         "path": "/Users/isaac/Dev/xcode-build-server",
         "type": "path"
       },
