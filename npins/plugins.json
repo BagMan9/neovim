@@ -375,5 +375,9 @@
   "cmp-path": {
     "lzl_name": "cmp-path",
     "useNixpkgs": "cmp-path"
+  },
+  "firenvim": {
+    "lzl_name": "firenvim",
+    "useNixpkgs": "firenvim"
   }
 }
