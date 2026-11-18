@@ -51,6 +51,7 @@ return {
 		---@diagnostic disable-next-line: undefined-field
 		cond = vim.loop.os_uname().sysname == "Darwin",
 		ft = ios_fts,
+		enable = false,
 		dependencies = {
 			{
 				"telescope.nvim",

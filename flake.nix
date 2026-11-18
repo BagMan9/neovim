@@ -12,10 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xcode-build-server = {
-      url = "path:/Users/isaac/Dev/xcode-build-server"; # Will change to git URL later
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -25,7 +21,6 @@
       flake-utils,
       mnw,
       my_stdlib,
-      xcode-build-server,
       working_codelldb,
     }:
     let
@@ -192,7 +187,6 @@
           );
 
           # External packages from inputs
-          xcode-build-server-pkg = xcode-build-server.packages.${pkgs.system}.xcode-build or null;
 
           # Safe neovim-unwrapped with fixed meta
           safe-neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (old: {
@@ -311,7 +305,6 @@
               )
               ++ lib.lists.optional cfg.dev (mkDevNeovim config.programs.mnw.finalPackage)
               ++ shared.macList [
-                xcode-build-server-pkg
                 pkgs.xcbeautify
                 pkgs.pipx
                 (pkgs.ruby.withPackages (ps: with ps; [ xcodeproj ]))
